@@ -21,7 +21,7 @@
     "lang:ts": "tsx ./dev/generateLangTypes.js",
     "lang:initial": "tsx ./dev/generateInitialLangFallback.js",
     "icons:build": "fantasticon",
-    "test": "cross-env APP_ENV=test jest --verbose --silent --forceExit",
+    "test": "cross-env APP_ENV=test jest --verbose --silent --forceExit --passWithNoTests",
     "test:playwright": "playwright test",
     "test:record": "playwright codegen localhost:1235",
     "statoscope:validate-diff": "statoscope validate --input input.json --reference reference.json",

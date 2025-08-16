@@ -388,21 +388,21 @@ function processTranslation(
 
 function processTranslationAdvanced(
   langKey: LangKey,
-  variables?: Record<string, TeactNode | undefined>,
-  options?: AdvancedLangFnOptions | AdvancedLangFnOptionsWithPlural,
-): TeactNode {
+    variables?: Record<string, TeactNode | undefined>,
+    options?: AdvancedLangFnOptions | AdvancedLangFnOptionsWithPlural,
+  ): TeactNode {
   const pluralValue = options && 'pluralValue' in options ? Number(options.pluralValue) : 0;
   const string = getString(langKey, pluralValue);
   if (!string) return langKey;
 
-  const variableEntries = variables ? Object.entries(variables) : [];
+    const variableEntries = variables ? Object.entries(variables) : [];
 
-  let tempResult: TeactNode = [string];
+    let tempResult: TeactNode[] = [string];
   if (options?.specialReplacement) {
     const specialReplacements = Object.entries(options.specialReplacement);
-    tempResult = specialReplacements.reduce((acc, [key, value]) => {
-      return replaceInStringsWithTeact(acc, key, value);
-    }, tempResult);
+      tempResult = specialReplacements.reduce((acc, [key, value]) => {
+        return replaceInStringsWithTeact(acc, key, value);
+      }, tempResult);
   }
 
   const withRenderText = options?.withMarkdown || options?.renderTextFilters;
@@ -412,31 +412,31 @@ function processTranslationAdvanced(
       ? unique((options.renderTextFilters || []).concat(['simple_markdown', 'emoji']) as TextFilter[])
       : options.renderTextFilters;
 
-    return tempResult.flatMap((curr: TeactNode) => {
-      if (typeof curr !== 'string') {
-        return curr;
-      }
+      return tempResult.flatMap((curr: TeactNode) => {
+        if (typeof curr !== 'string') {
+          return curr;
+        }
 
-      return renderText(curr, filters, {
-        markdownPostProcessor: (part: string) => {
-          return variableEntries.reduce((result, [key, value]): TeactNode[] => {
-            if (value === undefined) return result;
+        return renderText(curr, filters, {
+          markdownPostProcessor: (part: string) => {
+            return variableEntries.reduce((result, [key, value]): TeactNode[] => {
+              if (value === undefined) return result;
 
-            const preparedValue = Number.isFinite(value) ? formatters!.number.format(value as number) : value;
-            return replaceInStringsWithTeact(result, `{${key}}`, renderText(preparedValue));
-          }, [part] as TeactNode[]);
-        },
+              const preparedValue = Number.isFinite(value) ? formatters!.number.format(value as number) : value;
+              return replaceInStringsWithTeact(result, `{${key}}`, renderText(preparedValue));
+            }, [part] as TeactNode[]);
+          },
+        });
       });
-    });
   }
 
-  return variableEntries.reduce((result, [key, value]): TeactNode[] => {
-    if (value === undefined) return result;
+    return variableEntries.reduce((result, [key, value]): TeactNode[] => {
+      if (value === undefined) return result;
 
-    const preparedValue = Number.isFinite(value) ? formatters!.number.format(value as number) : value;
-    return replaceInStringsWithTeact(result, `{${key}}`, renderText(preparedValue));
-  }, tempResult);
-}
+      const preparedValue = Number.isFinite(value) ? formatters!.number.format(value as number) : value;
+      return replaceInStringsWithTeact(result, `{${key}}`, renderText(preparedValue));
+    }, tempResult);
+  }
 
 export const localizationReadyPromise = localizationReady.promise;
 
