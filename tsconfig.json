@@ -27,7 +27,6 @@
     "plugins",
     "dev",
     "webpack.config.ts",
-    "webpack-electron.config.ts",
     "babel.config.js",
   ]
 }

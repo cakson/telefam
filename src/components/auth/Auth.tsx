@@ -9,7 +9,6 @@ import type { GlobalState } from '../../global/types';
 import { PLATFORM_ENV } from '../../util/browser/windowEnvironment';
 
 import useCurrentOrPrev from '../../hooks/useCurrentOrPrev';
-import useElectronDrag from '../../hooks/useElectronDrag';
 import useHistoryBack from '../../hooks/useHistoryBack';
 
 import Transition from '../ui/Transition';
@@ -48,7 +47,6 @@ const Auth: FC<StateProps> = ({
 
   // eslint-disable-next-line no-null/no-null
   const containerRef = useRef<HTMLDivElement>(null);
-  useElectronDrag(containerRef);
 
   // For animation purposes
   const renderingAuthState = useCurrentOrPrev(

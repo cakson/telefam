@@ -49,7 +49,6 @@ type StateProps = {
   nextFoldersAction?: ReducerAction<FoldersActions>;
   isChatOpen: boolean;
   isAppUpdateAvailable?: boolean;
-  isElectronUpdateAvailable?: boolean;
   isForumPanelOpen?: boolean;
   forumPanelChatId?: string;
   isClosingSearch?: boolean;
@@ -85,7 +84,6 @@ function LeftColumn({
   nextFoldersAction,
   isChatOpen,
   isAppUpdateAvailable,
-  isElectronUpdateAvailable,
   isForumPanelOpen,
   forumPanelChatId,
   isClosingSearch,
@@ -531,7 +529,6 @@ function LeftColumn({
             onReset={handleReset}
             shouldSkipTransition={shouldSkipHistoryAnimations}
             isAppUpdateAvailable={isAppUpdateAvailable}
-            isElectronUpdateAvailable={isElectronUpdateAvailable}
             isForumPanelOpen={isForumPanelOpen}
             onTopicSearch={handleTopicSearch}
             isAccountFrozen={isAccountFrozen}
@@ -580,7 +577,6 @@ export default memo(withGlobal<OwnProps>(
         hasPasscode,
       },
       isAppUpdateAvailable,
-      isElectronUpdateAvailable,
       archiveSettings,
     } = global;
 
@@ -600,7 +596,6 @@ export default memo(withGlobal<OwnProps>(
       nextFoldersAction,
       isChatOpen,
       isAppUpdateAvailable,
-      isElectronUpdateAvailable,
       isForumPanelOpen,
       forumPanelChatId,
       isClosingSearch: tabState.globalSearch.isClosing,

@@ -29,7 +29,7 @@ import {
   selectUser,
 } from '../global/selectors';
 import { callApi } from '../api/gramjs';
-import { IS_ELECTRON, IS_SERVICE_WORKER_SUPPORTED, IS_TOUCH_ENV } from './browser/windowEnvironment';
+import { IS_SERVICE_WORKER_SUPPORTED, IS_TOUCH_ENV } from './browser/windowEnvironment';
 import jsxToHtml from './element/jsxToHtml';
 import { buildCollectionByKey } from './iteratees';
 import * as mediaLoader from './mediaLoader';
@@ -48,7 +48,7 @@ function getDeviceToken(subscription: PushSubscription) {
 }
 
 function checkIfPushSupported() {
-  if (!IS_SERVICE_WORKER_SUPPORTED || IS_ELECTRON) return false;
+  if (!IS_SERVICE_WORKER_SUPPORTED) return false;
 
   if (!('showNotification' in ServiceWorkerRegistration.prototype)) {
     if (DEBUG) {
@@ -415,7 +415,7 @@ export async function notifyAboutMessage({
 
   const areNotificationsSupported = checkIfNotificationsSupported();
   if (!hasWebNotifications || !areNotificationsSupported) {
-    if (!isSilent && !message.isSilent && !isReaction && !IS_ELECTRON) {
+    if (!isSilent && !message.isSilent && !isReaction) {
       // Only play sound if web notifications are disabled
       playNotifySoundDebounced(String(message.id) || chat.id);
     }
@@ -490,7 +490,7 @@ export async function notifyAboutMessage({
     // Play sound when notification is displayed
     notification.onshow = () => {
       // TODO Update when reaction badges are implemented
-      if (isReaction || message.isSilent || IS_ELECTRON) return;
+      if (isReaction || message.isSilent) return;
       playNotifySoundDebounced(String(message.id) || chat.id);
     };
   }

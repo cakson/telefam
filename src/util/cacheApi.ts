@@ -1,4 +1,4 @@
-import { ELECTRON_HOST_URL, IS_PACKAGED_ELECTRON } from '../config';
+// Electron-specific imports removed
 import { ACCOUNT_SLOT } from './multiaccount';
 
 // eslint-disable-next-line no-restricted-globals
@@ -31,9 +31,7 @@ export async function fetch(
 
   try {
     // To avoid the error "Request scheme 'webdocument' is unsupported"
-    const request = IS_PACKAGED_ELECTRON
-      ? `${ELECTRON_HOST_URL}/${key.replace(/:/g, '_')}`
-      : new Request(key.replace(/:/g, '_'));
+    const request = new Request(key.replace(/:/g, '_'));
     const cache = await cacheApi.open(`${cacheName}${SUFFIX}`);
     const response = await cache.match(request);
     if (!response) {
@@ -91,9 +89,7 @@ export async function save(cacheName: string, key: string, data: AnyLiteral | Bl
       ? data
       : JSON.stringify(data);
     // To avoid the error "Request scheme 'webdocument' is unsupported"
-    const request = IS_PACKAGED_ELECTRON
-      ? `${ELECTRON_HOST_URL}/${key.replace(/:/g, '_')}`
-      : new Request(key.replace(/:/g, '_'));
+    const request = new Request(key.replace(/:/g, '_'));
     const response = new Response(cacheData);
     const cache = await cacheApi.open(`${cacheName}${SUFFIX}`);
     await cache.put(request, response);

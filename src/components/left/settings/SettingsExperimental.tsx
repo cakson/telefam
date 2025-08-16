@@ -7,7 +7,6 @@ import { getActions, withGlobal } from '../../../global';
 import { DEBUG_LOG_FILENAME } from '../../../config';
 import { selectSharedSettings } from '../../../global/selectors/sharedState';
 import {
-  IS_ELECTRON,
   IS_SNAP_EFFECT_SUPPORTED,
   IS_WAVE_TRANSFORM_SUPPORTED,
 } from '../../../util/browser/windowEnvironment';
@@ -52,10 +51,6 @@ const SettingsExperimental: FC<OwnProps & StateProps> = ({
 
   const lang = useOldLang();
 
-  const [isAutoUpdateEnabled, setIsAutoUpdateEnabled] = useState(false);
-  useEffect(() => {
-    window.electron?.getIsAutoUpdateEnabled().then(setIsAutoUpdateEnabled);
-  }, []);
 
   useHistoryBack({
     isActive,
@@ -68,9 +63,6 @@ const SettingsExperimental: FC<OwnProps & StateProps> = ({
     download(url, DEBUG_LOG_FILENAME);
   });
 
-  const handleIsAutoUpdateEnabledChange = useCallback((isChecked: boolean) => {
-    window.electron?.setIsAutoUpdateEnabled(isChecked);
-  }, []);
 
   const handleRequestWave = useLastCallback((e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     requestWave({ startX: e.clientX, startY: e.clientY });
@@ -158,13 +150,6 @@ const SettingsExperimental: FC<OwnProps & StateProps> = ({
           onCheck={() => setSharedSettingOption({ shouldDebugExportedSenders: !shouldDebugExportedSenders })}
         />
 
-        {IS_ELECTRON && (
-          <Checkbox
-            label="Enable autoupdates"
-            checked={Boolean(isAutoUpdateEnabled)}
-            onCheck={handleIsAutoUpdateEnabledChange}
-          />
-        )}
 
         <ListItem
           onClick={handleDownloadLog}

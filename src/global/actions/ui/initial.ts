@@ -6,7 +6,7 @@ import type { ActionReturnType, GlobalState } from '../../types';
 import { requestMutation } from '../../../lib/fasterdom/fasterdom';
 import { IS_MULTIACCOUNT_SUPPORTED } from '../../../util/browser/globalEnvironment';
 import {
-  IS_ANDROID, IS_ELECTRON, IS_IOS, IS_LINUX,
+  IS_ANDROID, IS_IOS, IS_LINUX,
   IS_MAC_OS, IS_SAFARI, IS_TOUCH_ENV, IS_WINDOWS,
 } from '../../../util/browser/windowEnvironment';
 import { getCurrentTabId } from '../../../util/establishMultitabRole';
@@ -171,9 +171,6 @@ addCallback((global: GlobalState) => {
     }
     if (IS_SAFARI) {
       document.body.classList.add('is-safari');
-    }
-    if (IS_ELECTRON) {
-      document.body.classList.add('is-electron');
     }
   });
 

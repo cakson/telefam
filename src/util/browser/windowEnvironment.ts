@@ -36,8 +36,6 @@ export const IS_YA_BROWSER = navigator.userAgent.includes('YaBrowser');
 export const IS_FIREFOX = navigator.userAgent.toLowerCase().includes('firefox')
   || navigator.userAgent.toLowerCase().includes('iceweasel')
   || navigator.userAgent.toLowerCase().includes('icecat');
-export const IS_ELECTRON = Boolean(window.electron);
-
 export enum MouseButton {
   Main = 0,
   Auxiliary = 1,
@@ -52,7 +50,9 @@ export const IS_PWA = (
   || document.referrer.includes('android-app://')
 );
 
-export const IS_APP = IS_PWA || IS_ELECTRON;
+export const IS_ELECTRON = false;
+
+export const IS_APP = IS_PWA;
 
 export const IS_TOUCH_ENV = window.matchMedia('(pointer: coarse)').matches;
 export const IS_VOICE_RECORDING_SUPPORTED = Boolean(

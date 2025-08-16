@@ -8,7 +8,7 @@ import type { FolderEditDispatch } from '../../../hooks/reducers/useFoldersReduc
 import { LeftColumnContent } from '../../../types';
 
 import { PRODUCTION_URL } from '../../../config';
-import { IS_ELECTRON, IS_TOUCH_ENV } from '../../../util/browser/windowEnvironment';
+import { IS_TOUCH_ENV } from '../../../util/browser/windowEnvironment';
 import buildClassName from '../../../util/buildClassName';
 
 import useForumPanelRender from '../../../hooks/useForumPanelRender';
@@ -35,7 +35,6 @@ type OwnProps = {
   shouldSkipTransition?: boolean;
   foldersDispatch: FolderEditDispatch;
   isAppUpdateAvailable?: boolean;
-  isElectronUpdateAvailable?: boolean;
   isForumPanelOpen?: boolean;
   isClosingSearch?: boolean;
   onSearchQuery: (query: string) => void;
@@ -58,7 +57,6 @@ const LeftMain: FC<OwnProps> = ({
   shouldSkipTransition,
   foldersDispatch,
   isAppUpdateAvailable,
-  isElectronUpdateAvailable,
   isForumPanelOpen,
   onSearchQuery,
   onReset,
@@ -67,11 +65,6 @@ const LeftMain: FC<OwnProps> = ({
 }) => {
   const { closeForumPanel, openLeftColumnContent } = getActions();
   const [isNewChatButtonShown, setIsNewChatButtonShown] = useState(IS_TOUCH_ENV);
-  const [isElectronAutoUpdateEnabled, setIsElectronAutoUpdateEnabled] = useState(false);
-
-  useEffect(() => {
-    window.electron?.getIsAutoUpdateEnabled().then(setIsElectronAutoUpdateEnabled);
-  }, []);
 
   const {
     shouldRenderForumPanel, handleForumPanelAnimationEnd,
@@ -83,7 +76,7 @@ const LeftMain: FC<OwnProps> = ({
   const {
     shouldRender: shouldRenderUpdateButton,
     transitionClassNames: updateButtonClassNames,
-  } = useShowTransitionDeprecated(isAppUpdateAvailable || isElectronUpdateAvailable);
+  } = useShowTransitionDeprecated(isAppUpdateAvailable);
 
   const isMouseInside = useRef(false);
 
@@ -124,13 +117,7 @@ const LeftMain: FC<OwnProps> = ({
   });
 
   const handleUpdateClick = useLastCallback(() => {
-    if (IS_ELECTRON && !isElectronAutoUpdateEnabled) {
-      window.open(`${PRODUCTION_URL}/get`, '_blank', 'noopener');
-    } else if (isElectronUpdateAvailable) {
-      window.electron?.installUpdate();
-    } else {
-      window.location.reload();
-    }
+    window.location.reload();
   });
 
   const handleSelectNewChannel = useLastCallback(() => {
