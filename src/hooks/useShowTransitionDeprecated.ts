@@ -1,4 +1,4 @@
-import { useRef, useState } from '../lib/react-utils';
+import { useRef, useState, useEffect } from '../lib/react-utils';
 
 import buildClassName from '../util/buildClassName';
 
@@ -18,36 +18,38 @@ const useShowTransitionDeprecated = (
   // СSS class should be added in a separate tick to turn on CSS transition.
   const [hasOpenClassName, setHasOpenClassName] = useState(isOpen && noFirstOpenTransition);
 
-  if (isOpen) {
-    setIsClosed(false);
-    setHasOpenClassName(true);
+  // Move state updates to useEffect to prevent infinite re-renders in React 18
+  useEffect(() => {
+    if (isOpen) {
+      setIsClosed(false);
+      setHasOpenClassName(true);
 
-    if (closeTimeoutRef.current) {
-      window.clearTimeout(closeTimeoutRef.current);
-
-      closeTimeoutRef.current = undefined;
-    }
-  } else {
-    setHasOpenClassName(false);
-
-    if (!isClosed && !closeTimeoutRef.current) {
-      const exec = () => {
-        setIsClosed(true);
-
-        if (onCloseTransitionEnd) {
-          onCloseTransitionEnd();
-        }
-
+      if (closeTimeoutRef.current) {
+        window.clearTimeout(closeTimeoutRef.current);
         closeTimeoutRef.current = undefined;
-      };
+      }
+    } else {
+      setHasOpenClassName(false);
 
-      if (noCloseTransition) {
-        exec();
-      } else {
-        closeTimeoutRef.current = window.setTimeout(exec, closeDuration);
+      if (!isClosed && !closeTimeoutRef.current) {
+        const exec = () => {
+          setIsClosed(true);
+
+          if (onCloseTransitionEnd) {
+            onCloseTransitionEnd();
+          }
+
+          closeTimeoutRef.current = undefined;
+        };
+
+        if (noCloseTransition) {
+          exec();
+        } else {
+          closeTimeoutRef.current = window.setTimeout(exec, closeDuration);
+        }
       }
     }
-  }
+  }, [isOpen, isClosed, noCloseTransition, closeDuration, onCloseTransitionEnd]);
 
   // `noCloseTransition`, when set to true, should remove the open class immediately
   const shouldHaveOpenClassName = (hasOpenClassName && !(noCloseTransition && !isOpen)) || (noOpenTransition && isOpen);

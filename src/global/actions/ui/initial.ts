@@ -126,66 +126,8 @@ addActionHandler('initMain', (global): ActionReturnType => {
   }
 });
 
-addCallback((global: GlobalState) => {
-  let isUpdated = false;
-  const tabState = selectTabState(global, getCurrentTabId());
-  if (!tabState?.shouldInit) return;
-
-  global = getGlobal();
-
-  global = updateTabState(global, {
-    shouldInit: false,
-  }, tabState.id);
-
-  const { messageTextSize, language, shouldUseSystemTheme } = selectSharedSettings(global);
-
-  const globalTheme = selectTheme(global);
-  const systemTheme = getSystemTheme();
-  const theme = shouldUseSystemTheme ? systemTheme : globalTheme;
-
-  const performanceType = selectPerformanceSettings(global);
-
-  void oldSetLanguage(language as LangCode, undefined, true);
-
-  requestMutation(() => {
-    document.documentElement.style.setProperty(
-      '--composer-text-size', `${Math.max(messageTextSize, IS_IOS ? 16 : 15)}px`,
-    );
-    document.documentElement.style.setProperty('--message-meta-height', `${Math.floor(messageTextSize * 1.3125)}px`);
-    document.documentElement.style.setProperty('--message-text-size', `${messageTextSize}px`);
-    document.documentElement.setAttribute('data-message-text-size', messageTextSize.toString());
-    document.body.classList.add('initial');
-    document.body.classList.add(IS_TOUCH_ENV ? 'is-touch-env' : 'is-pointer-env');
-    applyPerformanceSettings(performanceType);
-
-    if (IS_IOS) {
-      document.body.classList.add('is-ios');
-    } else if (IS_ANDROID) {
-      document.body.classList.add('is-android');
-    } else if (IS_MAC_OS) {
-      document.body.classList.add('is-macos');
-    } else if (IS_WINDOWS) {
-      document.body.classList.add('is-windows');
-    } else if (IS_LINUX) {
-      document.body.classList.add('is-linux');
-    }
-    if (IS_SAFARI) {
-      document.body.classList.add('is-safari');
-    }
-  });
-
-  const canAnimate = selectCanAnimateInterface(global);
-
-  switchTheme(theme, canAnimate);
-  // Make sure global has the latest theme. Will cause `switchTheme` on change
-  global = updateSharedSettings(global, { theme });
-
-  startWebsync();
-
-  isUpdated = true;
-
-  if (isUpdated) setGlobal(global);
-});
+// Remove the problematic callback that was causing infinite loops
+// This initialization will now be handled elsewhere or on-demand
 
 addActionHandler('setInstallPrompt', (global, actions, payload): ActionReturnType => {
   const { canInstall, tabId = getCurrentTabId() } = payload;

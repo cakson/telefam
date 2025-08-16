@@ -1,2 +1,2 @@
-// Re-export everything from the actual teactn implementation
-export * from '../teact/teactn';
+// Re-export from the React 18 compatible state management
+export * from './state';

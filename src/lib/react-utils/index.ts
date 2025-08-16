@@ -78,13 +78,52 @@ export {
   throttleWithFullyIdle,
 } from './animation';
 
-// Heavy animation utilities (placeholder - you may need to implement these)
+// Heavy animation utilities - Simple React 18 compatible implementation
+let isHeavyAnimating = false;
+let animationTimeouts = new Set<NodeJS.Timeout>();
+
 export function getIsHeavyAnimating(): boolean {
-  return false; // Placeholder implementation
+  return isHeavyAnimating;
 }
 
-export function beginHeavyAnimation(): void {
-  // Placeholder implementation
+// Add minimal compatibility methods that don't cause re-renders
+(getIsHeavyAnimating as any).subscribe = () => {
+  // No-op for compatibility - we don't want reactive subscriptions
+  return () => {};
+};
+
+(getIsHeavyAnimating as any).once = (callback: () => void) => {
+  // Simple timeout-based implementation instead of reactive
+  if (!isHeavyAnimating) {
+    callback();
+    return () => {};
+  }
+  
+  const checkInterval = setInterval(() => {
+    if (!isHeavyAnimating) {
+      callback();
+      clearInterval(checkInterval);
+    }
+  }, 16); // Check every frame
+  
+  return () => clearInterval(checkInterval);
+};
+
+export function beginHeavyAnimation(duration = 1000): void {
+  isHeavyAnimating = true;
+  
+  const timeout = setTimeout(() => {
+    isHeavyAnimating = false;
+    animationTimeouts.delete(timeout);
+  }, duration);
+  
+  animationTimeouts.add(timeout);
+}
+
+export function endHeavyAnimation(): void {
+  isHeavyAnimating = false;
+  animationTimeouts.forEach(timeout => clearTimeout(timeout));
+  animationTimeouts.clear();
 }
 
 export function onFullyIdle(callback: () => void): void {

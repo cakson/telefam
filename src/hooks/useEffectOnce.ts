@@ -1,8 +1,19 @@
-import { useEffect } from '../lib/react-utils';
+import { useEffect, useRef } from '../lib/react-utils';
 
 function useEffectOnce(effect: React.EffectCallback) {
-  // eslint-disable-next-line react-hooks-static-deps/exhaustive-deps
-  useEffect(effect, []);
+  const hasRunRef = useRef(false);
+  const cleanupRef = useRef<(() => void) | void>();
+
+  useEffect(() => {
+    if (hasRunRef.current) {
+      return cleanupRef.current;
+    }
+    
+    hasRunRef.current = true;
+    cleanupRef.current = effect();
+    
+    return cleanupRef.current;
+  }, []); // eslint-disable-line react-hooks-static-deps/exhaustive-deps
 }
 
 export default useEffectOnce;

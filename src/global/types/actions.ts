@@ -319,6 +319,7 @@ export interface ActionPayloads {
   setIsUiReady: {
     uiReadyState: 0 | 1 | 2;
   } & WithTabId;
+  initializeOnceFromCallback: WithTabId | undefined;
   toggleLeftColumn: WithTabId | undefined;
 
   addChatMembers: {

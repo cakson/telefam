@@ -3,70 +3,93 @@ import {
   useCallback, useEffect, useMemo, useRef,
 } from '../lib/react-utils';
 
-import { createCallbackManager } from '../util/callbacks';
 import useLastCallback from './useLastCallback';
 
-export const startCallbacks = createCallbackManager();
-export const endCallbacks = createCallbackManager();
-
-getIsHeavyAnimating.subscribe(() => {
-  if (getIsHeavyAnimating()) {
-    startCallbacks.runCallbacks();
-  } else {
-    endCallbacks.runCallbacks();
-  }
-});
+// Simple React 18 compatible implementation without reactive patterns
 
 export default function useHeavyAnimation(
   onStart?: AnyToVoidFunction,
   onEnd?: AnyToVoidFunction,
   isDisabled = false,
 ) {
-  const lastOnStart = useLastCallback(onStart);
-  const lastOnEnd = useLastCallback(onEnd);
+  const onStartRef = useRef(onStart);
+  const onEndRef = useRef(onEnd);
+  
+  // Update refs without causing re-renders
+  onStartRef.current = onStart;
+  onEndRef.current = onEnd;
 
   useEffect(() => {
     if (isDisabled) {
       return undefined;
     }
 
+    // Simple polling-based approach instead of reactive subscriptions
+    let wasAnimating = getIsHeavyAnimating();
+    
+    const checkAnimation = () => {
+      const isAnimating = getIsHeavyAnimating();
+      
+      if (isAnimating && !wasAnimating) {
+        // Animation started
+        onStartRef.current?.();
+      } else if (!isAnimating && wasAnimating) {
+        // Animation ended
+        onEndRef.current?.();
+      }
+      
+      wasAnimating = isAnimating;
+    };
+
+    // Check on mount
     if (getIsHeavyAnimating()) {
-      lastOnStart();
+      onStartRef.current?.();
     }
 
-    startCallbacks.addCallback(lastOnStart);
-    endCallbacks.addCallback(lastOnEnd);
+    // Poll for changes
+    const interval = setInterval(checkAnimation, 16); // ~60fps
 
     return () => {
-      endCallbacks.removeCallback(lastOnEnd);
-      startCallbacks.removeCallback(lastOnStart);
+      clearInterval(interval);
     };
-  }, [isDisabled, lastOnEnd, lastOnStart]);
+  }, [isDisabled]); // Only depend on isDisabled to avoid re-renders
 }
 
 // TODO → `onFullyIdle`?
 export function useThrottleForHeavyAnimation<T extends AnyToVoidFunction>(afterHeavyAnimation: T, deps: unknown[]) {
-  // eslint-disable-next-line react-hooks-static-deps/exhaustive-deps
-  const fnMemo = useCallback(afterHeavyAnimation, deps);
-
+  // Store the latest function in a ref to avoid dependency issues
+  const fnRef = useRef<T>(afterHeavyAnimation);
   const isScheduledRef = useRef(false);
+  
+  // Update the ref when dependencies change
+  // eslint-disable-next-line react-hooks-static-deps/exhaustive-deps
+  fnRef.current = useCallback(afterHeavyAnimation, deps) as T;
 
-  return useMemo(() => {
-    return (...args: Parameters<T>) => {
-      if (!isScheduledRef.current) {
-        if (!getIsHeavyAnimating()) {
-          fnMemo(...args);
-          return;
-        }
+  // Return a stable function reference that doesn't change
+  return useCallback((...args: Parameters<T>) => {
+    if (isScheduledRef.current) {
+      return; // Already scheduled
+    }
+    
+    if (!getIsHeavyAnimating()) {
+      // Not animating, execute immediately
+      fnRef.current(...args);
+      return;
+    }
 
-        isScheduledRef.current = true;
-
-        const removeCallback = endCallbacks.addCallback(() => {
-          fnMemo(...args);
-          removeCallback();
-          isScheduledRef.current = false;
-        });
+    // Schedule for after animation ends
+    isScheduledRef.current = true;
+    
+    const checkForEnd = () => {
+      if (!getIsHeavyAnimating()) {
+        fnRef.current(...args);
+        isScheduledRef.current = false;
+      } else {
+        // Still animating, check again next frame
+        requestAnimationFrame(checkForEnd);
       }
     };
-  }, [fnMemo]);
+    
+    requestAnimationFrame(checkForEnd);
+  }, []) as T; // Empty dependency array for stable reference
 }
