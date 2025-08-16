@@ -2,8 +2,8 @@ import './util/handleError';
 import './util/setupServiceWorker';
 import './global/init';
 
-import React from './lib/teact/teact';
-import TeactDOM from './lib/teact/teact-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   getActions, getGlobal,
 } from './global';
@@ -81,7 +81,7 @@ async function init() {
   requestMutation(() => {
     updateWebmanifest();
 
-    TeactDOM.render(
+    ReactDOM.render(
       <App />,
       document.getElementById('root')!,
     );
