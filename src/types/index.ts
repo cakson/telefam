@@ -1,4 +1,4 @@
-import type { TeactNode } from '../lib/teact/teact';
+import type { ReactNode } from 'react';
 
 import type {
   ApiAttachment,
@@ -42,7 +42,7 @@ import type { DC_IDS } from '../config';
 import type { SearchResultKey } from '../util/keys/searchResultKey';
 import type { IconName } from './icons';
 
-export type TextPart = TeactNode;
+export type TextPart = ReactNode;
 
 export type DcId = typeof DC_IDS[number];
 

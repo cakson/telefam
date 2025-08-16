@@ -109,9 +109,9 @@ function replaceEmojis(textParts: TextPart[], size: 'big' | 'small', type: 'jsx'
       return result;
     }
 
-    part = fixNonStandardEmoji(part);
-    const parts = part.split(EMOJI_REGEX);
-    const emojis: string[] = part.match(EMOJI_REGEX) || [];
+    const partString = fixNonStandardEmoji(part);
+    const parts = partString.split(EMOJI_REGEX);
+    const emojis: string[] = partString.match(EMOJI_REGEX) || [];
     result.push(parts[0]);
 
     return emojis.reduce((emojiResult: TextPart[], emoji, i) => {

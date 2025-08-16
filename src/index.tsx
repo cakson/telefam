@@ -2,8 +2,8 @@ import './util/handleError';
 import './util/setupServiceWorker';
 import './global/init';
 
-import React from './lib/teact/teact';
-import TeactDOM from './lib/teact/teact-dom';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import {
   getActions, getGlobal,
 } from './global';
@@ -81,10 +81,8 @@ async function init() {
   requestMutation(() => {
     updateWebmanifest();
 
-    TeactDOM.render(
-      <App />,
-      document.getElementById('root')!,
-    );
+    const container = document.getElementById('root')!;
+    createRoot(container).render(<App />);
 
     betterView();
   });

@@ -924,7 +924,7 @@ function applyExtraStyles(element: DOMElement) {
 function DEBUG_addToVirtualTreeSize($current: VirtualElementParent | VirtualDomHead) {
   DEBUG_virtualTreeSize += $current.children.length;
 
-  $current.children.forEach(($child) => {
+  $current.children.forEach(($child: any) => {
     if (isParentElement($child)) {
       DEBUG_addToVirtualTreeSize($child);
     }
@@ -935,7 +935,7 @@ function DEBUG_addToVirtualTreeSize($current: VirtualElementParent | VirtualDomH
 function DEBUG_checkKeyUniqueness(children: VirtualElementChildren) {
   const firstChild = children[0];
   if (firstChild && 'props' in firstChild && firstChild.props.key !== undefined) {
-    const keys = children.reduce((acc: any[], child) => {
+    const keys = children.reduce((acc: any[], child: any) => {
       if ('props' in child && child.props.key) {
         acc.push(child.props.key);
       }
@@ -945,7 +945,11 @@ function DEBUG_checkKeyUniqueness(children: VirtualElementChildren) {
 
     if (keys.length !== unique(keys).length) {
       // eslint-disable-next-line no-console
-      console.warn('[Teact] Duplicated keys:', keys.filter((e, i, a) => a.indexOf(e) !== i), children);
+      console.warn(
+        '[Teact] Duplicated keys:',
+        keys.filter((e: any, i: number, a: any[]) => a.indexOf(e) !== i),
+        children,
+      );
       throw new Error('[Teact] Children keys are not unique');
     }
   }

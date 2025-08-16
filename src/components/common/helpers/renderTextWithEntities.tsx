@@ -122,7 +122,7 @@ export function renderTextWithEntities({
     const entityStartIndex = textPartStart + textBeforeLength;
     const entityEndIndex = entityStartIndex + length;
 
-    let entityContent: TextPart = text.substring(offset, offset + length);
+    let entityContent = text.substring(offset, offset + length);
     const nestedEntityContent: TextPart[] = [];
 
     if (deleteLineBreakAfterPre && entityContent.length > 0 && entityContent[0] === '\n') {

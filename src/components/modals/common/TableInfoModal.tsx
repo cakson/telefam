@@ -81,13 +81,13 @@ const TableInfoModal = ({
         {tableData?.map(([label, value]) => (
           <>
             {label && <div className={buildClassName(styles.cell, styles.title)}>{label}</div>}
-            <div className={buildClassName(styles.cell, styles.value, !label && styles.fullWidth)}>
-              {typeof value === 'object' && 'chatId' in value ? (
-                <PeerChip
-                  peerId={value.chatId}
-                  className={styles.chatItem}
-                  forceShowSelf
-                  withEmojiStatus={value.withEmojiStatus}
+              <div className={buildClassName(styles.cell, styles.value, !label && styles.fullWidth)}>
+                {value && typeof value === 'object' && 'chatId' in value ? (
+                  <PeerChip
+                    peerId={value.chatId}
+                    className={styles.chatItem}
+                    forceShowSelf
+                    withEmojiStatus={value.withEmojiStatus}
                   clickArg={value.chatId}
                   onClick={handleOpenChat}
                 />
