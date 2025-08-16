@@ -21,14 +21,13 @@ import {
   selectTheme,
 } from '../../../global/selectors';
 import { selectSharedSettings } from '../../../global/selectors/sharedState';
-import { IS_APP, IS_ELECTRON, IS_MAC_OS } from '../../../util/browser/windowEnvironment';
+import { IS_APP, IS_MAC_OS } from '../../../util/browser/windowEnvironment';
 import buildClassName from '../../../util/buildClassName';
 import captureEscKeyListener from '../../../util/captureEscKeyListener';
 import { formatDateToString } from '../../../util/dates/dateFormat';
 
 import useAppLayout from '../../../hooks/useAppLayout';
 import useConnectionStatus from '../../../hooks/useConnectionStatus';
-import useElectronDrag from '../../../hooks/useElectronDrag';
 import useFlag from '../../../hooks/useFlag';
 import { useHotkeys } from '../../../hooks/useHotkeys';
 import useLang from '../../../hooks/useLang';
@@ -217,7 +216,6 @@ const LeftMainHeader: FC<OwnProps & StateProps> = ({
 
   // eslint-disable-next-line no-null/no-null
   const headerRef = useRef<HTMLDivElement>(null);
-  useElectronDrag(headerRef);
 
   const withStoryToggler = !isSearchFocused
     && !selectedSearchDate && !globalSearchChatId && !areContactsVisible;
@@ -266,7 +264,7 @@ const LeftMainHeader: FC<OwnProps & StateProps> = ({
           )}
           forceOpen={isBotMenuOpen}
           positionX={shouldHideSearch && oldLang.isRtl ? 'right' : 'left'}
-          transformOriginX={IS_ELECTRON && IS_MAC_OS && !isFullscreen ? 90 : undefined}
+          transformOriginX={IS_MAC_OS && !isFullscreen ? 90 : undefined}
           onTransitionEnd={oldLang.isRtl ? handleDropdownMenuTransitionEnd : undefined}
         >
           <LeftSideMenuItems

@@ -10,7 +10,6 @@ import { getActions, getGlobal, withGlobal } from '../../global';
 
 import type { ApiChatFolder, ApiLimitTypeWithModal, ApiUser } from '../../api/types';
 import type { TabState } from '../../global/types';
-import { ElectronEvent } from '../../types/electron';
 
 import { BASE_EMOJI_KEYWORD_LANG, DEBUG, INACTIVE_MARKER } from '../../config';
 import { requestNextMutation } from '../../lib/fasterdom/fasterdom';
@@ -290,25 +289,6 @@ const Main = ({
 
   useInterval(checkAppVersion, isMasterTab ? APP_OUTDATED_TIMEOUT_MS : undefined, true);
 
-  useEffect(() => {
-    if (!IS_ELECTRON) {
-      return undefined;
-    }
-
-    const removeUpdateAvailableListener = window.electron!.on(ElectronEvent.UPDATE_AVAILABLE, () => {
-      setIsElectronUpdateAvailable(true);
-    });
-
-    const removeUpdateErrorListener = window.electron!.on(ElectronEvent.UPDATE_ERROR, () => {
-      setIsElectronUpdateAvailable(false);
-      removeUpdateAvailableListener?.();
-    });
-
-    return () => {
-      removeUpdateErrorListener?.();
-      removeUpdateAvailableListener?.();
-    };
-  }, []);
 
   // Initial API calls
   useEffect(() => {
@@ -431,11 +411,6 @@ const Main = ({
     }
   }, [isSynced]);
 
-  useEffect(() => {
-    return window.electron?.on(ElectronEvent.DEEPLINK, (link: string) => {
-      processDeepLink(decodeURIComponent(link));
-    });
-  }, []);
 
   useEffect(() => {
     const parsedLocationHash = parseLocationHash(currentUserId);

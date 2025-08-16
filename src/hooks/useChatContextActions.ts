@@ -9,7 +9,7 @@ import {
   getCanDeleteChat, isChatArchived, isChatChannel, isChatGroup,
   isUserId,
 } from '../global/helpers';
-import { IS_ELECTRON, IS_OPEN_IN_NEW_TAB_SUPPORTED } from '../util/browser/windowEnvironment';
+import { IS_OPEN_IN_NEW_TAB_SUPPORTED } from '../util/browser/windowEnvironment';
 import { compact } from '../util/iteratees';
 import useLang from './useLang';
 
@@ -87,7 +87,7 @@ const useChatContextActions = ({
     } = getActions();
 
     const actionOpenInNewTab = IS_OPEN_IN_NEW_TAB_SUPPORTED && {
-      title: IS_ELECTRON ? lang('ChatListOpenInNewWindow') : lang('ChatListOpenInNewTab'),
+      title: lang('ChatListOpenInNewTab'),
       icon: 'open-in-new-tab',
       handler: () => {
         if (isSavedDialog) {

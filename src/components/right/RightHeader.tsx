@@ -30,7 +30,6 @@ import buildClassName from '../../util/buildClassName';
 
 import useAppLayout from '../../hooks/useAppLayout';
 import useCurrentOrPrev from '../../hooks/useCurrentOrPrev';
-import useElectronDrag from '../../hooks/useElectronDrag';
 import useFlag from '../../hooks/useFlag';
 import { useFolderManagerForChatsCount } from '../../hooks/useFolderManager';
 import useLang from '../../hooks/useLang';
@@ -676,7 +675,6 @@ const RightHeader: FC<OwnProps & StateProps> = ({
 
   // eslint-disable-next-line no-null/no-null
   const headerRef = useRef<HTMLDivElement>(null);
-  useElectronDrag(headerRef);
 
   return (
     <div className="RightHeader" ref={headerRef}>

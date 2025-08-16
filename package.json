@@ -11,12 +11,6 @@
     "build:mocked": "cross-env APP_ENV=test APP_MOCKED_CLIENT=1 npm run build:dev",
     "build:production": "webpack && bash ./deploy/copy_to_dist.sh",
     "web:release:production": "npm i && npm run build:production && git add -A && git commit -a -m '[Build]' --no-verify && git push",
-    "electron:dev": "npm run electron:webpack && IS_PACKAGED_ELECTRON=true concurrently -n main,renderer,electron \"npm run electron:webpack -- --watch\" \"npm run dev\" \"electronmon dist/electron\"",
-    "electron:webpack": "cross-env APP_ENV=$ENV webpack --config ./webpack-electron.config.ts",
-    "electron:build": "IS_PACKAGED_ELECTRON=true npm run build:$ENV && electron-builder install-app-deps && electron-rebuild && ENV=$ENV npm run electron:webpack",
-    "electron:package": "npm run electron:build && npx rimraf dist-electron && electron-builder build --win --mac --linux --config src/electron/config.yml",
-    "electron:package:staging": "ENV=staging npm run electron:package -- -p never",
-    "electron:release:production": "ENV=production npm run electron:package -- -p always",
     "telegraph:update_changelog": "node ./dev/telegraphChangelog.js",
     "check": "tsc && stylelint \"**/*.{css,scss}\" && eslint . --ext .ts,.tsx,.js --ignore-pattern src/lib/gramjs",
     "check:fix": "npm run check -- --fix",
@@ -42,9 +36,6 @@
     "*.{ts,tsx,js}": "eslint --fix",
     "*.{css,scss}": "stylelint --fix"
   },
-  "electronmon": {
-    "logLevel": "quiet"
-  },
   "author": "Alexander Zinchuk (alexander@zinchuk.com)",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
@@ -56,7 +47,6 @@
     "@babel/preset-react": "^7.24.1",
     "@babel/preset-typescript": "^7.24.1",
     "@babel/register": "^7.23.7",
-    "@electron/rebuild": "^3.6.0",
     "@glen/jest-raw-loader": "^2.0.0",
     "@playwright/test": "^1.44.0",
     "@statoscope/cli": "5.28.2",
@@ -84,12 +74,6 @@
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.1",
     "dotenv": "^16.4.5",
-    "electron": "^22.3.27",
-    "electron-builder": "^24.13.3",
-    "electron-context-menu": "^3.6.1",
-    "electron-store": "^8.2.0",
-    "electron-updater": "^6.1.8",
-    "electronmon": "^2.0.3",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
@@ -150,7 +134,6 @@
     "v8-compile-cache": "^2.4.0"
   },
   "optionalDependencies": {
-    "dmg-license": "^1.0.11",
     "fsevents": "2.3.3"
   }
 }

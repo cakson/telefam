@@ -29,11 +29,9 @@ const ActiveCallHeader: FC<StateProps> = ({
 
   useEffect(() => {
     document.body.classList.toggle('has-call-header', Boolean(isCallPanelVisible));
-    window.electron?.setTrafficLightPosition(isCallPanelVisible ? 'lowered' : 'standard');
 
     return () => {
       document.body.classList.toggle('has-call-header', false);
-      window.electron?.setTrafficLightPosition('standard');
     };
   }, [isCallPanelVisible]);
 

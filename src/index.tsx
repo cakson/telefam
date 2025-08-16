@@ -45,7 +45,6 @@ async function init() {
 
   checkAndAssignPermanentWebVersion();
 
-  await window.electron?.restoreLocalStorage();
 
   subscribeToMultitabBroadcastChannel();
   await requestGlobal(APP_VERSION);

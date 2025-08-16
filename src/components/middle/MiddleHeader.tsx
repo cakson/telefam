@@ -36,7 +36,6 @@ import buildClassName from '../../util/buildClassName';
 
 import useAppLayout from '../../hooks/useAppLayout';
 import useConnectionStatus from '../../hooks/useConnectionStatus';
-import useElectronDrag from '../../hooks/useElectronDrag';
 import useLastCallback from '../../hooks/useLastCallback';
 import useLongPress from '../../hooks/useLongPress';
 import useOldLang from '../../hooks/useOldLang';
@@ -329,7 +328,6 @@ const MiddleHeader: FC<OwnProps & StateProps> = ({
     );
   }
 
-  useElectronDrag(componentRef);
 
   return (
     <div className="MiddleHeader" ref={componentRef}>

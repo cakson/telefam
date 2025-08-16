@@ -10,7 +10,7 @@ import { SettingsScreens } from '../../../types';
 
 import { selectSharedSettings } from '../../../global/selectors/sharedState';
 import {
-  IS_ANDROID, IS_ELECTRON, IS_IOS, IS_MAC_OS, IS_WINDOWS,
+  IS_ANDROID, IS_IOS, IS_MAC_OS, IS_WINDOWS,
 } from '../../../util/browser/windowEnvironment';
 import { setTimeFormat } from '../../../util/oldLangProvider';
 import { getSystemTheme } from '../../../util/systemTheme';
@@ -113,15 +113,6 @@ const SettingsGeneral: FC<OwnProps & StateProps> = ({
     setSharedSettingOption({ messageSendKeyCombo: newCombo as SharedSettings['messageSendKeyCombo'] });
   }, []);
 
-  const [isTrayIconEnabled, setIsTrayIconEnabled] = useState(false);
-  useEffect(() => {
-    window.electron?.getIsTrayIconEnabled().then(setIsTrayIconEnabled);
-  }, []);
-
-  const handleIsTrayIconEnabledChange = useCallback((isChecked: boolean) => {
-    window.electron?.setIsTrayIconEnabled(isChecked);
-  }, []);
-
   useHistoryBack({
     isActive,
     onBack: onReset,
@@ -149,13 +140,6 @@ const SettingsGeneral: FC<OwnProps & StateProps> = ({
           {lang('ChatBackground')}
         </ListItem>
 
-        {IS_ELECTRON && IS_WINDOWS && (
-          <Checkbox
-            label={lang('SettingsTray')}
-            checked={Boolean(isTrayIconEnabled)}
-            onCheck={handleIsTrayIconEnabledChange}
-          />
-        )}
       </div>
 
       <div className="settings-item">
