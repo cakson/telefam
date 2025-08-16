@@ -1,8 +1,10 @@
 // Main React compatibility layer for Teact migration
 import React from 'react';
+import { createElement as compatCreateElement } from './memo';
 
-// Re-export all React functionality
-export default React;
+// Re-export all React functionality with Teact-style createElement
+const ReactCompat = { ...React, createElement: compatCreateElement };
+export default ReactCompat;
 
 // Export individual hooks and utilities
 export {

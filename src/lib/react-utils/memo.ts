@@ -19,4 +19,22 @@ export type VirtualElement = React.ReactElement;
 export const Fragment = React.Fragment;
 
 // createElement export
-export const createElement = React.createElement;
+export const createElement = (type: any, props: any, ...children: any[]) => {
+  if (props && typeof props.style === 'string') {
+    const styleObj: Record<string, string> = {};
+
+    props.style.split(';').forEach((part: string) => {
+      const [rawKey, rawValue] = part.split(':');
+      if (!rawKey || rawValue === undefined) {
+        return;
+      }
+
+      const key = rawKey.trim().replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      styleObj[key] = rawValue.trim();
+    });
+
+    props = { ...props, style: styleObj };
+  }
+
+  return React.createElement(type, props, ...children);
+};
