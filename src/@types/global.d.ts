@@ -13,7 +13,7 @@ declare namespace React {
   }
 
   // Teact feature
-  interface CSSProperties extends String {}
+  type CSSProperties = string | Record<string, string>;
 
   interface Attributes {
     // Optimization for DOM nodes reordering. Requires `teactFastList` for parent
