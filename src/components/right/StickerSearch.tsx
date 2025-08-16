@@ -1,7 +1,7 @@
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useEffect, useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 import { getActions, withGlobal } from '../../global';
 
 import { selectCurrentStickerSearch, selectTabState } from '../../global/selectors';

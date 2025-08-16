@@ -1,4 +1,4 @@
-import React, { memo, useRef } from '../../lib/teact/teact';
+import React, { memo, useRef } from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import type { ApiPeer } from '../../api/types';

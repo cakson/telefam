@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import { useEffect, useLayoutEffect, useState } from '../lib/teact/teact';
+import { useEffect, useLayoutEffect, useState } from '../lib/react-utils';
 
 import { requestMutation } from '../lib/fasterdom/fasterdom';
 import useFlag from './useFlag';

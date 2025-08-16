@@ -1,5 +1,5 @@
-import type { FC, TeactNode } from '../../../../lib/teact/teact';
-import React, { memo } from '../../../../lib/teact/teact';
+import type { FC, TeactNode } from '../../../../lib/react-utils';
+import React, { memo } from '../../../../lib/react-utils';
 
 import type { ApiWebDocument } from '../../../../api/types';
 

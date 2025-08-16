@@ -1,6 +1,6 @@
 import React, {
   useCallback, useLayoutEffect, useRef,
-} from '../../../../lib/teact/teact';
+} from '../../../../lib/react-utils';
 
 import type {
   ApiChat, ApiDraft, ApiMessage, ApiPeer, ApiTopic, ApiTypingStatus,

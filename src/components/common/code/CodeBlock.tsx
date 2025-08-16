@@ -1,5 +1,5 @@
-import type { FC } from '../../../lib/teact/teact';
-import React, { memo, useCallback, useState } from '../../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useCallback, useState } from '../../../lib/react-utils';
 
 import { ApiMessageEntityTypes } from '../../../api/types';
 

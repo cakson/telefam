@@ -1,4 +1,4 @@
-import { useRef, useState } from '../lib/teact/teact';
+import { useRef, useState } from '../lib/react-utils';
 
 import buildClassName from '../util/buildClassName';
 

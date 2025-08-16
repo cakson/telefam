@@ -1,4 +1,4 @@
-import { addCallback, removeCallback } from '../../lib/teact/teactn';
+import { addCallback, removeCallback } from '../../lib/react-utils/teactn';
 
 import type { SharedState } from '../types';
 import type { ClientBoundMessageEvent } from './sharedState.worker';

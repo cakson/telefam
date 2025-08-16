@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from '../../lib/teact/teact';
+import { useEffect, useMemo } from '../../lib/react-utils';
 import { getActions, getGlobal } from '../../global';
 
 import type { ApiChat, ApiUser } from '../../api/types';

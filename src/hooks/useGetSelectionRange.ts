@@ -1,4 +1,4 @@
-import { useEffect, useSignal } from '../lib/teact/teact';
+import { useEffect, useSignal } from '../lib/react-utils';
 
 export default function useGetSelectionRange(inputSelector: string) {
   const [getRange, setRange] = useSignal<Range | undefined>();

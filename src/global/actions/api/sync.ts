@@ -1,4 +1,4 @@
-import { addCallback } from '../../../lib/teact/teactn';
+import { addCallback } from '../../../lib/react-utils/teactn';
 
 import type { Thread, ThreadId } from '../../../types';
 import type { RequiredGlobalActions } from '../../index';

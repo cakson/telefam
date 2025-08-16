@@ -1,4 +1,4 @@
-import { useEffect, useState } from '../lib/teact/teact';
+import { useEffect, useState } from '../lib/react-utils';
 
 import type { ApiPeer } from '../api/types';
 import { ApiMediaFormat } from '../api/types';

@@ -1,5 +1,5 @@
-import type { FC } from '../../lib/teact/teact';
-import React, { memo, useEffect, useMemo } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useEffect, useMemo } from '../../lib/react-utils';
 import { getGlobal } from '../../global';
 
 import { selectCanAnimateInterface } from '../../global/selectors';

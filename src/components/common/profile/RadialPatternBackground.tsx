@@ -1,6 +1,6 @@
 import React, {
   memo, useEffect, useMemo, useRef, useSignal, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 
 import type { ApiSticker } from '../../../api/types';
 

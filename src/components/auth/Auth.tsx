@@ -1,7 +1,7 @@
 import '../../global/actions/initial';
 
-import type { FC } from '../../lib/teact/teact';
-import React, { memo, useRef } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useRef } from '../../lib/react-utils';
 import { getActions, withGlobal } from '../../global';
 
 import type { GlobalState } from '../../global/types';

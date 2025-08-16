@@ -1,8 +1,8 @@
 import type {
   ChangeEvent, FormEvent, RefObject,
 } from 'react';
-import type { FC } from '../../lib/teact/teact';
-import React, { memo } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo } from '../../lib/react-utils';
 
 import buildClassName from '../../util/buildClassName';
 

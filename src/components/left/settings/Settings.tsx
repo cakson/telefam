@@ -1,5 +1,5 @@
-import type { FC } from '../../../lib/teact/teact';
-import React, { memo, useRef, useState } from '../../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useRef, useState } from '../../../lib/react-utils';
 import { getActions, getGlobal } from '../../../global';
 
 import type { FolderEditDispatch, FoldersState } from '../../../hooks/reducers/useFoldersReducer';

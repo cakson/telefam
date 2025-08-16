@@ -1,6 +1,6 @@
 import React, {
   memo, useEffect, useMemo, useState,
-} from '../../../../lib/teact/teact';
+} from '../../../../lib/react-utils';
 import { getActions, getGlobal, withGlobal } from '../../../../global';
 
 import type { ApiStarGiftUnique } from '../../../../api/types';

@@ -1,10 +1,10 @@
 import { type MouseEvent as ReactMouseEvent } from 'react';
-import type { FC } from '../../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useEffect,
   useMemo, useRef,
   useSignal, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions, getGlobal, withGlobal } from '../../../global';
 
 import type { ApiAttachBot, ApiChat, ApiUser } from '../../../api/types';

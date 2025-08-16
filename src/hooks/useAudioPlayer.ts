@@ -1,6 +1,6 @@
 import {
   useEffect, useMemo, useRef, useState,
-} from '../lib/teact/teact';
+} from '../lib/react-utils';
 import { getActions, getGlobal } from '../global';
 
 import type { Track, TrackId } from '../util/audioPlayer';

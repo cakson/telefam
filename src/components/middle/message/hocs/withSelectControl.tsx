@@ -1,6 +1,6 @@
 import type { MouseEvent as ReactMouseEvent } from 'react';
-import type { FC } from '../../../../lib/teact/teact';
-import React, { memo, useMemo } from '../../../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useMemo } from '../../../../lib/react-utils';
 import { getActions, withGlobal } from '../../../../global';
 
 import type { OwnProps as PhotoProps } from '../Photo';

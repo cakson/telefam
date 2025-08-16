@@ -1,7 +1,7 @@
 import {
   getIsHeavyAnimating,
   useCallback, useEffect, useMemo, useRef,
-} from '../lib/teact/teact';
+} from '../lib/react-utils';
 
 import { createCallbackManager } from '../util/callbacks';
 import useLastCallback from './useLastCallback';

@@ -1,4 +1,4 @@
-import { useEffect, useState } from '../lib/teact/teact';
+import { useEffect, useState } from '../lib/react-utils';
 
 import type { RegularLangKey } from '../types/language';
 

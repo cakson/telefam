@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from '../../../../lib/teact/teact';
+import { useEffect, useRef, useState } from '../../../../lib/react-utils';
 
 import { requestMutation } from '../../../../lib/fasterdom/fasterdom';
 import { IS_SAFARI, IS_VOICE_RECORDING_SUPPORTED } from '../../../../util/browser/windowEnvironment';

@@ -1,5 +1,5 @@
-import type { FC } from '../lib/teact/teact';
-import React, { useEffect, useLayoutEffect } from '../lib/teact/teact';
+import type { FC } from 'react';
+import React, { useEffect, useLayoutEffect } from '../lib/react-utils';
 import { withGlobal } from '../global';
 
 import type { GlobalState } from '../global/types';

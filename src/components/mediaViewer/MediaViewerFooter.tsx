@@ -1,5 +1,5 @@
-import type { FC } from '../../lib/teact/teact';
-import React, { useEffect, useState } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { useEffect, useState } from '../../lib/react-utils';
 
 import type { TextPart } from '../../types';
 

@@ -1,7 +1,7 @@
-import type { FC } from '../../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useEffect, useMemo, useRef,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 
 import type { ApiAvailableReaction, ApiReactionWithPaid } from '../../../api/types';
 import type { ObserveFn } from '../../../hooks/useIntersectionObserver';

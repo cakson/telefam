@@ -1,5 +1,5 @@
-import type { FC } from '../../lib/teact/teact';
-import React, { memo, useCallback, useMemo } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useCallback, useMemo } from '../../lib/react-utils';
 
 import type { ApiPaymentCredentials } from '../../api/types';
 import type { FormEditDispatch, FormState } from '../../hooks/reducers/usePaymentReducer';

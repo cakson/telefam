@@ -1,9 +1,9 @@
 import '../../../global/actions/calls';
 
-import type { FC } from '../../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useCallback, useEffect, useMemo, useRef,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions, withGlobal } from '../../../global';
 
 import type { ApiPhoneCall, ApiUser } from '../../../api/types';

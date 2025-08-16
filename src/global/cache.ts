@@ -1,6 +1,6 @@
 /* eslint-disable eslint-multitab-tt/no-immediate-global */
-import { getIsHeavyAnimating, onFullyIdle } from '../lib/teact/teact';
-import { addCallback, removeCallback } from '../lib/teact/teactn';
+import { getIsHeavyAnimating, onFullyIdle } from '../lib/react-utils';
+import { addCallback, removeCallback } from '../lib/react-utils/teactn';
 
 import type {
   ApiAvailableReaction,

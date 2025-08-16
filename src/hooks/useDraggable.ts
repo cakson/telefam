@@ -1,7 +1,7 @@
 import type { RefObject } from 'react';
 import {
   useEffect, useSignal, useState,
-} from '../lib/teact/teact';
+} from '../lib/react-utils';
 
 import type { Point, Size } from '../types';
 

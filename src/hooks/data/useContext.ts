@@ -1,4 +1,4 @@
-import { type Context, useContextSignal } from '../../lib/teact/teact';
+import { type Context, useContextSignal } from '../../lib/react-utils';
 
 import useDerivedState from '../useDerivedState';
 

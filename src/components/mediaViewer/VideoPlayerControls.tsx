@@ -1,9 +1,9 @@
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useEffect, useLayoutEffect,
   useMemo,
   useSignal,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import type { ApiDimensions } from '../../api/types';
 import type { BufferedRange } from '../../hooks/useBuffering';

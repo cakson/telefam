@@ -1,4 +1,4 @@
-import { getIsHeavyAnimating, useEffect, useRef } from '../../../../lib/teact/teact';
+import { getIsHeavyAnimating, useEffect, useRef } from '../../../../lib/react-utils';
 
 import { requestMeasure } from '../../../../lib/fasterdom/fasterdom';
 

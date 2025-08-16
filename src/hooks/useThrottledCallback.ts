@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from '../lib/teact/teact';
+import { useCallback, useMemo } from '../lib/react-utils';
 
 import type { Scheduler } from '../util/schedulers';
 

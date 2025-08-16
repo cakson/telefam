@@ -1,5 +1,5 @@
-import type { FC } from '../../lib/teact/teact';
-import React, { memo, useEffect, useMemo } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useEffect, useMemo } from '../../lib/react-utils';
 import { withGlobal } from '../../global';
 
 import type { ApiReceiptRegular, ApiShippingAddress } from '../../api/types';

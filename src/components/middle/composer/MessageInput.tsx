@@ -1,10 +1,10 @@
 import type { ChangeEvent, RefObject } from 'react';
-import type { FC, TeactNode } from '../../../lib/teact/teact';
+import type { FC, TeactNode } from '../../../lib/react-utils';
 import React, {
   getIsHeavyAnimating,
   memo, useEffect, useLayoutEffect,
   useRef, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions, withGlobal } from '../../../global';
 
 import type { ApiInputMessageReplyInfo } from '../../../api/types';

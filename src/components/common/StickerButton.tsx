@@ -1,7 +1,7 @@
 import type { MouseEvent as ReactMouseEvent, ReactNode } from 'react';
 import React, {
   memo, useEffect, useMemo, useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import type { ApiBotInlineMediaResult, ApiSticker } from '../../api/types';

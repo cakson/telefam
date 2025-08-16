@@ -1,4 +1,4 @@
-import { useEffect, useRef } from '../lib/teact/teact';
+import { useEffect, useRef } from '../lib/react-utils';
 
 const useEffectWithPrevDeps = <const T extends readonly any[]>(
   cb: (args: T | readonly []) => void, dependencies: T, debugKey?: string,

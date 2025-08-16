@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
-import { useEffect, useState } from '../lib/teact/teact';
-import { addExtraClass, removeExtraClass } from '../lib/teact/teact-dom';
+import { useEffect, useState } from '../lib/react-utils';
+import { addExtraClass, removeExtraClass } from '../lib/react-utils/react-dom';
 
 import type { IAnchorPosition } from '../types';
 import type { Signal } from '../util/signals';

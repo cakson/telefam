@@ -1,4 +1,4 @@
-import { getIsHeavyAnimating, useEffect, useSignal } from '../lib/teact/teact';
+import { getIsHeavyAnimating, useEffect, useSignal } from '../lib/react-utils';
 
 import useDerivedState from './useDerivedState';
 

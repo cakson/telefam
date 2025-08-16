@@ -1,4 +1,4 @@
-import { useEffect, useState } from '../../lib/teact/teact';
+import { useEffect, useState } from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import { IS_MOBILE } from '../../util/browser/windowEnvironment';

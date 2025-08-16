@@ -1,4 +1,4 @@
-import React, { memo, type TeactNode, useMemo } from '../../../lib/teact/teact';
+import React, { memo, type TeactNode, useMemo } from '../../../lib/react-utils';
 import { getActions } from '../../../global';
 
 import type { ApiPaidMedia } from '../../../api/types';

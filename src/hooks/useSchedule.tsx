@@ -1,4 +1,4 @@
-import React, { useState } from '../lib/teact/teact';
+import React, { useState } from '../lib/react-utils';
 
 import { SCHEDULED_WHEN_ONLINE } from '../config';
 import { getDayStartAt } from '../util/dates/dateFormat';

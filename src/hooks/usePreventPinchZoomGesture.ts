@@ -1,4 +1,4 @@
-import { useEffect } from '../lib/teact/teact';
+import { useEffect } from '../lib/react-utils';
 
 import { IS_IOS, IS_PWA, IS_TOUCH_ENV } from '../util/browser/windowEnvironment';
 

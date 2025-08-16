@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from '../../lib/teact/teact';
+import React, { useEffect, useRef } from '../../lib/react-utils';
 
 import { forceMutation, requestMutation } from '../../lib/fasterdom/fasterdom';
 import { IS_IOS, IS_SAFARI } from '../../util/browser/windowEnvironment';

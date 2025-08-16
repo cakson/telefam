@@ -1,4 +1,4 @@
-import { useCallback, useRef, useUnmountCleanup } from '../lib/teact/teact';
+import { useCallback, useRef, useUnmountCleanup } from '../lib/react-utils';
 
 const DEFAULT_THRESHOLD = 250;
 

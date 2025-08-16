@@ -1,4 +1,4 @@
-import React from '../../../lib/teact/teact';
+import React from '../../../lib/react-utils';
 import { getActions } from '../../../global';
 
 import type { ApiFormattedText, ApiMessageEntity } from '../../../api/types';

@@ -1,4 +1,4 @@
-import { useEffect, useState } from '../lib/teact/teact';
+import { useEffect, useState } from '../lib/react-utils';
 import { getActions } from '../global';
 
 import type { ThemeKey } from '../types';

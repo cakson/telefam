@@ -1,7 +1,7 @@
 import React, {
   memo,
   useState,
-} from '../../../../lib/teact/teact';
+} from '../../../../lib/react-utils';
 import { getActions, withGlobal } from '../../../../global';
 
 import type { ApiStarGiftUnique } from '../../../../api/types';

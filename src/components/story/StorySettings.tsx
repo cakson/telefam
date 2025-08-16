@@ -1,6 +1,6 @@
 import React, {
   memo, useEffect, useMemo, useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 import { getActions, withGlobal } from '../../global';
 
 import type {

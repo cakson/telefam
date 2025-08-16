@@ -1,6 +1,6 @@
 import React, {
   createContext, memo, useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import useContext from '../../hooks/data/useContext';
 

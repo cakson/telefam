@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import { useEffect, useMemo, useRef } from '../../../lib/teact/teact';
+import { useEffect, useMemo, useRef } from '../../../lib/react-utils';
 import { getActions } from '../../../global';
 
 import type { MessageListType } from '../../../types';

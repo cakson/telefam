@@ -1,4 +1,4 @@
-import { useRef } from '../lib/teact/teact';
+import { useRef } from '../lib/react-utils';
 
 import useSyncEffect from './useSyncEffect';
 

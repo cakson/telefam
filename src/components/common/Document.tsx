@@ -1,6 +1,6 @@
 import React, {
   memo, useEffect, useRef, useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import type { ApiDocument, ApiMessage } from '../../api/types';

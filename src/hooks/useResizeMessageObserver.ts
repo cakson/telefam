@@ -1,4 +1,4 @@
-import { beginHeavyAnimation, useRef } from '../lib/teact/teact';
+import { beginHeavyAnimation, useRef } from '../lib/react-utils';
 import { getActions } from '../global';
 
 import { isAnimatingScroll } from '../util/animateScroll';

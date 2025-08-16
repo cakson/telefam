@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from '../../lib/teact/teact';
+import React, { useEffect, useLayoutEffect, useState } from '../../lib/react-utils';
 
 const TestCleanupOrder = () => {
   const [, setRand] = useState(Math.random());

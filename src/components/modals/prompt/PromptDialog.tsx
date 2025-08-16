@@ -1,4 +1,4 @@
-import React, { memo, useState } from '../../../lib/teact/teact';
+import React, { memo, useState } from '../../../lib/react-utils';
 
 import useLastCallback from '../../../hooks/useLastCallback';
 import useOldLang from '../../../hooks/useOldLang';

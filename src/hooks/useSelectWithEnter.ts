@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from '../lib/teact/teact';
+import { useCallback, useEffect, useRef } from '../lib/react-utils';
 
 const useSendWithEnter = (
   onSelect: NoneToVoidFunction,

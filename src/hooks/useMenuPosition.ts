@@ -1,6 +1,6 @@
-import type React from '../lib/teact/teact';
-import { useLayoutEffect } from '../lib/teact/teact';
-import { addExtraClass, setExtraStyles } from '../lib/teact/teact-dom';
+import type React from 'react';
+import { useLayoutEffect } from '../lib/react-utils';
+import { addExtraClass, setExtraStyles } from '../lib/react-utils/react-dom';
 
 import type { IAnchorPosition } from '../types';
 

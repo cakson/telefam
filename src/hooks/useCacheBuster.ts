@@ -1,4 +1,4 @@
-import { useCallback, useState } from '../lib/teact/teact';
+import { useCallback, useState } from '../lib/react-utils';
 
 const useCacheBuster = () => {
   const [cacheBuster, setCacheBuster] = useState(0);

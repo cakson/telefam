@@ -1,4 +1,4 @@
-import { useEffect, useRef } from '../lib/teact/teact';
+import { useEffect, useRef } from '../lib/react-utils';
 
 import { IS_TOUCH_ENV } from '../util/browser/windowEnvironment';
 import useLastCallback from './useLastCallback';

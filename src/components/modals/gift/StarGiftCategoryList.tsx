@@ -1,6 +1,6 @@
 import React, {
   memo, useMemo, useRef, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { withGlobal } from '../../../global';
 
 import type { StarGiftCategory } from '../../../types';

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from '../../../lib/teact/teact';
+import { useEffect, useRef } from '../../../lib/react-utils';
 
 import useForceUpdate from '../../../hooks/useForceUpdate';
 import useSyncEffect from '../../../hooks/useSyncEffect';

@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import { useEffect, useRef, useState } from '../lib/teact/teact';
+import { useEffect, useRef, useState } from '../lib/react-utils';
 
 import type { Scheduler } from '../util/schedulers';
 

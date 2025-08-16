@@ -6,8 +6,8 @@ import {
   useRef,
   useState,
   useUnmountCleanup,
-} from '../../../lib/teact/teact';
-import { setExtraStyles } from '../../../lib/teact/teact-dom';
+} from '../../../lib/react-utils';
+import { setExtraStyles } from '../../../lib/react-utils/react-dom';
 
 import { requestForcedReflow, requestNextMutation } from '../../../lib/fasterdom/fasterdom';
 

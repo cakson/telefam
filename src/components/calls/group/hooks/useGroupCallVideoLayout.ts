@@ -1,7 +1,7 @@
 import type { RefObject } from 'react';
 import {
   useEffect, useMemo, useState,
-} from '../../../../lib/teact/teact';
+} from '../../../../lib/react-utils';
 
 import useLastCallback from '../../../../hooks/useLastCallback';
 import usePreviousDeprecated from '../../../../hooks/usePreviousDeprecated';

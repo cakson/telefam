@@ -1,7 +1,7 @@
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   useCallback, useMemo, useRef, useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import Icon from '../common/icons/Icon';
 import Button from './Button';

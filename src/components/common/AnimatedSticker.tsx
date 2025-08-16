@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   getIsHeavyAnimating,
   memo,
@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
   useUnmountCleanup,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import type RLottieInstance from '../../lib/rlottie/RLottie';
 

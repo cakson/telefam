@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
-import { resolveEventType } from '../lib/teact/dom-events';
-import { onFullyIdle, useLayoutEffect } from '../lib/teact/teact';
+import { resolveEventType } from '../lib/react-utils/events';
+import { onFullyIdle, useLayoutEffect } from '../lib/react-utils';
 
 import unloadVideo from '../util/browser/unloadVideo';
 import { useStateRef } from './useStateRef';

@@ -1,4 +1,4 @@
-import { useMemo } from '../../../../lib/teact/teact';
+import { useMemo } from '../../../../lib/react-utils';
 
 import { mapValues } from '../../../../util/iteratees';
 import { useChatAnimationType } from './useChatAnimationType';

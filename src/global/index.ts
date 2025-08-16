@@ -1,11 +1,16 @@
-import type { ActionOptions } from '../lib/teact/teactn';
-import { typify } from '../lib/teact/teactn';
+import type { ActionOptions } from '../lib/react-utils/teactn';
+import { typify } from '../lib/react-utils/teactn';
 
 import type {
   ActionPayloads, GlobalState, RequiredActionPayloads, RequiredGlobalState,
 } from './types';
 
 const typed = typify<GlobalState, ActionPayloads & RequiredActionPayloads>();
+
+// Ensure typed object is properly initialized
+if (!typed) {
+  throw new Error('Failed to initialize global state management');
+}
 
 type ProjectActionTypes =
   ActionPayloads

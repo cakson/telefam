@@ -1,6 +1,6 @@
 import React, {
   memo, useCallback, useEffect, useMemo, useRef,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getGlobal } from '../../../global';
 
 import type { CustomPeerType, UniqueCustomPeer } from '../../../types';

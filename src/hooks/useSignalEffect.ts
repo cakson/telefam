@@ -1,4 +1,4 @@
-import { useRef, useUnmountCleanup } from '../lib/teact/teact';
+import { useRef, useUnmountCleanup } from '../lib/react-utils';
 
 import { cleanupEffect, isSignal } from '../util/signals';
 

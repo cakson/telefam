@@ -1,5 +1,5 @@
-import type { FC } from '../../lib/teact/teact';
-import React, { memo, useCallback } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useCallback } from '../../lib/react-utils';
 
 import { IS_TOUCH_ENV } from '../../util/browser/windowEnvironment';
 import buildClassName from '../../util/buildClassName';

@@ -1,5 +1,5 @@
-import type React from '../lib/teact/teact';
-import { useMemo, useState } from '../lib/teact/teact';
+import type React from 'react';
+import { useMemo, useState } from '../lib/react-utils';
 
 import { areDeepEqual } from '../util/areDeepEqual';
 import { isSafariPatchInProgress } from '../util/patchSafariProgressiveAudio';

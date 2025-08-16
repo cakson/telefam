@@ -1,8 +1,8 @@
 import type { ChangeEvent, RefObject } from 'react';
-import type { FC } from '../../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useEffect, useRef, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 
 import type { ApiNewPoll } from '../../../api/types';
 

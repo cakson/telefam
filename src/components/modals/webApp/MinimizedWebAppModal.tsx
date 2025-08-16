@@ -1,7 +1,7 @@
 import React, {
   memo, useMemo,
   useRef,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions, getGlobal, withGlobal } from '../../../global';
 
 import type { ApiUser } from '../../../api/types';

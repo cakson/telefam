@@ -1,8 +1,8 @@
-import type { FC } from '../../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useMemo,
   useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions, getGlobal, withGlobal } from '../../../global';
 
 import { SERVICE_NOTIFICATIONS_USER_ID } from '../../../config';

@@ -1,4 +1,4 @@
-import { useMemo } from '../lib/teact/teact';
+import { useMemo } from '../lib/react-utils';
 import { getGlobal } from '../global';
 
 import type { ApiThumbnail, MediaContainer } from '../api/types';

@@ -1,4 +1,4 @@
-import { useCallback, useState } from '../lib/teact/teact';
+import { useCallback, useState } from '../lib/react-utils';
 
 const useForceUpdate = () => {
   const [, setTrigger] = useState<boolean>(false);

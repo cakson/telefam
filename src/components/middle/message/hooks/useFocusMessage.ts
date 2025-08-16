@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef } from '../../../../lib/teact/teact';
-import { addExtraClass } from '../../../../lib/teact/teact-dom';
+import { useLayoutEffect, useRef } from '../../../../lib/react-utils';
+import { addExtraClass } from '../../../../lib/react-utils/react-dom';
 
 import type { FocusDirection, ScrollTargetPosition } from '../../../../types';
 

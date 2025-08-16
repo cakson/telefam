@@ -1,4 +1,4 @@
-import { useMemo } from '../../../lib/teact/teact';
+import { useMemo } from '../../../lib/react-utils';
 
 import type { MediaViewerMedia } from '../../../types';
 import { ApiMediaFormat } from '../../../api/types';

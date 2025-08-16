@@ -1,7 +1,7 @@
 import React, {
   memo, useEffect, useLayoutEffect, useRef, useState,
-} from '../../lib/teact/teact';
-import { addExtraClass, removeExtraClass } from '../../lib/teact/teact-dom';
+} from '../../lib/react-utils';
+import { addExtraClass, removeExtraClass } from '../../lib/react-utils/react-dom';
 
 import type { ApiStory } from '../../api/types';
 

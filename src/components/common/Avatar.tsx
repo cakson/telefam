@@ -1,6 +1,6 @@
 import type { MouseEvent as ReactMouseEvent } from 'react';
-import type { FC, TeactNode } from '../../lib/teact/teact';
-import React, { memo, useMemo, useRef } from '../../lib/teact/teact';
+import type { FC, TeactNode } from '../../lib/react-utils';
+import React, { memo, useMemo, useRef } from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import type {

@@ -1,5 +1,5 @@
-import type { FC } from '../../../lib/teact/teact';
-import React, { memo } from '../../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo } from '../../../lib/react-utils';
 
 import { IS_EMOJI_SUPPORTED } from '../../../util/browser/windowEnvironment';
 import buildClassName from '../../../util/buildClassName';

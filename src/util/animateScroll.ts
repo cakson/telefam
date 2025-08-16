@@ -1,4 +1,4 @@
-import { beginHeavyAnimation } from '../lib/teact/teact';
+import { beginHeavyAnimation } from '../lib/react-utils';
 import { getGlobal } from '../global';
 
 import type { ScrollTargetPosition } from '../types';

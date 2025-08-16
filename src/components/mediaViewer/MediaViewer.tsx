@@ -1,7 +1,7 @@
 import React, {
   beginHeavyAnimation,
   memo, useEffect, useMemo, useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 import { getActions, withGlobal } from '../../global';
 
 import type {

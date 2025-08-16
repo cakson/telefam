@@ -1,5 +1,5 @@
-import type { FC } from '../../lib/teact/teact';
-import React, { useMemo } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { useMemo } from '../../lib/react-utils';
 import { getActions, withGlobal } from '../../global';
 
 import type { ApiChat, ApiPeer } from '../../api/types';

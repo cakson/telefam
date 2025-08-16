@@ -1,4 +1,4 @@
-import React, { memo } from '../../lib/teact/teact';
+import React, { memo } from '../../lib/react-utils';
 import { getActions, withGlobal } from '../../global';
 
 import { getUserFirstOrLastName } from '../../global/helpers';

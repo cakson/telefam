@@ -1,6 +1,6 @@
 import React, {
   memo, useMemo, useRef, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions } from '../../../global';
 
 import type { ApiMediaAreaSuggestedReaction, ApiStory } from '../../../api/types';

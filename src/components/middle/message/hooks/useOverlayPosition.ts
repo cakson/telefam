@@ -1,5 +1,5 @@
 import { type RefObject } from 'react';
-import { useEffect } from '../../../../lib/teact/teact';
+import { useEffect } from '../../../../lib/react-utils';
 
 import { requestMutation } from '../../../../lib/fasterdom/fasterdom';
 import { REM } from '../../../common/helpers/mediaDimensions';

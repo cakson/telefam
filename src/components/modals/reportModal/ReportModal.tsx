@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react';
 import React, {
   memo, useEffect, useMemo, useRef, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions } from '../../../global';
 
 import type { TabState } from '../../../global/types';

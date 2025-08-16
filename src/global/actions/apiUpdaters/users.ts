@@ -1,4 +1,4 @@
-import { throttleWithFullyIdle } from '../../../lib/teact/heavyAnimation';
+import { throttleWithFullyIdle } from '../../../lib/react-utils/animation';
 
 import type { ApiUserStatus } from '../../../api/types';
 import type { ActionReturnType, RequiredGlobalState } from '../../types';

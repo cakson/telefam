@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from '../../lib/teact/teact';
+import { useEffect, useMemo, useState } from '../../lib/react-utils';
 
 import { throttle } from '../../util/schedulers';
 import windowSize from '../../util/windowSize';

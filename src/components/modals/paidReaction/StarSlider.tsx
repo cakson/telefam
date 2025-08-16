@@ -1,6 +1,6 @@
 import React, {
   memo, useMemo, useRef, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 
 import { requestMeasure, requestMutation } from '../../../lib/fasterdom/fasterdom';
 import buildClassName from '../../../util/buildClassName';

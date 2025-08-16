@@ -1,4 +1,4 @@
-import { useUnmountCleanup } from '../../../lib/teact/teact';
+import { useUnmountCleanup } from '../../../lib/react-utils';
 
 import { createSignal } from '../../../util/signals';
 

@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
-import type { FC } from '../../lib/teact/teact';
-import React, { getIsHeavyAnimating, memo } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { getIsHeavyAnimating, memo } from '../../lib/react-utils';
 import { getActions, getGlobal } from '../../global';
 
 import type { ApiMessage } from '../../api/types';

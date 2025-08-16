@@ -1,4 +1,4 @@
-import { useMemo } from '../../lib/teact/teact';
+import { useMemo } from '../../lib/react-utils';
 
 import { prepareHexColor } from '../../util/themeStyle';
 import useStyleObserver from '../element/useStyleObserver';

@@ -1,7 +1,7 @@
 import React, {
   type TeactNode,
   useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import { ApiMessageEntityTypes } from '../../api/types';
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from '../../../lib/teact/teact';
+import React, { useEffect, useRef, useState } from '../../../lib/react-utils';
 
 import type { ApiMediaExtendedPreview, ApiPhoto } from '../../../api/types';
 import type { ObserveFn } from '../../../hooks/useIntersectionObserver';

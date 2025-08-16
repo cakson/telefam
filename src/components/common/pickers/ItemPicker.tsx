@@ -1,9 +1,9 @@
-import type { TeactNode } from '../../../lib/teact/teact';
+import type { TeactNode } from '../../../lib/react-utils';
 import React, {
   memo, useCallback, useEffect,
   useMemo,
   useRef,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 
 import { requestMeasure } from '../../../lib/fasterdom/fasterdom';
 import buildClassName from '../../../util/buildClassName';

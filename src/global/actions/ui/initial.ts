@@ -1,4 +1,4 @@
-import { addCallback } from '../../../lib/teact/teactn';
+import { addCallback } from '../../../lib/react-utils/teactn';
 
 import type { LangCode } from '../../../types';
 import type { ActionReturnType, GlobalState } from '../../types';

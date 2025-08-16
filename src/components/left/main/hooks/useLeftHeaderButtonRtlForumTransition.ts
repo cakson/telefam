@@ -1,4 +1,4 @@
-import { useRef } from '../../../../lib/teact/teact';
+import { useRef } from '../../../../lib/react-utils';
 
 import useForceUpdate from '../../../../hooks/useForceUpdate';
 import usePreviousDeprecated from '../../../../hooks/usePreviousDeprecated';

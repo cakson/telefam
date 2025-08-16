@@ -1,10 +1,10 @@
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo,
   useLayoutEffect,
   useMemo,
   useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import buildClassName from '../../util/buildClassName';
 

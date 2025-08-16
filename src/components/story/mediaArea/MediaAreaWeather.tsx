@@ -2,8 +2,8 @@ import React, {
   type FC, memo,
   useLayoutEffect,
   useRef, useState,
-} from '../../../lib/teact/teact';
-import { setExtraStyles } from '../../../lib/teact/teact-dom';
+} from '../../../lib/react-utils';
+import { setExtraStyles } from '../../../lib/react-utils/react-dom';
 import { withGlobal } from '../../../global';
 
 import type { ApiMediaAreaWeather, ApiSticker } from '../../../api/types';

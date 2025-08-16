@@ -1,4 +1,4 @@
-import React from '../../lib/teact/teact';
+import React from '../../lib/react-utils';
 
 import buildClassName from '../../util/buildClassName';
 

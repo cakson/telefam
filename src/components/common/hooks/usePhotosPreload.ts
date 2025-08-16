@@ -1,4 +1,4 @@
-import { useEffect } from '../../../lib/teact/teact';
+import { useEffect } from '../../../lib/react-utils';
 
 import type { ApiPhoto } from '../../../api/types';
 import { ApiMediaFormat } from '../../../api/types';

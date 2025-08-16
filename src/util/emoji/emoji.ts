@@ -1,4 +1,4 @@
-import { addExtraClass } from '../../lib/teact/teact-dom';
+import { addExtraClass } from '../../lib/react-utils/react-dom';
 
 import { requestMutation } from '../../lib/fasterdom/fasterdom';
 import { removeVS16s } from '../../lib/twemojiRegex';

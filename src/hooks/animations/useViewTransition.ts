@@ -2,7 +2,7 @@ import {
   useEffect,
   useRef,
   useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import { VIEW_TRANSITION_CLASS_NAME } from '../../config';
 import { requestMutation, requestNextMutation } from '../../lib/fasterdom/fasterdom';

@@ -1,8 +1,8 @@
-import type { FC } from '../../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useCallback, useEffect, useRef,
   useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 
 import type { ApiWallpaper } from '../../../api/types';
 import type { ThemeKey } from '../../../types';

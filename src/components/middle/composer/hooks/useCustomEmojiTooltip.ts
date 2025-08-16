@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import { useEffect } from '../../../../lib/teact/teact';
+import { useEffect } from '../../../../lib/react-utils';
 import { getActions } from '../../../../global';
 
 import type { ApiSticker } from '../../../../api/types';

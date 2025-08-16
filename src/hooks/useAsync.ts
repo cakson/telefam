@@ -1,4 +1,4 @@
-import { useEffect, useState } from '../lib/teact/teact';
+import { useEffect, useState } from '../lib/react-utils';
 
 const useAsync = <T>(fn: () => Promise<T>, deps: any[], defaultValue?: T) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

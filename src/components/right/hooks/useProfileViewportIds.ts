@@ -1,4 +1,4 @@
-import { useMemo, useRef } from '../../../lib/teact/teact';
+import { useMemo, useRef } from '../../../lib/react-utils';
 
 import type {
   ApiChat, ApiChatMember, ApiMessage, ApiUser, ApiUserStatus,

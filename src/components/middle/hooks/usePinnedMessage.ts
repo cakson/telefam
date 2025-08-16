@@ -1,4 +1,4 @@
-import { useEffect, useSignal } from '../../../lib/teact/teact';
+import { useEffect, useSignal } from '../../../lib/react-utils';
 import { getGlobal } from '../../../global';
 
 import type { ThreadId } from '../../../types';

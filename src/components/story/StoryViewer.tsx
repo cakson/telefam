@@ -1,7 +1,7 @@
 import React, {
   beginHeavyAnimation,
   memo, useCallback, useEffect, useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 import { getActions, withGlobal } from '../../global';
 
 import type { ApiTypeStory } from '../../api/types';

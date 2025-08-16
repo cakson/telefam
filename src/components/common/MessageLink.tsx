@@ -1,5 +1,5 @@
-import type { FC } from '../../lib/teact/teact';
-import React, { useCallback } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { useCallback } from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import type { ApiMessage } from '../../api/types';

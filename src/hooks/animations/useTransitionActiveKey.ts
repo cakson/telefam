@@ -1,4 +1,4 @@
-import { useMemo, useRef } from '../../lib/teact/teact';
+import { useMemo, useRef } from '../../lib/react-utils';
 
 /**
  * Use this hook to bind `<Transition />` animation to changes in the dependency array.

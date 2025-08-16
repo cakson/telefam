@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from '../../../../lib/teact/teact';
+import { useEffect, useLayoutEffect, useRef } from '../../../../lib/react-utils';
 import { getActions } from '../../../../global';
 
 import type { ApiDraft, ApiMessage } from '../../../../api/types';

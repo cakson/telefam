@@ -1,6 +1,6 @@
-import type { FC, VirtualElement } from '../../lib/teact/teact';
-import { useLayoutEffect, useRef } from '../../lib/teact/teact';
-import TeactDOM from '../../lib/teact/teact-dom';
+import type { FC, VirtualElement } from '../../lib/react-utils';
+import { useLayoutEffect, useRef } from '../../lib/react-utils';
+import TeactDOM from '../../lib/react-utils/react-dom';
 
 type OwnProps = {
   containerSelector?: string;

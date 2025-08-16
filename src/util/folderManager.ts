@@ -1,5 +1,5 @@
-import { onFullyIdle } from '../lib/teact/teact';
-import { addCallback } from '../lib/teact/teactn';
+import { onFullyIdle } from '../lib/react-utils';
+import { addCallback } from '../lib/react-utils/teactn';
 import { addActionHandler, getGlobal } from '../global';
 
 import type {

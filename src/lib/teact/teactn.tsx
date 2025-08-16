@@ -1,11 +1,15 @@
-import type { FC, FC_withDebug, Props } from './teact';
+import type { FC, Props } from '../react-utils/memo';
+
+// Define the FC_withDebug type for compatibility
+type FC_withDebug = FC & { DEBUG_contentComponentName?: string };
 
 import { DEBUG, DEBUG_MORE } from '../../config';
 import arePropsShallowEqual, { logUnequalProps } from '../../util/arePropsShallowEqual';
 import { handleError } from '../../util/handleError';
 import { orderBy } from '../../util/iteratees';
 import { throttleWithTickEnd } from '../../util/schedulers';
-import React, { DEBUG_resolveComponentName, getIsHeavyAnimating, useUnmountCleanup } from './teact';
+import React from 'react';
+import { useUnmountCleanup, DEBUG_resolveComponentName, getIsHeavyAnimating } from '../react-utils';
 
 import useForceUpdate from '../../hooks/useForceUpdate';
 import useUniqueId from '../../hooks/useUniqueId';

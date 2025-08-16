@@ -100,7 +100,6 @@
     "mini-css-extract-plugin": "^2.9.0",
     "postcss-loader": "^8.1.1",
     "postcss-modules": "^6.0.0",
-    "react": "^18.3.1",
     "sass": "^1.77.0",
     "sass-loader": "^14.2.1",
     "script-loader": "^0.7.2",
@@ -131,6 +130,8 @@
     "pako": "^2.1.0",
     "path-browserify": "^1.0.1",
     "qr-code-styling": "github:zubiden/qr-code-styling#dbbfed0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.0",
     "v8-compile-cache": "^2.4.0"
   },
   "optionalDependencies": {

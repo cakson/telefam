@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from '../lib/teact/teact';
+import { useEffect, useMemo } from '../lib/react-utils';
 import { getActions } from '../global';
 
 import type { ApiTypeStory } from '../api/types';

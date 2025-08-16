@@ -1,6 +1,6 @@
 import React, {
   memo, useEffect, useMemo, useRef,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 
 import type { ApiBusinessWorkHours } from '../../../api/types';
 

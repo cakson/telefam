@@ -1,8 +1,8 @@
 import type { RefObject, UIEvent } from 'react';
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   useEffect, useLayoutEffect, useMemo, useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import { LoadMoreDirection } from '../../types';
 

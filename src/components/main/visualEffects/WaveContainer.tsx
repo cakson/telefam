@@ -1,6 +1,6 @@
 import React, {
   memo, useEffect, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { withGlobal } from '../../../global';
 
 import type { TabState } from '../../../global/types';

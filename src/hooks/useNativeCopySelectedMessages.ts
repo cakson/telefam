@@ -1,4 +1,4 @@
-import { useMemo } from '../lib/teact/teact';
+import { useMemo } from '../lib/react-utils';
 
 import getMessageIdsForSelectedText from '../util/getMessageIdsForSelectedText';
 import { useHotkeys } from './useHotkeys';

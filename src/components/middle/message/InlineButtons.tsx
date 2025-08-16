@@ -1,5 +1,5 @@
-import type { FC, TeactNode } from '../../../lib/teact/teact';
-import React, { memo, useMemo } from '../../../lib/teact/teact';
+import type { FC, TeactNode } from '../../../lib/react-utils';
+import React, { memo, useMemo } from '../../../lib/react-utils';
 
 import type { ApiKeyboardButton, ApiMessage } from '../../../api/types';
 import type { ActionPayloads } from '../../../global/types';

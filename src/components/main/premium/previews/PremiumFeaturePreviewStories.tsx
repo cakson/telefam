@@ -1,4 +1,4 @@
-import React, { memo, useLayoutEffect, useRef } from '../../../../lib/teact/teact';
+import React, { memo, useLayoutEffect, useRef } from '../../../../lib/react-utils';
 import { withGlobal } from '../../../../global';
 
 import type { ApiUser } from '../../../../api/types';

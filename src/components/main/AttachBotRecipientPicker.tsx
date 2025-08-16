@@ -1,5 +1,5 @@
-import type { FC } from '../../lib/teact/teact';
-import React, { memo, useCallback, useEffect } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useCallback, useEffect } from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import type { TabState } from '../../global/types';

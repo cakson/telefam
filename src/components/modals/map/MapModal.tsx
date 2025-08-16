@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from '../../../lib/teact/teact';
+import React, { memo, useMemo } from '../../../lib/react-utils';
 import { getActions } from '../../../global';
 
 import type { TabState } from '../../../global/types';

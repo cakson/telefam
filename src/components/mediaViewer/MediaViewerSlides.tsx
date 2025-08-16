@@ -1,7 +1,7 @@
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useEffect, useLayoutEffect, useMemo, useRef, useSignal, useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import type { MediaViewerOrigin, ThreadId } from '../../types';
 import type { RealTouchEvent } from '../../util/captureEvents';

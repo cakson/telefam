@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import { useEffect, useState } from '../../../../lib/teact/teact';
+import { useEffect, useState } from '../../../../lib/react-utils';
 import { getGlobal } from '../../../../global';
 
 import type { ApiChatMember, ApiPeer, ApiUser } from '../../../../api/types';

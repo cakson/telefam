@@ -1,4 +1,4 @@
-import { useEffect, useRef } from '../../../lib/teact/teact';
+import { useEffect, useRef } from '../../../lib/react-utils';
 import { getActions } from '../../../global';
 
 import type { ActiveEmojiInteraction } from '../../../types';

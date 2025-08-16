@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import { useRef, useState } from '../../../lib/teact/teact';
+import { useRef, useState } from '../../../lib/react-utils';
 
 import { ANIMATION_END_DELAY } from '../../../config';
 import animateScroll from '../../../util/animateScroll';

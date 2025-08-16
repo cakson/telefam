@@ -1,7 +1,7 @@
 import React, {
   beginHeavyAnimation,
   type FC, memo, useEffect, useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import type { MenuPositionOptions } from '../../hooks/useMenuPosition';
 

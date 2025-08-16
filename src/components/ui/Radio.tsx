@@ -1,6 +1,6 @@
 import type { ChangeEvent, MouseEventHandler } from 'react';
-import type { FC, TeactNode } from '../../lib/teact/teact';
-import React, { memo } from '../../lib/teact/teact';
+import type { FC, TeactNode } from '../../lib/react-utils';
+import React, { memo } from '../../lib/react-utils';
 
 import buildClassName from '../../util/buildClassName';
 

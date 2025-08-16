@@ -1,4 +1,4 @@
-import { useRef } from '../lib/teact/teact';
+import { useRef } from '../lib/react-utils';
 
 // This is not render-dependent and will never allow previous to match current
 export default function usePrevious<T extends any>(current: T) {

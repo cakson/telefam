@@ -1,10 +1,10 @@
 import type { RefObject } from 'react';
 import React, {
   beginHeavyAnimation, useEffect, useLayoutEffect, useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 import {
   addExtraClass, removeExtraClass, setExtraStyles, toggleExtraClass,
-} from '../../lib/teact/teact-dom';
+} from '../../lib/react-utils/react-dom';
 import { getGlobal } from '../../global';
 
 import { requestForcedReflow, requestMutation } from '../../lib/fasterdom/fasterdom';

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from '../../lib/teact/teact';
+import { useEffect, useLayoutEffect, useState } from '../../lib/react-utils';
 
 import { IS_IOS } from '../../util/browser/windowEnvironment';
 

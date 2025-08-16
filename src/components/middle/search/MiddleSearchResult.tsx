@@ -1,4 +1,4 @@
-import React, { memo } from '../../../lib/teact/teact';
+import React, { memo } from '../../../lib/react-utils';
 
 import type { ApiChat, ApiMessage, ApiPeer } from '../../../api/types';
 

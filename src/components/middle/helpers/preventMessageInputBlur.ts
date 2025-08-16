@@ -1,4 +1,4 @@
-import type React from '../../../lib/teact/teact';
+import type React from 'react';
 
 import { EDITABLE_INPUT_ID } from '../../../config';
 import { IS_IOS } from '../../../util/browser/windowEnvironment';

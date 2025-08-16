@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from '../../lib/teact/teact';
+import { useEffect, useLayoutEffect, useState } from '../../lib/react-utils';
 
 import useLastCallback from '../useLastCallback';
 import useResizeObserver from '../useResizeObserver';

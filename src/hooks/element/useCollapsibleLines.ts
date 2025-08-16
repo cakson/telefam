@@ -1,7 +1,7 @@
 import type { RefObject } from 'react';
 import {
   useEffect, useLayoutEffect, useRef, useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import { requestForcedReflow, requestMeasure, requestMutation } from '../../lib/fasterdom/fasterdom';
 import calcTextLineHeightAndCount from '../../util/element/calcTextLineHeightAndCount';

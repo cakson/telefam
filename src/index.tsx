@@ -1,12 +1,14 @@
 import './util/handleError';
 import './util/setupServiceWorker';
-import './global/init';
 
-import React from './lib/teact/teact';
-import TeactDOM from './lib/teact/teact-dom';
+import React from './lib/react-utils';
+import ReactDOM from './lib/react-utils/react-dom';
 import {
   getActions, getGlobal,
 } from './global';
+
+// Import this after global to avoid circular dependency
+import './global/init';
 
 import {
   DEBUG, STRICTERDOM_ENABLED,
@@ -81,7 +83,7 @@ async function init() {
   requestMutation(() => {
     updateWebmanifest();
 
-    TeactDOM.render(
+    ReactDOM.render(
       <App />,
       document.getElementById('root')!,
     );
@@ -96,10 +98,16 @@ async function init() {
 
   if (DEBUG) {
     document.addEventListener('dblclick', () => {
-      // eslint-disable-next-line no-console
-      console.warn('TAB STATE', selectTabState(getGlobal()));
-      // eslint-disable-next-line no-console
-      console.warn('GLOBAL STATE', getGlobal());
+      try {
+        const global = getGlobal();
+        // eslint-disable-next-line no-console
+        console.warn('TAB STATE', selectTabState(global));
+        // eslint-disable-next-line no-console
+        console.warn('GLOBAL STATE', global);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error accessing global state:', error);
+      }
     });
   }
 }

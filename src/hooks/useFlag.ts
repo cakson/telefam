@@ -1,4 +1,4 @@
-import { useCallback, useState } from '../lib/teact/teact';
+import { useCallback, useState } from '../lib/react-utils';
 
 const useFlag = (initial = false, debugKey?: string): [boolean, NoneToVoidFunction, NoneToVoidFunction] => {
   const [value, setValue] = useState(initial, debugKey);

@@ -1,4 +1,4 @@
-import { useRef } from '../lib/teact/teact';
+import { useRef } from '../lib/react-utils';
 
 // Allows to use state value as "silent" dependency in hooks (not causing updates).
 // Also useful for state values that update frequently (such as controlled input value).

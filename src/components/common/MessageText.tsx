@@ -1,6 +1,6 @@
 import React, {
   memo, useMemo, useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import type { ApiFormattedText, ApiMessage, ApiStory } from '../../api/types';
 import type { ObserveFn } from '../../hooks/useIntersectionObserver';

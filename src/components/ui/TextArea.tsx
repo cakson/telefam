@@ -1,8 +1,8 @@
 import type { ChangeEvent, FormEvent, RefObject } from 'react';
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useCallback, useLayoutEffect, useRef,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 
 import { requestForcedReflow, requestMutation } from '../../lib/fasterdom/fasterdom';
 import buildClassName from '../../util/buildClassName';

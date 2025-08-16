@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import { useEffect, useRef, useSignal } from '../../../lib/teact/teact';
+import { useEffect, useRef, useSignal } from '../../../lib/react-utils';
 
 import useLastCallback from '../../../hooks/useLastCallback';
 import useResizeObserver from '../../../hooks/useResizeObserver';

@@ -1,8 +1,8 @@
-import type { FC } from '../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   beginHeavyAnimation, memo, useEffect, useMemo, useRef,
-} from '../../lib/teact/teact';
-import { addExtraClass, removeExtraClass } from '../../lib/teact/teact-dom';
+} from '../../lib/react-utils';
+import { addExtraClass, removeExtraClass } from '../../lib/react-utils/react-dom';
 import { getActions, getGlobal, withGlobal } from '../../global';
 
 import type {

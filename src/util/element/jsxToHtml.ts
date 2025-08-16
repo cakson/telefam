@@ -1,5 +1,5 @@
-import type { VirtualElement } from '../../lib/teact/teact';
-import TeactDOM from '../../lib/teact/teact-dom';
+import type { VirtualElement } from '../../lib/react-utils';
+import TeactDOM from '../../lib/react-utils/react-dom';
 
 export default function jsxToHtml(jsx: VirtualElement) {
   const fragment = document.createElement('div');

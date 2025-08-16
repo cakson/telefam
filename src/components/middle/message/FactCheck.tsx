@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useRef } from '../../../lib/teact/teact';
+import React, { memo, useMemo, useRef } from '../../../lib/react-utils';
 
 import type { ApiFactCheck } from '../../../api/types';
 

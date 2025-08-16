@@ -1,6 +1,6 @@
 import React, {
   memo, useEffect, useLayoutEffect, useMemo, useRef, useSignal, useState,
-} from '../../lib/teact/teact';
+} from '../../lib/react-utils';
 import { getActions, getGlobal, withGlobal } from '../../global';
 
 import type { ApiPeerStories, ApiTypeStory } from '../../api/types';

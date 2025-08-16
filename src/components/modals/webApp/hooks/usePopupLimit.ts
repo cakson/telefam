@@ -1,4 +1,4 @@
-import { useRef, useState } from '../../../../lib/teact/teact';
+import { useRef, useState } from '../../../../lib/react-utils';
 
 import useLastCallback from '../../../../hooks/useLastCallback';
 

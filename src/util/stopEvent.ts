@@ -1,4 +1,4 @@
-import type React from '../lib/teact/teact';
+import type React from 'react';
 
 const stopEvent = (e: React.UIEvent | Event | React.FormEvent) => {
   e.stopPropagation();

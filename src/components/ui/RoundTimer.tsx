@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from '../../lib/teact/teact';
+import React, { memo, useEffect, useState } from '../../lib/react-utils';
 
 import buildClassName from '../../util/buildClassName';
 import { formatCountdownShort } from '../../util/dates/dateFormat';

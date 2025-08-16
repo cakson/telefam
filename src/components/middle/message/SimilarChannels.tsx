@@ -1,6 +1,6 @@
 import React, {
   memo, useEffect, useMemo, useRef, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions, getGlobal, withGlobal } from '../../../global';
 
 import type { ApiChat, ApiChatFullInfo } from '../../../api/types';

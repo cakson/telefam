@@ -1,4 +1,4 @@
-import { type FC, type Props, useRef } from '../../lib/teact/teact';
+import { type FC, type Props, useRef } from '../../lib/react-utils';
 
 type InjectProps<T extends FC, P extends Props> = FC<Parameters<T>[0] & P>;
 

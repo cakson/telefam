@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { useCallback, useEffect, useRef } from '../../../../lib/teact/teact';
+import { useCallback, useEffect, useRef } from '../../../../lib/react-utils';
 import { getActions } from '../../../../global';
 
 import type { WebApp, WebAppInboundEvent, WebAppOutboundEvent } from '../../../../types/webapp';

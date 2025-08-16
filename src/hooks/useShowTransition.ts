@@ -1,6 +1,6 @@
-import type { RefObject } from '../lib/teact/teact';
-import { useLayoutEffect, useRef, useSignal } from '../lib/teact/teact';
-import { addExtraClass, toggleExtraClass } from '../lib/teact/teact-dom';
+import type { RefObject } from 'react';
+import { useLayoutEffect, useRef, useSignal } from '../lib/react-utils';
+import { addExtraClass, toggleExtraClass } from '../lib/react-utils/react-dom';
 
 import type { Signal } from '../util/signals';
 

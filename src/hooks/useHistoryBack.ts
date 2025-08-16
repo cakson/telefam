@@ -1,4 +1,4 @@
-import { useCallback, useRef } from '../lib/teact/teact';
+import { useCallback, useRef } from '../lib/react-utils';
 import { getActions } from '../global';
 
 import { IS_TEST } from '../config';

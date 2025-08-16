@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from '../../lib/teact/teact';
+import React, { memo, useCallback } from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import type { ApiTypeStory } from '../../api/types';

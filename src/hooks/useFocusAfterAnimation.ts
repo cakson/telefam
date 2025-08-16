@@ -1,5 +1,5 @@
 import type { RefObject } from 'react';
-import { useEffect } from '../lib/teact/teact';
+import { useEffect } from '../lib/react-utils';
 
 import { requestMeasure } from '../lib/fasterdom/fasterdom';
 import { IS_TOUCH_ENV } from '../util/browser/windowEnvironment';

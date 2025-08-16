@@ -1,4 +1,4 @@
-import { getIsHeavyAnimating, useEffect } from '../lib/teact/teact';
+import { getIsHeavyAnimating, useEffect } from '../lib/react-utils';
 
 import type { CallbackManager } from '../util/callbacks';
 

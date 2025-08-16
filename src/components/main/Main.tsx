@@ -4,8 +4,8 @@ import React, {
   beginHeavyAnimation,
   memo, useEffect, useLayoutEffect,
   useRef, useState,
-} from '../../lib/teact/teact';
-import { addExtraClass } from '../../lib/teact/teact-dom';
+} from '../../lib/react-utils';
+import { addExtraClass } from '../../lib/react-utils/react-dom';
 import { getActions, getGlobal, withGlobal } from '../../global';
 
 import type { ApiChatFolder, ApiLimitTypeWithModal, ApiUser } from '../../api/types';

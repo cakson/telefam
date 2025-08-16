@@ -1,6 +1,6 @@
 import {
   useEffect, useLayoutEffect, useRef,
-} from '../../../../lib/teact/teact';
+} from '../../../../lib/react-utils';
 import { getGlobal } from '../../../../global';
 
 import type { ApiSticker } from '../../../../api/types';

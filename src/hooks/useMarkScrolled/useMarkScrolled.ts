@@ -1,5 +1,5 @@
-import type { RefObject } from '../../lib/teact/teact';
-import { useEffect } from '../../lib/teact/teact';
+import type { RefObject } from 'react';
+import { useEffect } from '../../lib/react-utils';
 
 import { requestMutation } from '../../lib/fasterdom/fasterdom';
 import { throttle } from '../../util/schedulers';

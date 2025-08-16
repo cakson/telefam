@@ -1,5 +1,5 @@
 import type { AriaRole } from 'react';
-import React from '../../../lib/teact/teact';
+import React from '../../../lib/react-utils';
 
 import type { IconName } from '../../../types/icons';
 

@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useRef } from '../../../../lib/teact/teact';
+import React, { memo, useMemo, useRef } from '../../../../lib/react-utils';
 import { withGlobal } from '../../../../global';
 
 import type { ApiChat, ApiSticker } from '../../../../api/types';

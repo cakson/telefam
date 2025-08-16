@@ -1,5 +1,5 @@
-import React from '../../lib/teact/teact';
-import TeactDOM from '../../lib/teact/teact-dom';
+import React from '../../lib/react-utils';
+import TeactDOM from '../../lib/react-utils/react-dom';
 
 function tick() {
   const element = (

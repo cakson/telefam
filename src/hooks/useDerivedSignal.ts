@@ -1,4 +1,4 @@
-import { useSignal } from '../lib/teact/teact';
+import { useSignal } from '../lib/react-utils';
 
 import type { Signal } from '../util/signals';
 

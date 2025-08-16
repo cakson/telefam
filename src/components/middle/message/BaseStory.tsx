@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from '../../../lib/teact/teact';
+import React, { memo, useEffect } from '../../../lib/react-utils';
 import { getActions } from '../../../global';
 
 import type { ApiMessageStoryData, ApiTypeStory } from '../../../api/types';

@@ -1,4 +1,4 @@
-import { useCallback } from '../lib/teact/teact';
+import { useCallback } from '../lib/react-utils';
 
 import { useStateRef } from './useStateRef';
 

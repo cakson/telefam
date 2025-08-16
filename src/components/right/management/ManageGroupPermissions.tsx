@@ -1,8 +1,8 @@
-import type { FC } from '../../../lib/teact/teact';
+import type { FC } from 'react';
 import React, {
   memo, useCallback, useEffect,
   useMemo, useState,
-} from '../../../lib/teact/teact';
+} from '../../../lib/react-utils';
 import { getActions, withGlobal } from '../../../global';
 
 import type { ApiChat, ApiChatBannedRights, ApiChatMember } from '../../../api/types';

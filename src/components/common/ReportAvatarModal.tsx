@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react';
-import type { FC } from '../../lib/teact/teact';
-import React, { memo, useMemo, useState } from '../../lib/teact/teact';
+import type { FC } from 'react';
+import React, { memo, useMemo, useState } from '../../lib/react-utils';
 import { getActions } from '../../global';
 
 import type { ApiPhoto, ApiReportReason } from '../../api/types';

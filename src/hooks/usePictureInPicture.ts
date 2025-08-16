@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useState } from '../lib/teact/teact';
+import { useCallback, useLayoutEffect, useState } from '../lib/react-utils';
 
 import { DEBUG } from '../config';
 import { IS_IOS, IS_PWA } from '../util/browser/windowEnvironment';

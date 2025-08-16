@@ -1,5 +1,5 @@
-import type { FC, TeactNode } from '../../../lib/teact/teact';
-import React, { memo, useMemo } from '../../../lib/teact/teact';
+import type { FC, TeactNode } from '../../../lib/react-utils';
+import React, { memo, useMemo } from '../../../lib/react-utils';
 import { getActions, withGlobal } from '../../../global';
 
 import type { ApiMessage } from '../../../api/types';

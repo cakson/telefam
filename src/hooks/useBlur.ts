@@ -1,4 +1,4 @@
-import { useEffect, useRef } from '../lib/teact/teact';
+import { useEffect, useRef } from '../lib/react-utils';
 
 import fastBlur from '../lib/fastBlur';
 import { imgToCanvas } from '../util/files';

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from '../lib/teact/teact';
+import { useLayoutEffect, useRef } from '../lib/react-utils';
 
 const useLayoutEffectWithPrevDeps = <const T extends readonly any[]>(
   cb: (args: T | readonly []) => void, dependencies: T, debugKey?: string,

@@ -1,4 +1,4 @@
-import React, { type TeactNode } from '../../../lib/teact/teact';
+import React, { type TeactNode } from '../../../lib/react-utils';
 
 import { IS_IOS } from '../../../util/browser/windowEnvironment';
 import buildClassName from '../../../util/buildClassName';

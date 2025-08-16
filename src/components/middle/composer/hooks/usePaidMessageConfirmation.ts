@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from '../../../../lib/teact/teact';
+import { useEffect, useRef, useState } from '../../../../lib/react-utils';
 import { getActions, getGlobal } from '../../../../global';
 
 import { PAID_MESSAGES_PURPOSE } from '../../../../config';

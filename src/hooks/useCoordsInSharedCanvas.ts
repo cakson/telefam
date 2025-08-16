@@ -1,6 +1,6 @@
 import {
   useEffect, useMemo, useState,
-} from '../lib/teact/teact';
+} from '../lib/react-utils';
 
 import { round } from '../util/math';
 import useLastCallback from './useLastCallback';

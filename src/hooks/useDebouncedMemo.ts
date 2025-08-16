@@ -1,6 +1,6 @@
 import {
   getIsHeavyAnimating, useCallback, useRef, useState,
-} from '../lib/teact/teact';
+} from '../lib/react-utils';
 
 import useForceUpdate from './useForceUpdate';
 import useHeavyAnimation from './useHeavyAnimation';

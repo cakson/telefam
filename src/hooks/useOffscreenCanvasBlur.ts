@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef } from '../lib/teact/teact';
+import { useLayoutEffect, useMemo, useRef } from '../lib/react-utils';
 
 import { requestMutation } from '../lib/fasterdom/fasterdom';
 import cycleRestrict from '../util/cycleRestrict';
