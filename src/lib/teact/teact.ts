@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 import { DEBUG, DEBUG_MORE } from '../../config';
 import { logUnequalProps } from '../../util/arePropsShallowEqual';
@@ -130,12 +130,7 @@ export type VirtualElementChildren = VirtualElement[];
 export type VirtualElementReal = Exclude<VirtualElement, VirtualElementComponent | VirtualElementFragment>;
 
 // Compatibility with JSX types
-export type TeactNode =
-  ReactElement
-  | string
-  | number
-  | boolean
-  | TeactNode[];
+export type TeactNode = ReactNode;
 
 type Effect = () => (NoneToVoidFunction | void);
 type EffectCleanup = NoneToVoidFunction;

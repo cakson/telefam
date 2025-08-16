@@ -3,7 +3,7 @@ import './util/setupServiceWorker';
 import './global/init';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import {
   getActions, getGlobal,
 } from './global';
@@ -81,10 +81,8 @@ async function init() {
   requestMutation(() => {
     updateWebmanifest();
 
-    ReactDOM.render(
-      <App />,
-      document.getElementById('root')!,
-    );
+    const container = document.getElementById('root')!;
+    createRoot(container).render(<App />);
 
     betterView();
   });
