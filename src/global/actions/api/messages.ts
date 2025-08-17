@@ -2315,6 +2315,9 @@ addActionHandler('translateMessages', (global, actions, payload): ActionReturnTy
     chatGptApiKey,
     chatGptModel,
     chatGptUserContext: chatGptTranslationContext,
+  }).catch((error) => {
+    // Error handling is done inside translateText
+    // This catch is just to prevent unhandled promise rejection
   });
 
   return global;

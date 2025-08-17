@@ -84,26 +84,21 @@ export async function translateMessagesWithChatGPT({
   targetLanguage: string;
   userContext?: string;
 }): Promise<ApiFormattedText[]> {
+  // If any translation fails, throw the error to trigger fallback
   const translations = await Promise.all(
     messages.map(async (message) => {
-      try {
-        const translatedText = await translateWithChatGPT({
-          apiKey,
-          model,
-          sourceText: message.text,
-          targetLanguage,
-          userContext,
-        });
+      const translatedText = await translateWithChatGPT({
+        apiKey,
+        model,
+        sourceText: message.text,
+        targetLanguage,
+        userContext,
+      });
 
-        return {
-          ...message,
-          text: translatedText,
-        };
-      } catch (error) {
-        // Return original message if translation fails
-        console.error('Failed to translate message:', error);
-        return message;
-      }
+      return {
+        ...message,
+        text: translatedText,
+      };
     })
   );
 

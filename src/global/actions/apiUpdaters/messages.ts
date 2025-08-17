@@ -47,6 +47,7 @@ import {
   updateChatMediaLoadingState,
   updateChatMessage,
   updateListedIds,
+  updateMessageTranslation,
   updateMessageTranslations,
   updatePeerFullInfo,
   updatePoll,
@@ -76,6 +77,7 @@ import {
   selectIsMessageInCurrentMessageList,
   selectIsServiceChatReady,
   selectIsViewportNewest,
+  selectLanguageCode,
   selectListedIds,
   selectPerformanceSettingsValue,
   selectPinnedIds,
@@ -862,6 +864,32 @@ addActionHandler('apiUpdate', (global, actions, update): ActionReturnType => {
 
       global = updateMessageTranslations(global, chatId, messageIds, toLanguageCode, translations);
 
+      setGlobal(global);
+      break;
+    }
+
+    case 'updateTranslationError': {
+      const { errorMessage } = update;
+      
+      actions.showNotification({
+        message: errorMessage,
+        duration: 5000,
+      });
+      break;
+    }
+
+    case 'updateMessageTranslationsFailed': {
+      const { chatId, messageIds } = update;
+      const toLanguageCode = selectLanguageCode(global);
+      
+      // Clear pending state for failed translations
+      messageIds.forEach((messageId) => {
+        global = updateMessageTranslation(global, chatId, messageId, toLanguageCode, {
+          isPending: false,
+          text: undefined,
+        });
+      });
+      
       setGlobal(global);
       break;
     }
