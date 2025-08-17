@@ -1992,6 +1992,8 @@ export async function translateText(params: TranslateTextParams) {
             messageIds,
             translations: formattedText,
             toLanguageCode,
+            source: 'chatgpt',
+            model: chatGptModel,
           });
           
           return formattedText;
@@ -2077,6 +2079,7 @@ export async function translateText(params: TranslateTextParams) {
       messageIds,
       translations: formattedText,
       toLanguageCode,
+      source: 'telegram',
     });
   }
 

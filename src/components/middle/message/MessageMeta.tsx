@@ -31,6 +31,8 @@ type OwnProps = {
   noReplies?: boolean;
   repliesThreadInfo?: ApiThreadInfo;
   isTranslated?: boolean;
+  translationSource?: 'telegram' | 'chatgpt';
+  translationModel?: string;
   isPinned?: boolean;
   withFullDate?: boolean;
   effectEmoji?: string;
@@ -51,6 +53,8 @@ const MessageMeta: FC<OwnProps> = ({
   renderQuickReactionButton,
   noReplies,
   isTranslated,
+  translationSource,
+  translationModel,
   isPinned,
   withFullDate,
   effectEmoji,
@@ -204,6 +208,12 @@ const MessageMeta: FC<OwnProps> = ({
         )}
         {message.isEdited && `${lang('MessageMetaEdited')} `}
         {message.isVideoProcessingPending && `${lang('MessageMetaApproximate')} `}
+        {isTranslated && translationSource && (
+          <>
+            {translationSource === 'telegram' && 'Translated by Telegram '}
+            {translationSource === 'chatgpt' && translationModel && `Translated by ChatGPT ${translationModel} `}
+          </>
+        )}
         {date}
       </span>
       {outgoingStatus && (

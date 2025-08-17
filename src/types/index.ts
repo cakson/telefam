@@ -659,6 +659,8 @@ export interface TopicsInfo {
 export type TranslatedMessage = {
   isPending?: boolean;
   text?: ApiFormattedText;
+  source?: 'telegram' | 'chatgpt';
+  model?: string; // For ChatGPT model name
 };
 
 export type ChatTranslatedMessages = {

@@ -18,7 +18,7 @@ export default function useMessageTranslation(
   const messageTranslation = requestedLanguageCode && messageId
     ? chatTranslations?.byLangCode[requestedLanguageCode]?.[messageId] : undefined;
 
-  const { isPending, text } = messageTranslation || {};
+  const { isPending, text, source, model } = messageTranslation || {};
 
   useEffect(() => {
     if (!chatId || !messageId) return;
@@ -32,12 +32,16 @@ export default function useMessageTranslation(
     return {
       isPending: false,
       translatedText: undefined,
+      translationSource: undefined,
+      translationModel: undefined,
     };
   }
 
   return {
     isPending,
     translatedText: text,
+    translationSource: source,
+    translationModel: model,
   };
 }
 

@@ -713,6 +713,8 @@ export type ApiUpdateMessageTranslations = {
   messageIds: number[];
   translations: ApiFormattedText[];
   toLanguageCode: string;
+  source?: 'telegram' | 'chatgpt';
+  model?: string;
 };
 
 export type ApiUpdateTranslationError = {

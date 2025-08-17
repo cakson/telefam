@@ -754,13 +754,22 @@ const Message: FC<OwnProps & StateProps> = ({
   useDetectChatLanguage(message, detectedLanguage, !shouldDetectChatLanguage, getIsMessageListReady);
 
   const shouldTranslate = isMessageTranslatable(message, !requestedChatTranslationLanguage);
-  const { isPending: isTranslationPending, translatedText } = useMessageTranslation(
+  const {
+    isPending: isTranslationPending,
+    translatedText,
+    translationSource,
+    translationModel,
+  } = useMessageTranslation(
     chatTranslations, chatId, shouldTranslate ? messageId : undefined, requestedTranslationLanguage,
   );
   // Used to display previous result while new one is loading
   const previousTranslatedText = usePreviousDeprecated(translatedText, Boolean(shouldTranslate));
+  const previousTranslationSource = usePreviousDeprecated(translationSource, Boolean(shouldTranslate));
+  const previousTranslationModel = usePreviousDeprecated(translationModel, Boolean(shouldTranslate));
 
   const currentTranslatedText = translatedText || previousTranslatedText;
+  const currentTranslationSource = translationSource || previousTranslationSource;
+  const currentTranslationModel = translationModel || previousTranslationModel;
 
   const phoneCall = action?.type === 'phoneCall' ? action : undefined;
 
@@ -1030,6 +1039,8 @@ const Message: FC<OwnProps & StateProps> = ({
         }
         availableReactions={availableReactions}
         isTranslated={Boolean(requestedTranslationLanguage ? currentTranslatedText : undefined)}
+        translationSource={currentTranslationSource}
+        translationModel={currentTranslationModel}
         effectEmoji={effect?.emoticon}
         onClick={handleMetaClick}
         onEffectClick={handleEffectClick}

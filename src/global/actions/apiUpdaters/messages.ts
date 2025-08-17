@@ -859,10 +859,10 @@ addActionHandler('apiUpdate', (global, actions, update): ActionReturnType => {
 
     case 'updateMessageTranslations': {
       const {
-        chatId, messageIds, toLanguageCode, translations,
+        chatId, messageIds, toLanguageCode, translations, source, model,
       } = update;
 
-      global = updateMessageTranslations(global, chatId, messageIds, toLanguageCode, translations);
+      global = updateMessageTranslations(global, chatId, messageIds, toLanguageCode, translations, source, model);
 
       setGlobal(global);
       break;

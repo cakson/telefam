@@ -69,11 +69,14 @@ export function clearMessageTranslation<T extends GlobalState>(
 
 export function updateMessageTranslations<T extends GlobalState>(
   global: T, chatId: string, messageIds: number[], toLanguageCode: string, translations: ApiFormattedText[],
+  source?: 'telegram' | 'chatgpt', model?: string,
 ) {
   messageIds.forEach((messageId, index) => {
     global = updateMessageTranslation(global, chatId, messageId, toLanguageCode, {
       text: translations[index],
       isPending: false,
+      source,
+      model,
     });
   });
 
