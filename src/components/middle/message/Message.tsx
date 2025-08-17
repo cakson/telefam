@@ -985,6 +985,7 @@ const Message: FC<OwnProps & StateProps> = ({
         messageOrStory={textMessage}
         translatedText={requestedTranslationLanguage ? currentTranslatedText : undefined}
         isForAnimation={isForAnimation}
+        isTranslationPending={isTranslationPending}
         focusedQuote={focusedQuote}
         focusedQuoteOffset={focusedQuoteOffset}
         emojiSize={emojiSize}

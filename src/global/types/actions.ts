@@ -1381,6 +1381,12 @@ export interface ActionPayloads {
     id: number;
   } & WithTabId;
 
+  retryMessageTranslation: {
+    chatId: string;
+    id: number;
+    toLanguageCode?: string;
+  } & WithTabId;
+
   markMessagesTranslationPending: {
     chatId: string;
     messageIds: number[];

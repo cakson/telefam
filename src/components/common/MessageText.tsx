@@ -21,6 +21,7 @@ interface OwnProps {
   threadId?: ThreadId;
   translatedText?: ApiFormattedText;
   isForAnimation?: boolean;
+  isTranslationPending?: boolean;
   emojiSize?: number;
   highlight?: string;
   asPreview?: boolean;
@@ -45,6 +46,7 @@ function MessageText({
   messageOrStory,
   translatedText,
   isForAnimation,
+  isTranslationPending,
   emojiSize,
   highlight,
   asPreview,
@@ -128,28 +130,58 @@ function MessageText({
           withSharedCanvas && <canvas ref={sharedCanvasHqRef} className="shared-canvas" />,
           <div className="message-text-with-translation">
             {/* Original text */}
-            {renderTextWithEntities({
-              text: trimText(originalForDisplay!.text, truncateLength),
-              entities: originalForDisplay!.entities,
-              highlight,
-              emojiSize,
-              shouldRenderAsHtml,
-              containerId: `${containerId}-original`,
-              asPreview,
-              isProtected,
-              observeIntersectionForLoading,
-              observeIntersectionForPlaying,
-              withTranslucentThumbs,
-              sharedCanvasRef,
-              sharedCanvasHqRef,
-              cacheBuster: textCacheBusterRef.current.toString(),
-              forcePlayback,
-              isInSelectMode,
-              maxTimestamp,
-              chatId: 'chatId' in messageOrStory ? messageOrStory.chatId : undefined,
-              messageId: messageOrStory.id,
-              threadId,
-            })}
+            <div className={isTranslationPending ? 'text-with-animation' : undefined}>
+              {renderTextWithEntities({
+                text: trimText(originalForDisplay!.text, truncateLength),
+                entities: originalForDisplay!.entities,
+                highlight,
+                emojiSize,
+                shouldRenderAsHtml,
+                containerId: `${containerId}-original`,
+                asPreview,
+                isProtected,
+                observeIntersectionForLoading,
+                observeIntersectionForPlaying,
+                withTranslucentThumbs,
+                sharedCanvasRef,
+                sharedCanvasHqRef,
+                cacheBuster: textCacheBusterRef.current.toString(),
+                forcePlayback,
+                isInSelectMode,
+                maxTimestamp,
+                chatId: 'chatId' in messageOrStory ? messageOrStory.chatId : undefined,
+                messageId: messageOrStory.id,
+                threadId,
+              })}
+              {isTranslationPending && (
+                <div className="translation-animation">
+                  <div className="text-loading">
+                    {renderTextWithEntities({
+                      text: trimText(originalForDisplay!.text, truncateLength),
+                      entities: stripCustomEmoji(originalForDisplay!).entities,
+                      highlight,
+                      emojiSize,
+                      shouldRenderAsHtml,
+                      containerId: `${containerId}-original-anim`,
+                      asPreview,
+                      isProtected,
+                      observeIntersectionForLoading,
+                      observeIntersectionForPlaying,
+                      withTranslucentThumbs,
+                      sharedCanvasRef,
+                      sharedCanvasHqRef,
+                      cacheBuster: textCacheBusterRef.current.toString(),
+                      forcePlayback,
+                      isInSelectMode,
+                      maxTimestamp,
+                      chatId: 'chatId' in messageOrStory ? messageOrStory.chatId : undefined,
+                      messageId: messageOrStory.id,
+                      threadId,
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
             {/* Translation separator */}
             <div className="translation-divider">
               <span className="translation-divider-line" />

@@ -129,6 +129,7 @@ type StateProps = {
   canUnfaveSticker?: boolean;
   canCopy?: boolean;
   canTranslate?: boolean;
+  canRetryTranslate?: boolean;
   canShowOriginal?: boolean;
   isMessageTranslated?: boolean;
   canSelectLanguage?: boolean;
@@ -213,6 +214,7 @@ const ContextMenuContainer: FC<OwnProps & StateProps> = ({
   canShowSeenBy,
   canScheduleUntilOnline,
   canTranslate,
+  canRetryTranslate,
   isMessageTranslated,
   canShowOriginal,
   canSelectLanguage,
@@ -253,6 +255,7 @@ const ContextMenuContainer: FC<OwnProps & StateProps> = ({
     toggleReaction,
     requestMessageTranslation,
     showOriginalMessage,
+    retryMessageTranslation,
     openChatLanguageModal,
     openMessageReactionPicker,
     openPremiumModal,
@@ -606,6 +609,14 @@ const ContextMenuContainer: FC<OwnProps & StateProps> = ({
     closeMenu();
   });
 
+  const handleRetryTranslate = useLastCallback(() => {
+    retryMessageTranslation({
+      chatId: message.chatId,
+      id: message.id,
+    });
+    closeMenu();
+  });
+
   const handleSelectLanguage = useLastCallback(() => {
     openChatLanguageModal({
       chatId: message.chatId,
@@ -675,6 +686,7 @@ const ContextMenuContainer: FC<OwnProps & StateProps> = ({
         canClosePoll={canClosePoll}
         canShowSeenBy={canShowSeenBy}
         canTranslate={canTranslate}
+        canRetryTranslate={canRetryTranslate}
         canShowOriginal={canShowOriginal}
         canSelectLanguage={canSelectLanguage}
         canPlayAnimatedEmojis={canPlayAnimatedEmojis}
@@ -716,6 +728,7 @@ const ContextMenuContainer: FC<OwnProps & StateProps> = ({
         onShowReactors={handleOpenReactorListModal}
         onReactionPickerOpen={handleReactionPickerOpen}
         onTranslate={handleTranslate}
+        onRetryTranslate={handleRetryTranslate}
         onShowOriginal={handleShowOriginal}
         onSelectLanguage={handleSelectLanguage}
         userFullName={userFullName}
@@ -839,6 +852,7 @@ export default memo(withGlobal<OwnProps>(
       ? Boolean(selectMessageTranslations(global, message.chatId, translationRequestLanguage)[message.id]?.text)
       : undefined;
     const canTranslate = !hasTranslation && selectCanTranslateMessage(global, message, detectedLanguage);
+    const canRetryTranslate = Boolean(hasTranslation);
     const isChatTranslated = selectRequestedChatTranslationLanguage(global, message.chatId);
 
     const isInSavedMessages = selectIsChatWithSelf(global, message.chatId);
@@ -891,6 +905,7 @@ export default memo(withGlobal<OwnProps>(
       customEmojiSets,
       canScheduleUntilOnline: selectCanScheduleUntilOnline(global, message.chatId),
       canTranslate,
+      canRetryTranslate,
       canShowOriginal: hasTranslation && !isChatTranslated,
       canSelectLanguage: hasTranslation && !isChatTranslated,
       isMessageTranslated: hasTranslation,
