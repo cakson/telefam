@@ -284,10 +284,10 @@ export function selectShouldDetectChatLanguage<T extends GlobalState>(
   if (!chat) return false;
   const { canTranslateChats } = global.settings.byKey;
 
-  const isPremium = selectIsCurrentUserPremium(global);
   const isSavedMessages = selectIsChatWithSelf(global, chatId);
-
-  return IS_TRANSLATION_SUPPORTED && canTranslateChats && isPremium && !isSavedMessages;
+  
+  // Chat translation is now available for all users
+  return IS_TRANSLATION_SUPPORTED && canTranslateChats && !isSavedMessages;
 }
 
 export function selectCanTranslateChat<T extends GlobalState>(

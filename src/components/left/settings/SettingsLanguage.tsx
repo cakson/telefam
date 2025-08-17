@@ -49,14 +49,14 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
     loadLanguages,
     setSettingOption,
     setSharedSettingOption,
-    openPremiumModal,
     openSettingsScreen,
   } = getActions();
 
   const [selectedLanguage, setSelectedLanguage] = useState<string>(language);
   const [isLoading, markIsLoading, unmarkIsLoading] = useFlag();
 
-  const canTranslateChatsEnabled = isCurrentUserPremium && canTranslateChats;
+  // Chat translation is now available for all users
+  const canTranslateChatsEnabled = canTranslateChats;
 
   const lang = useOldLang();
 
@@ -65,6 +65,8 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
       loadLanguages();
     }
   }, [languages]);
+
+  // No longer need to disable chat translation based on premium/ChatGPT status
 
   const handleChange = useLastCallback((langCode: string) => {
     setSelectedLanguage(langCode);
@@ -98,14 +100,6 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
 
   const handleShouldTranslateChatsChange = useLastCallback((newValue: boolean) => {
     setSettingOption({ canTranslateChats: newValue });
-  });
-
-  const handleShouldTranslateChatsClick = useLastCallback(() => {
-    if (!isCurrentUserPremium) {
-      openPremiumModal({
-        initialSection: 'translations',
-      });
-    }
   });
 
   const doNotTranslateText = useMemo(() => {
@@ -150,9 +144,6 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
           <Checkbox
             label={lang('ShowTranslateChatButton')}
             checked={canTranslateChatsEnabled}
-            disabled={!isCurrentUserPremium}
-            rightIcon={!isCurrentUserPremium ? 'lock' : undefined}
-            onClickLabel={handleShouldTranslateChatsClick}
             onCheck={handleShouldTranslateChatsChange}
           />
           {(canTranslate || canTranslateChatsEnabled) && (

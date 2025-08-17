@@ -2023,43 +2023,76 @@ export async function translateText(params: TranslateTextParams) {
           errorMessage = 'ChatGPT: Rate limit exceeded';
         } else if (error.message.includes('Model') && error.message.includes('not found')) {
           errorMessage = `ChatGPT: ${error.message}`;
+        } else if (error.message.includes('insufficient_quota')) {
+          errorMessage = 'ChatGPT: API quota exceeded';
         } else {
-          errorMessage = `ChatGPT error: ${error.message.substring(0, 100)}`; // Limit error message length
+          errorMessage = `ChatGPT error: ${error.message.substring(0, 100)}`;
         }
       }
       
-      // Send error notification via API update
-      sendApiUpdate({
-        '@type': 'updateTranslationError',
-        errorMessage: `${errorMessage}. Using default translation...`,
-      });
+      // Send error notification about ChatGPT failure
+      if (isMessageTranslation) {
+        const { chat, messageIds } = params;
+        sendApiUpdate({
+          '@type': 'updateTranslationError',
+          errorMessage: `${errorMessage}. Using default translation...`,
+        });
+      }
       
-      // Don't return early - fall through to use Telegram API
+      // Don't return - fall through to use Telegram API as fallback
     }
   }
   
-  // Original Telegram API translation - this should always run if ChatGPT fails or is not enabled
+  // Telegram API translation - runs if ChatGPT is not enabled OR if ChatGPT fails
   let result;
   const chatId = isMessageTranslation ? (params as any).chat.id : undefined;
   const messageIds = isMessageTranslation ? (params as any).messageIds : undefined;
   
-  if (isMessageTranslation) {
-    const { chat, messageIds: msgIds } = params as any;
-    result = await invokeRequest(new GramJs.messages.TranslateText({
-      peer: buildInputPeer(chat.id, chat.accessHash),
-      id: msgIds,
-      toLang: toLanguageCode,
-    }));
-  } else {
-    const { text } = params as any;
-    result = await invokeRequest(new GramJs.messages.TranslateText({
-      text: text.map((t: any) => buildInputTextWithEntities(t)),
-      toLang: toLanguageCode,
-    }));
-  }
+  try {
+    if (isMessageTranslation) {
+      const { chat, messageIds: msgIds } = params as any;
+      result = await invokeRequest(new GramJs.messages.TranslateText({
+        peer: buildInputPeer(chat.id, chat.accessHash),
+        id: msgIds,
+        toLang: toLanguageCode,
+      }));
+    } else {
+      const { text } = params as any;
+      result = await invokeRequest(new GramJs.messages.TranslateText({
+        text: text.map((t: any) => buildInputTextWithEntities(t)),
+        toLang: toLanguageCode,
+      }));
+    }
 
-  if (!result) {
-    // If Telegram API also fails, clear the pending state
+    if (!result) {
+      // If Telegram API also fails, clear the pending state
+      if (isMessageTranslation && chatId && messageIds) {
+        sendApiUpdate({
+          '@type': 'updateMessageTranslationsFailed',
+          chatId,
+          messageIds,
+        });
+      }
+      return undefined;
+    }
+  } catch (error: any) {
+    console.error('Telegram TranslateText API error:', error);
+    
+    // Check if it's a premium-required error
+    if (error?.errorMessage === 'PREMIUM_ACCOUNT_REQUIRED') {
+      const errorMsg = 'Translation requires Telegram Premium. Please enable ChatGPT translation as an alternative.';
+      if (isMessageTranslation && chatId && messageIds) {
+        sendApiUpdate({
+          '@type': 'updateMessageTranslationsFailed',
+          chatId,
+          messageIds,
+          errorMessage: errorMsg,
+        });
+      }
+      return undefined;
+    }
+    
+    // For other errors, just fail silently
     if (isMessageTranslation && chatId && messageIds) {
       sendApiUpdate({
         '@type': 'updateMessageTranslationsFailed',

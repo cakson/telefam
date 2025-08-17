@@ -726,6 +726,7 @@ export type ApiUpdateMessageTranslationsFailed = {
   '@type': 'updateMessageTranslationsFailed';
   chatId: string;
   messageIds: number[];
+  errorMessage?: string;
 };
 
 export type ApiUpdateFetchingDifference = {

@@ -879,7 +879,7 @@ addActionHandler('apiUpdate', (global, actions, update): ActionReturnType => {
     }
 
     case 'updateMessageTranslationsFailed': {
-      const { chatId, messageIds } = update;
+      const { chatId, messageIds, errorMessage } = update;
       const toLanguageCode = selectLanguageCode(global);
       
       // Clear pending state for failed translations
@@ -889,6 +889,14 @@ addActionHandler('apiUpdate', (global, actions, update): ActionReturnType => {
           text: undefined,
         });
       });
+      
+      // Show error notification if provided
+      if (errorMessage) {
+        actions.showNotification({
+          message: errorMessage,
+          icon: 'error',
+        });
+      }
       
       setGlobal(global);
       break;
