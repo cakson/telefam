@@ -23,6 +23,7 @@ type OwnProps = {
   maxLength?: number;
   tabIndex?: number;
   teactExperimentControlled?: boolean;
+  type?: 'text' | 'password' | 'email' | 'tel' | 'url';
   inputMode?: 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onInput?: (e: FormEvent<HTMLInputElement>) => void;
@@ -44,6 +45,7 @@ const InputText: FC<OwnProps> = ({
   readOnly,
   placeholder,
   autoComplete,
+  type = 'text',
   inputMode,
   maxLength,
   tabIndex,
@@ -72,7 +74,7 @@ const InputText: FC<OwnProps> = ({
       <input
         ref={ref}
         className="form-control"
-        type="text"
+        type={type}
         id={id}
         dir="auto"
         value={value || ''}

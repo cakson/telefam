@@ -99,6 +99,8 @@ import { processMessageAndUpdateThreadInfo } from '../updates/entityProcessor';
 import { processAffectedHistory, updateChannelState } from '../updates/updateManager';
 import { requestChatUpdate } from './chats';
 import { handleGramJsUpdate, invokeRequest, uploadFile } from './client';
+import { translateMessagesWithChatGPT } from '../../chatgpt/translation';
+import { translateMessagesWithChatGPTById } from '../../chatgpt/messageTranslation';
 
 const FAST_SEND_TIMEOUT = 1000;
 const INPUT_WAVEFORM_LENGTH = 63;
@@ -110,6 +112,10 @@ type TranslateTextParams = ({
   messageIds: number[];
 }) & {
   toLanguageCode: string;
+  useChatGpt?: boolean;
+  chatGptApiKey?: string;
+  chatGptModel?: string;
+  chatGptUserContext?: string;
 };
 
 type SearchResults = {
@@ -1957,8 +1963,60 @@ export async function transcribeAudio({
 }
 
 export async function translateText(params: TranslateTextParams) {
-  let result;
+  const { useChatGpt, chatGptApiKey, chatGptModel, chatGptUserContext, toLanguageCode } = params;
   const isMessageTranslation = 'chat' in params;
+  
+  // Use ChatGPT if enabled and API key is provided
+  if (useChatGpt && chatGptApiKey && chatGptModel) {
+    try {
+      if (isMessageTranslation) {
+        // For message translation, we need to fetch messages first
+        const { chat, messageIds } = params;
+        const messagesResult = await invokeRequest(new GramJs.messages.GetMessages({
+          id: messageIds.map((id) => new GramJs.InputMessageID({ id })),
+        }));
+        
+        if (messagesResult && 'messages' in messagesResult) {
+          const messages = messagesResult.messages.map(buildApiMessage).filter(Boolean);
+          const formattedText = await translateMessagesWithChatGPTById({
+            messages,
+            apiKey: chatGptApiKey,
+            model: chatGptModel,
+            targetLanguage: toLanguageCode,
+            userContext: chatGptUserContext,
+          });
+          
+          sendApiUpdate({
+            '@type': 'updateMessageTranslations',
+            chatId: chat.id,
+            messageIds,
+            translations: formattedText,
+            toLanguageCode,
+          });
+          
+          return formattedText;
+        }
+      } else {
+        const textToTranslate = params.text;
+        
+        const formattedText = await translateMessagesWithChatGPT({
+          apiKey: chatGptApiKey,
+          model: chatGptModel,
+          messages: textToTranslate,
+          targetLanguage: toLanguageCode,
+          userContext: chatGptUserContext,
+        });
+        
+        return formattedText;
+      }
+    } catch (error) {
+      console.error('ChatGPT translation failed, falling back to Telegram API:', error);
+      // Fall through to use Telegram API
+    }
+  }
+  
+  // Original Telegram API translation
+  let result;
   if (isMessageTranslation) {
     const { chat, messageIds, toLanguageCode } = params;
     result = await invokeRequest(new GramJs.messages.TranslateText({

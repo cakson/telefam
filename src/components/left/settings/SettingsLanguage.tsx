@@ -29,7 +29,7 @@ type OwnProps = {
 
 type StateProps = {
   isCurrentUserPremium: boolean;
-} & Pick<AccountSettings, 'canTranslate' | 'canTranslateChats' | 'doNotTranslate'>
+} & Pick<AccountSettings, 'canTranslate' | 'canTranslateChats' | 'doNotTranslate' | 'useChatGptForTranslation'>
 & Pick<SharedSettings, 'language' | 'languages'>;
 
 const SettingsLanguage: FC<OwnProps & StateProps> = ({
@@ -40,6 +40,7 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
   canTranslate,
   canTranslateChats,
   doNotTranslate,
+  useChatGptForTranslation,
   onReset,
 }) => {
   const {
@@ -122,6 +123,10 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
     openSettingsScreen({ screen: SettingsScreens.DoNotTranslate });
   });
 
+  const handleUseChatGptChange = useLastCallback((newValue: boolean) => {
+    setSettingOption({ useChatGptForTranslation: newValue });
+  });
+
   useHistoryBack({
     isActive,
     onBack: onReset,
@@ -145,13 +150,20 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
             onCheck={handleShouldTranslateChatsChange}
           />
           {(canTranslate || canTranslateChatsEnabled) && (
-            <ListItem
-              narrow
-              onClick={handleDoNotSelectOpen}
-            >
-              {lang('DoNotTranslate')}
-              <span className="settings-item__current-value">{doNotTranslateText}</span>
-            </ListItem>
+            <>
+              <ListItem
+                narrow
+                onClick={handleDoNotSelectOpen}
+              >
+                {lang('DoNotTranslate')}
+                <span className="settings-item__current-value">{doNotTranslateText}</span>
+              </ListItem>
+              <Checkbox
+                label="Use ChatGPT for translation"
+                checked={Boolean(useChatGptForTranslation)}
+                onCheck={handleUseChatGptChange}
+              />
+            </>
           )}
           <p className="settings-item-description mb-0 mt-1">
             {lang('lng_translate_settings_about')}
@@ -182,7 +194,7 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
 export default memo(withGlobal<OwnProps>(
   (global): StateProps => {
     const {
-      canTranslate, canTranslateChats, doNotTranslate,
+      canTranslate, canTranslateChats, doNotTranslate, useChatGptForTranslation,
     } = global.settings.byKey;
     const { language, languages } = selectSharedSettings(global);
 
@@ -195,6 +207,7 @@ export default memo(withGlobal<OwnProps>(
       canTranslate,
       canTranslateChats,
       doNotTranslate,
+      useChatGptForTranslation,
     };
   },
 )(SettingsLanguage));

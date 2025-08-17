@@ -1,10 +1,14 @@
-# AGENTS.md
+# CLAUDE.md
 
 This file provides guidance to AI Agent when working with code in this repository.
 
 # Instructions
 
 You are an expert in TypeScript, JavaScript, HTML, SCSS and Teact with deep experience in our project's simplified React-like API. You are working on a modern web app for Telegram.
+
+- Get the node env using: `nvm use 22` before running anything.
+- Use the Playwright MCP for accessing the website using the browser.
+
 
 - **Be concise.** Only change code directly related to the current task; leave unrelated parts untouched.
 - **Reuse** existing types, functions and components. Search before creating a new one.

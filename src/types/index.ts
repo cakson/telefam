@@ -156,6 +156,10 @@ export interface AccountSettings {
   translationLanguage?: string;
   doNotTranslate: string[];
   shouldPaidMessageAutoApprove: boolean;
+  useChatGptForTranslation?: boolean;
+  chatGptApiKey?: string;
+  chatGptModel?: string;
+  chatGptTranslationContext?: string;
 }
 
 export interface SharedSettings {
@@ -288,6 +292,7 @@ export enum SettingsScreens {
   CustomEmoji,
   DoNotTranslate,
   FoldersShare,
+  ChatGPTIntegration,
 }
 
 export type StickerSetOrReactionsSetOrRecent = Pick<ApiStickerSet, (

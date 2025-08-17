@@ -2299,10 +2299,22 @@ addActionHandler('translateMessages', (global, actions, payload): ActionReturnTy
 
   actions.markMessagesTranslationPending({ chatId, messageIds, toLanguageCode });
 
+  // Get ChatGPT settings from global state
+  const {
+    useChatGptForTranslation,
+    chatGptApiKey,
+    chatGptModel,
+    chatGptTranslationContext,
+  } = global.settings.byKey;
+
   callApi('translateText', {
     chat,
     messageIds,
     toLanguageCode,
+    useChatGpt: useChatGptForTranslation,
+    chatGptApiKey,
+    chatGptModel,
+    chatGptUserContext: chatGptTranslationContext,
   });
 
   return global;
