@@ -384,3 +384,19 @@
 .settings-button {
   font-weight: var(--font-weight-semibold);
 }
+
+.settings-item-select {
+  margin: 1rem 0;
+  padding: 0 1rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+  
+  .input-group {
+    margin: 0;
+  }
+}

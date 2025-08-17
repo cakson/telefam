@@ -2069,14 +2069,6 @@ export async function translateText(params: TranslateTextParams) {
   }
 
   const formattedText = result.result.map((r) => buildApiFormattedText(r));
-  
-  console.log('Telegram API translation result:', {
-    isMessageTranslation,
-    chatId,
-    messageIds,
-    formattedText,
-    toLanguageCode,
-  });
 
   if (isMessageTranslation && chatId && messageIds) {
     sendApiUpdate({

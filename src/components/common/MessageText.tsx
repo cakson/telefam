@@ -8,6 +8,7 @@ import type { ThreadId } from '../../types';
 import { ApiMessageEntityTypes } from '../../api/types';
 
 import { CONTENT_NOT_SUPPORTED } from '../../config';
+import { getGlobal } from '../../global';
 import { extractMessageText, stripCustomEmoji } from '../../global/helpers';
 import trimText from '../../util/trimText';
 import { insertTextEntity, renderTextWithEntities } from './helpers/renderTextWithEntities';
@@ -69,9 +70,17 @@ function MessageText({
 
   const textCacheBusterRef = useRef(0);
 
-  const formattedText = translatedText || extractMessageText(messageOrStory, inChatList);
+  const originalText = extractMessageText(messageOrStory, inChatList);
+  const formattedText = translatedText || originalText;
   const adaptedFormattedText = isForAnimation && formattedText ? stripCustomEmoji(formattedText) : formattedText;
   const { text, entities } = adaptedFormattedText || {};
+  
+  // Get translation display style from global settings
+  const translationDisplayStyle = getGlobal().settings.byKey.translationDisplayStyle || 'replace';
+  
+  // For showing both original and translation
+  const showBothTexts = translatedText && originalText && translationDisplayStyle === 'both';
+  const originalForDisplay = isForAnimation && originalText ? stripCustomEmoji(originalText) : originalText;
 
   const entitiesWithFocusedQuote = useMemo(() => {
     if (!text || !focusedQuote) return entities;
@@ -106,8 +115,74 @@ function MessageText({
     return customEmojisCount >= MIN_CUSTOM_EMOJIS_FOR_SHARED_CANVAS;
   }, [entitiesWithFocusedQuote]) || 0;
 
-  if (!text && !canBeEmpty) {
+  if (!text && !originalText?.text && !canBeEmpty) {
     return <span className="content-unsupported">{CONTENT_NOT_SUPPORTED}</span>;
+  }
+
+  if (showBothTexts) {
+    // Show both original and translated text
+    return (
+      <>
+        {[
+          withSharedCanvas && <canvas ref={sharedCanvasRef} className="shared-canvas" />,
+          withSharedCanvas && <canvas ref={sharedCanvasHqRef} className="shared-canvas" />,
+          <div className="message-text-with-translation">
+            {/* Original text */}
+            {renderTextWithEntities({
+              text: trimText(originalForDisplay!.text, truncateLength),
+              entities: originalForDisplay!.entities,
+              highlight,
+              emojiSize,
+              shouldRenderAsHtml,
+              containerId: `${containerId}-original`,
+              asPreview,
+              isProtected,
+              observeIntersectionForLoading,
+              observeIntersectionForPlaying,
+              withTranslucentThumbs,
+              sharedCanvasRef,
+              sharedCanvasHqRef,
+              cacheBuster: textCacheBusterRef.current.toString(),
+              forcePlayback,
+              isInSelectMode,
+              maxTimestamp,
+              chatId: 'chatId' in messageOrStory ? messageOrStory.chatId : undefined,
+              messageId: messageOrStory.id,
+              threadId,
+            })}
+            {/* Translation separator */}
+            <div className="translation-divider">
+              <span className="translation-divider-line" />
+              <span className="translation-divider-text">Translation</span>
+              <span className="translation-divider-line" />
+            </div>
+            {/* Translated text */}
+            {renderTextWithEntities({
+              text: trimText(text!, truncateLength),
+              entities: entitiesWithFocusedQuote,
+              highlight,
+              emojiSize,
+              shouldRenderAsHtml,
+              containerId,
+              asPreview,
+              isProtected,
+              observeIntersectionForLoading,
+              observeIntersectionForPlaying,
+              withTranslucentThumbs,
+              sharedCanvasRef,
+              sharedCanvasHqRef,
+              cacheBuster: textCacheBusterRef.current.toString(),
+              forcePlayback,
+              isInSelectMode,
+              maxTimestamp,
+              chatId: 'chatId' in messageOrStory ? messageOrStory.chatId : undefined,
+              messageId: messageOrStory.id,
+              threadId,
+            })}
+          </div>,
+        ].flat().filter(Boolean)}
+      </>
+    );
   }
 
   return (

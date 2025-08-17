@@ -160,6 +160,7 @@ export interface AccountSettings {
   chatGptApiKey?: string;
   chatGptModel?: string;
   chatGptTranslationContext?: string;
+  translationDisplayStyle?: 'replace' | 'both';
 }
 
 export interface SharedSettings {

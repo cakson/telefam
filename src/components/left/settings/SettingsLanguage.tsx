@@ -21,6 +21,7 @@ import ItemPicker, { type ItemPickerOption } from '../../common/pickers/ItemPick
 import Checkbox from '../../ui/Checkbox';
 import ListItem from '../../ui/ListItem';
 import Loading from '../../ui/Loading';
+import Select from '../../ui/Select';
 
 type OwnProps = {
   isActive?: boolean;
@@ -29,7 +30,7 @@ type OwnProps = {
 
 type StateProps = {
   isCurrentUserPremium: boolean;
-} & Pick<AccountSettings, 'canTranslate' | 'canTranslateChats' | 'doNotTranslate' | 'useChatGptForTranslation'>
+} & Pick<AccountSettings, 'canTranslate' | 'canTranslateChats' | 'doNotTranslate' | 'useChatGptForTranslation' | 'translationDisplayStyle'>
 & Pick<SharedSettings, 'language' | 'languages'>;
 
 const SettingsLanguage: FC<OwnProps & StateProps> = ({
@@ -41,6 +42,7 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
   canTranslateChats,
   doNotTranslate,
   useChatGptForTranslation,
+  translationDisplayStyle = 'replace',
   onReset,
 }) => {
   const {
@@ -127,6 +129,10 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
     setSettingOption({ useChatGptForTranslation: newValue });
   });
 
+  const handleTranslationDisplayStyleChange = useLastCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSettingOption({ translationDisplayStyle: e.target.value as 'replace' | 'both' });
+  });
+
   useHistoryBack({
     isActive,
     onBack: onReset,
@@ -163,6 +169,19 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
                 checked={Boolean(useChatGptForTranslation)}
                 onCheck={handleUseChatGptChange}
               />
+              <div className="settings-item-select">
+                <label htmlFor="translation-display-style">
+                  Translation Display Style
+                </label>
+                <Select
+                  id="translation-display-style"
+                  value={translationDisplayStyle}
+                  onChange={handleTranslationDisplayStyleChange}
+                >
+                  <option value="replace">Replace Original Text</option>
+                  <option value="both">Show Both Original and Translation</option>
+                </Select>
+              </div>
             </>
           )}
           <p className="settings-item-description mb-0 mt-1">
@@ -194,7 +213,7 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
 export default memo(withGlobal<OwnProps>(
   (global): StateProps => {
     const {
-      canTranslate, canTranslateChats, doNotTranslate, useChatGptForTranslation,
+      canTranslate, canTranslateChats, doNotTranslate, useChatGptForTranslation, translationDisplayStyle,
     } = global.settings.byKey;
     const { language, languages } = selectSharedSettings(global);
 
@@ -208,6 +227,7 @@ export default memo(withGlobal<OwnProps>(
       canTranslateChats,
       doNotTranslate,
       useChatGptForTranslation,
+      translationDisplayStyle,
     };
   },
 )(SettingsLanguage));
