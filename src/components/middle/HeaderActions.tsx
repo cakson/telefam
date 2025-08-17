@@ -306,7 +306,7 @@ const HeaderActions: FC<OwnProps & StateProps> = ({
 
   return (
     <div className="HeaderActions">
-      {!isForForum && canTranslate && (
+      {canTranslate && (
         <DropdownMenu
           className="stickers-more-menu with-menu-transitions"
           trigger={MoreMenuButton}
