@@ -83,6 +83,7 @@ interface StateProps {
   language: string;
   detectedChatLanguage?: string;
   doNotTranslate: string[];
+  useChatGptForTranslation?: boolean;
   isAccountFrozen?: boolean;
 }
 
@@ -122,6 +123,7 @@ const HeaderActions: FC<OwnProps & StateProps> = ({
   language,
   detectedChatLanguage,
   doNotTranslate,
+  useChatGptForTranslation,
   onTopicSearch,
   isAccountFrozen,
 }) => {
@@ -284,6 +286,14 @@ const HeaderActions: FC<OwnProps & StateProps> = ({
     showNotification({ message: getTextWithLanguage('AddedToDoNotTranslate', detectedChatLanguage) });
   });
 
+  const handleToggleTranslationEngine = useLastCallback(() => {
+    const newValue = !useChatGptForTranslation;
+    setSettingOption({ useChatGptForTranslation: newValue });
+    showNotification({ 
+      message: newValue ? 'Switched to ChatGPT translation' : 'Switched to Telegram translation' 
+    });
+  });
+
   useHotkeys(useMemo(() => ({
     'Mod+F': handleHotkeySearchClick,
   }), []));
@@ -317,6 +327,12 @@ const HeaderActions: FC<OwnProps & StateProps> = ({
           </MenuItem>
           <MenuItem icon="replace" onClick={handleChangeLanguage}>
             {lang('Chat.Translate.Menu.To')}
+          </MenuItem>
+          <MenuItem 
+            icon={useChatGptForTranslation ? "settings" : "bots"} 
+            onClick={handleToggleTranslationEngine}
+          >
+            {useChatGptForTranslation ? "Use Telegram (Built-in)" : "Use ChatGPT"}
           </MenuItem>
           <MenuSeparator />
           {detectedChatLanguage
@@ -472,7 +488,7 @@ export default memo(withGlobal<OwnProps>(
     const language = selectLanguageCode(global);
     const translationLanguage = selectTranslationLanguage(global);
     const isPrivate = isUserId(chatId);
-    const { doNotTranslate } = global.settings.byKey;
+    const { doNotTranslate, useChatGptForTranslation } = global.settings.byKey;
 
     if (!chat || chat.isRestricted || selectIsInSelectMode(global)) {
       return {
@@ -480,6 +496,7 @@ export default memo(withGlobal<OwnProps>(
         language,
         translationLanguage,
         doNotTranslate,
+        useChatGptForTranslation,
       };
     }
 
@@ -549,6 +566,7 @@ export default memo(withGlobal<OwnProps>(
       translationLanguage,
       language,
       doNotTranslate,
+      useChatGptForTranslation,
       detectedChatLanguage: chat.detectedLanguage,
       canUnblock,
       isAccountFrozen,
