@@ -7,7 +7,7 @@
   background-size: 100% 100%;
 
   @media (max-width: 600px) {
-    height: calc(var(--vh, 1vh) * 100);
+    height: 100vh;
   }
 
   :global(html.theme-light) & {
@@ -34,7 +34,7 @@
 
     @media (max-width: 600px) {
       bottom: auto;
-      height: calc(var(--vh, 1vh) * 100);
+      height: 100vh;
     }
   }
 }

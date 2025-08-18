@@ -27,7 +27,7 @@
       overflow-x: auto;
 
       @media (max-width: 600px) {
-        padding-bottom: env(safe-area-inset-bottom);
+        padding-bottom: var(--safe-area-bottom);
       }
     }
 
@@ -77,7 +77,7 @@
     transform: translate3d(0, calc((var(--symbol-menu-height)) * -1), 0);
 
     @media (max-width: 600px) {
-      transform: translate3d(0, calc((var(--symbol-menu-height) - env(safe-area-inset-bottom)) * -1), 0);
+      transform: translate3d(0, calc((var(--symbol-menu-height) - var(--safe-area-bottom)) * -1), 0);
     }
   }
 

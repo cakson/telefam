@@ -12,7 +12,7 @@
 
     @media (max-width: 600px) {
       padding-right: 1rem;
-      bottom: env(safe-area-inset-bottom);
+      bottom: var(--safe-area-bottom);
     }
 
     &::before {

@@ -38,7 +38,7 @@ body {
   --font-weight-semibold: 500; // Note: Roboto is naturally quite bold, so 500 works well as default
 
   @media (max-width: 600px) {
-    height: calc(var(--vh, 1vh) * 100);
+    height: 100vh;
   }
 }
 
@@ -103,7 +103,7 @@ body.cursor-ew-resize {
   height: 100%;
 
   @media (max-width: 600px) {
-    height: calc(var(--vh, 1vh) * 100);
+    height: 100vh;
   }
 
   &.is-auth {
