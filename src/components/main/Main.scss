@@ -3,7 +3,17 @@
   text-align: left;
   overflow: hidden;
 
-  // Dynamic Island handling will be done at the column level
+  // Fill Dynamic Island area with solid background
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--app-top-offset);
+    background-color: var(--color-background);
+    z-index: var(--z-middle-header);
+  }
 
   @media (min-width: 1276px) {
     position: relative;
