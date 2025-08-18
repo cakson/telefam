@@ -45,6 +45,17 @@ async function init() {
 
   checkAndAssignPermanentWebVersion();
 
+  // Apply safe area constraints on iOS
+  if ((window as any).__TAURI__) {
+    try {
+      const { applyConstraints } = await import('tauri-plugin-safe-area-api');
+      await applyConstraints();
+      console.log('Safe area constraints applied');
+    } catch (err) {
+      console.error('Failed to apply safe area constraints:', err);
+    }
+  }
+
 
   subscribeToMultitabBroadcastChannel();
   await requestGlobal(APP_VERSION);

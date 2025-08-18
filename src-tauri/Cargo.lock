@@ -100,6 +100,7 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-log",
+ "tauri-plugin-safe-area",
 ]
 
 [[package]]
@@ -3582,6 +3583,17 @@ dependencies = [
  "tauri-plugin",
  "thiserror 2.0.15",
  "time",
+]
+
+[[package]]
+name = "tauri-plugin-safe-area"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-plugin",
+ "thiserror 1.0.69",
 ]
 
 [[package]]

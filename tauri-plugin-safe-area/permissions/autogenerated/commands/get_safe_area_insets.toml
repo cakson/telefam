@@ -1,0 +1,9 @@
+[[permission]]
+identifier = "allow-get-safe-area-insets"
+description = "Allows getting the safe area insets"
+commands.allow = ["get_safe_area_insets"]
+
+[[permission]]
+identifier = "deny-get-safe-area-insets"
+description = "Denies getting the safe area insets"
+commands.deny = ["get_safe_area_insets"]

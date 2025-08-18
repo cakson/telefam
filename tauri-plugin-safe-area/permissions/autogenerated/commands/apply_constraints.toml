@@ -1,0 +1,9 @@
+[[permission]]
+identifier = "allow-apply-constraints"
+description = "Allows applying safe area constraints to the webview"
+commands.allow = ["apply_constraints"]
+
+[[permission]]
+identifier = "deny-apply-constraints"
+description = "Denies applying safe area constraints to the webview"
+commands.deny = ["apply_constraints"]

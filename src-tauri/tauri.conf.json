@@ -7,7 +7,7 @@
     "frontendDist": "../dist/",
     "devUrl": "http://localhost:1234",
     "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build"
+    "beforeBuildCommand": "npm run build:production"
   },
   "app": {
     "windows": [
@@ -19,7 +19,7 @@
         "fullscreen": false,
         "decorations": true,
         "transparent": false,
-        "hiddenTitle": true,
+        "hiddenTitle": false,
         "titleBarStyle": "Overlay"
       }
     ],
