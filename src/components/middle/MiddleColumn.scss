@@ -198,7 +198,7 @@
         padding-bottom: var(--safe-area-bottom);
 
         body.keyboard-visible & {
-          top: var(--safe-area-bottom);
+          top: calc(var(--safe-area-bottom) - var(--app-top-offset));
         }
       }
     }
