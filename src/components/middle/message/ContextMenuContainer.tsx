@@ -67,6 +67,7 @@ import {
   selectRequestedChatTranslationLanguage,
   selectRequestedMessageTranslationLanguage,
   selectStickerSet,
+  selectTabState,
   selectThreadInfo,
   selectTopic,
   selectUser,
@@ -854,6 +855,10 @@ export default memo(withGlobal<OwnProps>(
     const canTranslate = !hasTranslation && selectCanTranslateMessage(global, message, detectedLanguage);
     const canRetryTranslate = Boolean(hasTranslation);
     const isChatTranslated = selectRequestedChatTranslationLanguage(global, message.chatId);
+    
+    // Check if message is excluded from chat translation
+    const requestedInChat = selectTabState(global).requestedTranslations.byChatId[message.chatId];
+    const isExcludedFromChatTranslation = requestedInChat?.excludedMessageIds?.includes(message.id);
 
     const isInSavedMessages = selectIsChatWithSelf(global, message.chatId);
 
@@ -906,8 +911,8 @@ export default memo(withGlobal<OwnProps>(
       canScheduleUntilOnline: selectCanScheduleUntilOnline(global, message.chatId),
       canTranslate,
       canRetryTranslate,
-      canShowOriginal: hasTranslation && !isChatTranslated,
-      canSelectLanguage: hasTranslation && !isChatTranslated,
+      canShowOriginal: hasTranslation,
+      canSelectLanguage: hasTranslation,
       isMessageTranslated: hasTranslation,
       canPlayAnimatedEmojis: selectCanPlayAnimatedEmojis(global),
       isReactionPickerOpen: selectIsReactionPickerOpen(global),
