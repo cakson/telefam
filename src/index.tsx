@@ -46,13 +46,25 @@ async function init() {
   checkAndAssignPermanentWebVersion();
 
   // Apply safe area constraints on iOS
-  if ((window as any).__TAURI__) {
-    try {
-      const { applyConstraints } = await import('tauri-plugin-safe-area-api');
+  try {
+    const { isTauri } = await import('@tauri-apps/api/core');
+    
+    if (isTauri()) {
+      const { applyConstraints, setSafeAreaColor } = await import('tauri-plugin-safe-area-api');
       await applyConstraints();
-      console.log('Safe area constraints applied');
-    } catch (err) {
-      console.error('Failed to apply safe area constraints:', err);
+      
+      // Set initial safe area color based on current theme
+      const isDarkTheme = document.documentElement.classList.contains('theme-dark');
+      const backgroundColor = isDarkTheme ? '#212121' : '#FFFFFF';
+      await setSafeAreaColor(backgroundColor);
+      
+      if (DEBUG) {
+        console.log('Tauri safe area initialized with color:', backgroundColor);
+      }
+    }
+  } catch (err) {
+    if (DEBUG) {
+      console.error('Error with Tauri safe area setup:', err);
     }
   }
 

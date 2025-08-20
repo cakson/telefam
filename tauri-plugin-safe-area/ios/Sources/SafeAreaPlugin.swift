@@ -21,9 +21,9 @@ class SafeAreaPlugin: Plugin {
             return
         }
         
-        // Set black background for safe areas
-        window.backgroundColor = UIColor.black
-        rootViewController.view.backgroundColor = UIColor.black
+        // Set default white background for safe areas (will be updated by JS)
+        window.backgroundColor = UIColor.white
+        rootViewController.view.backgroundColor = UIColor.white
         
         // Try to find and configure WKWebView
         if let webView = self.findWebView(in: rootViewController.view) {
@@ -69,9 +69,9 @@ class SafeAreaPlugin: Plugin {
                 return
             }
             
-            // Set black background for safe areas
-            rootViewController.view.backgroundColor = UIColor.black
-            window.backgroundColor = UIColor.black
+            // Set default white background for safe areas (will be updated by JS)
+            rootViewController.view.backgroundColor = UIColor.white
+            window.backgroundColor = UIColor.white
             
             // Find the WKWebView in the view hierarchy
             if let webView = self.findWebView(in: rootViewController.view) {
@@ -79,6 +79,35 @@ class SafeAreaPlugin: Plugin {
                 invoke.resolve(["success": true, "message": "Safe area constraints applied"])
             } else {
                 invoke.reject("WKWebView not found in view hierarchy")
+            }
+        }
+    }
+    
+    @objc public func setSafeAreaColor(_ invoke: Invoke) {
+        DispatchQueue.main.async {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = windowScene.windows.first,
+                  let rootViewController = window.rootViewController else {
+                invoke.reject("Could not find root view controller")
+                return
+            }
+            
+            do {
+                let args = try invoke.parseArgs([String: String].self)
+                guard let colorHex = args["color"] else {
+                    invoke.reject("Invalid arguments: color is required")
+                    return
+                }
+                
+                let color = self.hexStringToUIColor(hex: colorHex)
+                
+                // Set the color for safe areas
+                rootViewController.view.backgroundColor = color
+                window.backgroundColor = color
+                
+                invoke.resolve(["success": true, "color": colorHex])
+            } catch {
+                invoke.reject("Failed to parse arguments: \(error.localizedDescription)")
             }
         }
     }
@@ -113,6 +142,20 @@ class SafeAreaPlugin: Plugin {
         }
         
         return nil
+    }
+    
+    private func hexStringToUIColor(hex: String) -> UIColor {
+        var hexString = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexString = hexString.replacingOccurrences(of: "#", with: "")
+        
+        var rgb: UInt64 = 0
+        Scanner(string: hexString).scanHexInt64(&rgb)
+        
+        let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(rgb & 0x0000FF) / 255.0
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
 }
 

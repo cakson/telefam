@@ -1,0 +1,11 @@
+# Automatically generated permissions
+
+[[permission]]
+identifier = "allow-set-safe-area-color"
+description = "Enables the set_safe_area_color command without any pre-configured scope."
+commands.allow = ["set_safe_area_color"]
+
+[[permission]]
+identifier = "deny-set-safe-area-color"
+description = "Denies the set_safe_area_color command without any pre-configured scope."
+commands.deny = ["set_safe_area_color"]

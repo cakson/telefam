@@ -38,4 +38,11 @@ impl<R: Runtime> SafeArea<R> {
       .run_mobile_plugin("getSafeAreaInsets", ())
       .map_err(Into::into)
   }
+
+  pub fn set_safe_area_color(&self, color: String) -> crate::Result<serde_json::Value> {
+    self
+      .0
+      .run_mobile_plugin("setSafeAreaColor", serde_json::json!({ "color": color }))
+      .map_err(Into::into)
+  }
 }

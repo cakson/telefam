@@ -41,7 +41,8 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
     builder = builder.invoke_handler(tauri::generate_handler![
       commands::ping,
       commands::apply_constraints,
-      commands::get_safe_area_insets
+      commands::get_safe_area_insets,
+      commands::set_safe_area_color
     ]);
   }
   

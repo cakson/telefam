@@ -22,3 +22,7 @@ export async function applyConstraints(): Promise<any> {
 export async function getSafeAreaInsets(): Promise<SafeAreaInsets> {
   return await invoke<SafeAreaInsets>('plugin:safe-area|get_safe_area_insets');
 }
+
+export async function setSafeAreaColor(color: string): Promise<any> {
+  return await invoke('plugin:safe-area|set_safe_area_color', { color });
+}

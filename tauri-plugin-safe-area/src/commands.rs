@@ -1,7 +1,13 @@
 use tauri::{AppHandle, command, Runtime};
+use serde::{Deserialize, Serialize};
 
 use crate::models::*;
 use crate::Result;
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct SetColorRequest {
+    pub color: String,
+}
 
 #[cfg(mobile)]
 #[command]
@@ -24,6 +30,19 @@ pub(crate) async fn get_safe_area_insets<R: Runtime>(
     {
         use crate::SafeAreaExt;
         app.safe_area().get_safe_area_insets()
+    }
+}
+
+#[cfg(mobile)]
+#[command]
+pub(crate) async fn set_safe_area_color<R: Runtime>(
+    app: AppHandle<R>,
+    color: String,
+) -> Result<serde_json::Value> {
+    #[cfg(mobile)]
+    {
+        use crate::SafeAreaExt;
+        app.safe_area().set_safe_area_color(color)
     }
 }
 
