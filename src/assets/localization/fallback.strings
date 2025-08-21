@@ -1977,3 +1977,9 @@
 "ComposerTitleForwardFrom" = "From: **{users}**";
 "ContextMenuItemMention" = "Mention";
 "RetryTranslate" = "Retry Translate";
+"ChatGPT" = "ChatGPT";
+"ChatGPTSettings" = "ChatGPT Settings";
+"ChatGPTSettingsInfo" = "These are chat-specific settings that apply only to **{chatName}**. For global settings, go to Settings > ChatGPT Integration.";
+"ChatSpecificTranslationContext" = "Chat-specific Translation Context";
+"ChatSpecificTranslationContextDescription" = "Provide context specific to this chat that will be used when translating messages.";
+"ChatSpecificTranslationContextPlaceholder" = "Enter context for this chat (e.g., specialized terminology, preferred tone, etc.)";

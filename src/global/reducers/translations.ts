@@ -11,6 +11,10 @@ export function updateMessageTranslation<T extends GlobalState>(
   global: T, chatId: string, messageId: number, toLanguageCode: string, translation: Partial<TranslatedMessage>,
 ) {
   const translatedMessages = selectMessageTranslations(global, chatId, toLanguageCode);
+  
+  const existingChatTranslations = global.translations.byChatId?.[chatId] || {
+    byLangCode: {},
+  };
 
   return {
     ...global,
@@ -19,9 +23,9 @@ export function updateMessageTranslation<T extends GlobalState>(
       byChatId: {
         ...global.translations.byChatId,
         [chatId]: {
-          ...global.translations.byChatId[chatId],
+          ...existingChatTranslations,
           byLangCode: {
-            ...global.translations.byChatId[chatId]?.byLangCode,
+            ...existingChatTranslations.byLangCode,
             [toLanguageCode]: {
               ...translatedMessages,
               [messageId]: {

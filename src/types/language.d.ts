@@ -1512,6 +1512,11 @@ export interface LangPair {
   'StarGiftPurchaseTransaction': undefined;
   'ContextMenuItemMention': undefined;
   'RetryTranslate': undefined;
+  'ChatGPT': undefined;
+  'ChatGPTSettings': undefined;
+  'ChatSpecificTranslationContext': undefined;
+  'ChatSpecificTranslationContextDescription': undefined;
+  'ChatSpecificTranslationContextPlaceholder': undefined;
 }
 
 export interface LangPairWithVariables<V extends unknown = LangVariable> {
@@ -2464,6 +2469,9 @@ export interface LangPairWithVariables<V extends unknown = LangVariable> {
   };
   'ComposerTitleForwardFrom': {
     'users': V;
+  };
+  'ChatGPTSettingsInfo': {
+    'chatName': V;
   };
 }
 

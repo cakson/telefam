@@ -1397,14 +1397,20 @@ export function selectForwardsContainVoiceMessages<T extends GlobalState>(
 
 export function selectChatTranslations<T extends GlobalState>(
   global: T, chatId: string,
-): ChatTranslatedMessages {
+): ChatTranslatedMessages | undefined {
   return global.translations.byChatId[chatId];
 }
 
 export function selectMessageTranslations<T extends GlobalState>(
   global: T, chatId: string, toLanguageCode: string,
 ) {
-  return selectChatTranslations(global, chatId)?.byLangCode[toLanguageCode] || {};
+  return selectChatTranslations(global, chatId)?.byLangCode?.[toLanguageCode] || {};
+}
+
+export function selectChatGptContext<T extends GlobalState>(
+  global: T, chatId: string,
+): string | undefined {
+  return global.translations.byChatId?.[chatId]?.chatGptContext;
 }
 
 export function selectRequestedMessageTranslationLanguage<T extends GlobalState>(

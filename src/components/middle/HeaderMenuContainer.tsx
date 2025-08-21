@@ -206,6 +206,7 @@ const HeaderMenuContainer: FC<OwnProps & StateProps> = ({
     openChat,
     openUrl,
     toggleManagement,
+    toggleChatGPTSettings,
     togglePeerTranslations,
     blockUser,
     unblockUser,
@@ -753,6 +754,18 @@ const HeaderMenuContainer: FC<OwnProps & StateProps> = ({
               onClick={handleEnableTranslations}
             >
               {oldLang('lng_context_translate')}
+            </MenuItem>
+          )}
+          {!isTopic && (
+            <MenuItem
+              icon="bots"
+              onClick={() => {
+                toggleChatGPTSettings({ force: true });
+                setShouldCloseFast(!isRightColumnShown);
+                closeMenu();
+              }}
+            >
+              {oldLang('ChatGPT')}
             </MenuItem>
           )}
           {canReportChat && (

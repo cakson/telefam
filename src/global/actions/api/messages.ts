@@ -106,6 +106,7 @@ import {
   selectCanForwardMessage,
   selectChat,
   selectChatFullInfo,
+  selectChatGptContext,
   selectChatLastMessageId,
   selectChatMessage,
   selectCurrentChat,
@@ -2393,6 +2394,17 @@ addActionHandler('translateMessages', (global, actions, payload): ActionReturnTy
     chatGptTranslationContext,
   } = global.settings.byKey;
 
+  // Get chat-specific context if available
+  const chatSpecificContext = selectChatGptContext(global, chatId);
+  
+  // Combine global and chat-specific contexts
+  let combinedContext = chatGptTranslationContext || '';
+  if (chatSpecificContext) {
+    combinedContext = combinedContext 
+      ? `${combinedContext}\n\nChat-specific context:\n${chatSpecificContext}`
+      : chatSpecificContext;
+  }
+
   callApi('translateText', {
     chat,
     messageIds,
@@ -2400,7 +2412,7 @@ addActionHandler('translateMessages', (global, actions, payload): ActionReturnTy
     useChatGpt: useChatGptForTranslation,
     chatGptApiKey,
     chatGptModel,
-    chatGptUserContext: chatGptTranslationContext,
+    chatGptUserContext: combinedContext,
   }).catch((error) => {
     // Error handling is done inside translateText
     // This catch is just to prevent unhandled promise rejection

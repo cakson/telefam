@@ -2810,6 +2810,38 @@ addActionHandler('togglePeerTranslations', async (global, actions, payload): Pro
   setGlobal(global);
 });
 
+addActionHandler('setChatGptContext', (global, actions, payload): ActionReturnType => {
+  const { chatId, context } = payload;
+  
+  // Ensure translations structure exists
+  if (!global.translations) {
+    global = {
+      ...global,
+      translations: {
+        byChatId: {},
+      },
+    };
+  }
+  
+  const existingChatTranslations = global.translations.byChatId?.[chatId] || {
+    byLangCode: {},
+  };
+  
+  return {
+    ...global,
+    translations: {
+      ...global.translations,
+      byChatId: {
+        ...global.translations.byChatId,
+        [chatId]: {
+          ...existingChatTranslations,
+          chatGptContext: context,
+        },
+      },
+    },
+  };
+});
+
 addActionHandler('setViewForumAsMessages', (global, actions, payload): ActionReturnType => {
   const { chatId, isEnabled } = payload;
 

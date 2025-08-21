@@ -16,7 +16,7 @@ export default function useMessageTranslation(
   requestedLanguageCode?: string,
 ) {
   const messageTranslation = requestedLanguageCode && messageId
-    ? chatTranslations?.byLangCode[requestedLanguageCode]?.[messageId] : undefined;
+    ? chatTranslations?.byLangCode?.[requestedLanguageCode]?.[messageId] : undefined;
 
   const { isPending, text, source, model } = messageTranslation || {};
 

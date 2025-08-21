@@ -55,6 +55,13 @@ addActionHandler('toggleChatInfo', (global, actions, payload): ActionReturnType 
   return global;
 });
 
+addActionHandler('toggleChatGPTSettings', (global, actions, payload): ActionReturnType => {
+  const { force, tabId = getCurrentTabId() } = payload || {};
+  const isChatGPTSettingsShown = force !== undefined ? force : !selectTabState(global, tabId).isChatGPTSettingsShown;
+
+  return updateTabState(global, { isChatGPTSettingsShown }, tabId);
+});
+
 addActionHandler('setLeftColumnWidth', (global, actions, payload): ActionReturnType => {
   const { leftColumnWidth } = payload;
 

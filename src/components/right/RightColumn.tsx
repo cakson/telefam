@@ -42,6 +42,7 @@ import MonetizationStatistics from './statistics/MonetizationStatistics';
 import Statistics from './statistics/Statistics.async';
 import StoryStatistics from './statistics/StoryStatistics.async';
 import StickerSearch from './StickerSearch.async';
+import ChatGPTSettings from './ChatGPTSettings';
 
 import './RightColumn.scss';
 
@@ -89,6 +90,7 @@ const RightColumn: FC<OwnProps & StateProps> = ({
 }) => {
   const {
     toggleChatInfo,
+    toggleChatGPTSettings,
     toggleManagement,
     setStickerSearchQuery,
     setGifSearchQuery,
@@ -135,6 +137,7 @@ const RightColumn: FC<OwnProps & StateProps> = ({
   const isAddingChatMembers = contentKey === RightColumnContent.AddingMembers;
   const isCreatingTopic = contentKey === RightColumnContent.CreateTopic;
   const isEditingTopic = contentKey === RightColumnContent.EditTopic;
+  const isChatGPTSettings = contentKey === RightColumnContent.ChatGPTSettings;
   const isOverlaying = windowWidth <= MIN_SCREEN_WIDTH_FOR_STATIC_RIGHT_COLUMN;
 
   const [shouldSkipTransition, setShouldSkipTransition] = useState(!isOpen);
@@ -232,6 +235,9 @@ const RightColumn: FC<OwnProps & StateProps> = ({
       case RightColumnContent.EditTopic:
         closeEditTopicPanel();
         break;
+      case RightColumnContent.ChatGPTSettings:
+        toggleChatGPTSettings({ force: false });
+        break;
     }
   });
 
@@ -287,8 +293,12 @@ const RightColumn: FC<OwnProps & StateProps> = ({
         isSavedMessages && !isSavedDialog ? ProfileState.SavedDialogs : ProfileState.Profile,
       );
       setManagementScreen(ManagementScreens.Initial);
+      // Close ChatGPT settings when switching chats
+      if (isChatGPTSettings) {
+        toggleChatGPTSettings({ force: false });
+      }
     }
-  }, [chatId, threadId, isSavedDialog, isSavedMessages]);
+  }, [chatId, threadId, isSavedDialog, isSavedMessages, isChatGPTSettings]);
 
   useHistoryBack({
     isActive: isChatSelected && (
@@ -296,7 +306,8 @@ const RightColumn: FC<OwnProps & StateProps> = ({
       || contentKey === RightColumnContent.Management
       || contentKey === RightColumnContent.AddingMembers
       || contentKey === RightColumnContent.CreateTopic
-      || contentKey === RightColumnContent.EditTopic),
+      || contentKey === RightColumnContent.EditTopic
+      || contentKey === RightColumnContent.ChatGPTSettings),
     onBack: () => close(false),
   });
 
@@ -363,6 +374,8 @@ const RightColumn: FC<OwnProps & StateProps> = ({
         return <CreateTopic onClose={close} isActive={isOpen && isActive} />;
       case RightColumnContent.EditTopic:
         return <EditTopic onClose={close} isActive={isOpen && isActive} />;
+      case RightColumnContent.ChatGPTSettings:
+        return <ChatGPTSettings isActive={isOpen && isActive} />;
     }
 
     return undefined; // Unreachable
@@ -394,6 +407,7 @@ const RightColumn: FC<OwnProps & StateProps> = ({
           isCreatingTopic={isCreatingTopic}
           isEditingTopic={isEditingTopic}
           isAddingChatMembers={isAddingChatMembers}
+          isChatGPTSettings={isChatGPTSettings}
           profileState={profileState}
           managementScreen={managementScreen}
           onClose={close}

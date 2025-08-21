@@ -316,6 +316,7 @@ export interface ActionPayloads {
   } & WithTabId;
 
   toggleChatInfo: ({ force?: boolean } & WithTabId) | undefined;
+  toggleChatGPTSettings: ({ force?: boolean } & WithTabId) | undefined;
   setIsUiReady: {
     uiReadyState: 0 | 1 | 2;
   } & WithTabId;
@@ -1286,6 +1287,11 @@ export interface ActionPayloads {
   togglePeerTranslations: {
     chatId: string;
     isEnabled: boolean;
+  };
+
+  setChatGptContext: {
+    chatId: string;
+    context: string;
   };
 
   // Messages

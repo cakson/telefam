@@ -58,6 +58,8 @@ export function selectRightColumnContentKey<T extends GlobalState>(
     RightColumnContent.GifSearch
   ) : tabState.newChatMembersProgress !== NewChatMembersProgress.Closed ? (
     RightColumnContent.AddingMembers
+  ) : tabState.isChatGPTSettingsShown && tabState.messageLists.length ? (
+    RightColumnContent.ChatGPTSettings
   ) : tabState.isChatInfoShown && tabState.messageLists.length ? (
     RightColumnContent.ChatInfo
   ) : undefined;

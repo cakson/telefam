@@ -4,7 +4,7 @@ import React, {
 } from '../../lib/teact/teact';
 import { getActions, withGlobal } from '../../global';
 
-import type { ApiExportedInvite } from '../../api/types';
+import type { ApiChat, ApiExportedInvite } from '../../api/types';
 import type { GiftProfileFilterOptions, ThreadId } from '../../types';
 import { MAIN_THREAD_ID } from '../../api/types';
 import { ManagementScreens, ProfileState } from '../../types';
@@ -64,6 +64,7 @@ type OwnProps = {
   isCreatingTopic?: boolean;
   isEditingTopic?: boolean;
   isAddingChatMembers?: boolean;
+  isChatGPTSettings?: boolean;
   profileState?: ProfileState;
   managementScreen?: ManagementScreens;
   onClose: (shouldScrollUp?: boolean) => void;
@@ -71,6 +72,7 @@ type OwnProps = {
 };
 
 type StateProps = {
+  chat?: ApiChat;
   canAddContact?: boolean;
   canManage?: boolean;
   canViewStatistics?: boolean;
@@ -134,6 +136,7 @@ enum HeaderContent {
   CreateTopic,
   EditTopic,
   SavedDialogs,
+  ChatGPTSettings,
 }
 
 const RightHeader: FC<OwnProps & StateProps> = ({
@@ -153,8 +156,10 @@ const RightHeader: FC<OwnProps & StateProps> = ({
   isCreatingTopic,
   isEditingTopic,
   isAddingChatMembers,
+  isChatGPTSettings,
   profileState,
   managementScreen,
+  chat,
   canAddContact,
   userId,
   isSelf,
@@ -331,6 +336,8 @@ const RightHeader: FC<OwnProps & StateProps> = ({
     HeaderContent.EditTopic
   ) : isMonetizationStatistics ? (
     HeaderContent.MonetizationStatistics
+  ) : isChatGPTSettings ? (
+    HeaderContent.ChatGPTSettings
   ) : undefined; // When column is closed
 
   const renderingContentKey = useCurrentOrPrev(contentKey, true) ?? -1;
@@ -504,6 +511,8 @@ const RightHeader: FC<OwnProps & StateProps> = ({
         return <h3 className="title">{oldLang('NewTopic')}</h3>;
       case HeaderContent.EditTopic:
         return <h3 className="title">{oldLang('EditTopic')}</h3>;
+      case HeaderContent.ChatGPTSettings:
+        return <h3 className="title">{lang('ChatGPTSettings')}</h3>;
       case HeaderContent.GiftList:
         return (
           <>
@@ -730,6 +739,7 @@ export default withGlobal<OwnProps>(
     const canUseGiftAdminFilter = chatId ? selectCanUseGiftProfileAdminFilter(global, chatId) : false;
 
     return {
+      chat,
       canManage,
       canAddContact,
       canViewStatistics,

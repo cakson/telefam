@@ -338,6 +338,7 @@ export enum RightColumnContent {
   CreateTopic,
   EditTopic,
   MonetizationStatistics,
+  ChatGPTSettings,
 }
 
 export type MediaViewerMedia = ApiPhoto | ApiVideo | ApiDocument;
@@ -665,6 +666,7 @@ export type TranslatedMessage = {
 
 export type ChatTranslatedMessages = {
   byLangCode: Record<string, Record<number, TranslatedMessage>>;
+  chatGptContext?: string;
 };
 
 export type ChatRequestedTranslations = {
