@@ -414,6 +414,7 @@ function reduceGlobal<T extends GlobalState>(global: T) {
     settings: reduceSettings(global),
     chatFolders: reduceChatFolders(global),
     groupCalls: reduceGroupCalls(global),
+    translations: global.translations,
     reactions: {
       ...pick(global.reactions, [
         'defaultTags',
