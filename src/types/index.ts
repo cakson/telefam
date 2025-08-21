@@ -156,6 +156,7 @@ export interface AccountSettings {
   translationLanguage?: string;
   doNotTranslate: string[];
   shouldPaidMessageAutoApprove: boolean;
+  isChatGptIntegrationEnabled?: boolean;
   useChatGptForTranslation?: boolean;
   chatGptApiKey?: string;
   chatGptModel?: string;

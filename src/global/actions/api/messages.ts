@@ -2388,6 +2388,7 @@ addActionHandler('translateMessages', (global, actions, payload): ActionReturnTy
 
   // Get ChatGPT settings from global state
   const {
+    isChatGptIntegrationEnabled,
     useChatGptForTranslation,
     chatGptApiKey,
     chatGptModel,
@@ -2409,7 +2410,7 @@ addActionHandler('translateMessages', (global, actions, payload): ActionReturnTy
     chat,
     messageIds,
     toLanguageCode,
-    useChatGpt: useChatGptForTranslation,
+    useChatGpt: isChatGptIntegrationEnabled && useChatGptForTranslation,
     chatGptApiKey,
     chatGptModel,
     chatGptUserContext: combinedContext,

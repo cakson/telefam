@@ -30,7 +30,7 @@ type OwnProps = {
 
 type StateProps = {
   isCurrentUserPremium: boolean;
-} & Pick<AccountSettings, 'canTranslate' | 'canTranslateChats' | 'doNotTranslate' | 'useChatGptForTranslation' | 'translationDisplayStyle'>
+} & Pick<AccountSettings, 'canTranslate' | 'canTranslateChats' | 'doNotTranslate' | 'isChatGptIntegrationEnabled' | 'useChatGptForTranslation' | 'translationDisplayStyle'>
 & Pick<SharedSettings, 'language' | 'languages'>;
 
 const SettingsLanguage: FC<OwnProps & StateProps> = ({
@@ -41,6 +41,7 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
   canTranslate,
   canTranslateChats,
   doNotTranslate,
+  isChatGptIntegrationEnabled,
   useChatGptForTranslation,
   translationDisplayStyle = 'replace',
   onReset,
@@ -155,11 +156,13 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
                 {lang('DoNotTranslate')}
                 <span className="settings-item__current-value">{doNotTranslateText}</span>
               </ListItem>
-              <Checkbox
-                label="Use ChatGPT for translation"
-                checked={Boolean(useChatGptForTranslation)}
-                onCheck={handleUseChatGptChange}
-              />
+              {isChatGptIntegrationEnabled && (
+                <Checkbox
+                  label="Use ChatGPT for translation"
+                  checked={Boolean(useChatGptForTranslation)}
+                  onCheck={handleUseChatGptChange}
+                />
+              )}
               <div className="settings-item-select">
                 <label htmlFor="translation-display-style">
                   Translation Display Style
@@ -204,7 +207,7 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
 export default memo(withGlobal<OwnProps>(
   (global): StateProps => {
     const {
-      canTranslate, canTranslateChats, doNotTranslate, useChatGptForTranslation, translationDisplayStyle,
+      canTranslate, canTranslateChats, doNotTranslate, isChatGptIntegrationEnabled, useChatGptForTranslation, translationDisplayStyle,
     } = global.settings.byKey;
     const { language, languages } = selectSharedSettings(global);
 
@@ -217,6 +220,7 @@ export default memo(withGlobal<OwnProps>(
       canTranslate,
       canTranslateChats,
       doNotTranslate,
+      isChatGptIntegrationEnabled,
       useChatGptForTranslation,
       translationDisplayStyle,
     };

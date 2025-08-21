@@ -113,6 +113,7 @@ type StateProps = {
   isForumAsMessages?: true;
   canAddContact?: boolean;
   canDeleteChat?: boolean;
+  isChatGptIntegrationEnabled?: boolean;
   canReportChat?: boolean;
   canGift?: boolean;
   canCreateTopic?: boolean;
@@ -173,6 +174,7 @@ const HeaderMenuContainer: FC<OwnProps & StateProps> = ({
   canTranslate,
   isBlocked,
   isBot,
+  isChatGptIntegrationEnabled,
   isChatWithSelf,
   savedDialog,
   canShowBoostModal,
@@ -756,7 +758,7 @@ const HeaderMenuContainer: FC<OwnProps & StateProps> = ({
               {oldLang('lng_context_translate')}
             </MenuItem>
           )}
-          {!isTopic && (
+          {!isTopic && isChatGptIntegrationEnabled && (
             <MenuItem
               icon="bots"
               onClick={() => {
@@ -895,6 +897,7 @@ export default memo(withGlobal<OwnProps>(
       savedDialog,
       disallowedGifts: userFullInfo?.disallowedGifts,
       isAccountFrozen,
+      isChatGptIntegrationEnabled: global.settings.byKey.isChatGptIntegrationEnabled,
     };
   },
 )(HeaderMenuContainer));
