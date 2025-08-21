@@ -59,7 +59,7 @@
     bottom: 4.5rem;
 
     :global(body:not(.keyboard-visible)) & {
-      bottom: calc(4.5rem + env(safe-area-inset-bottom));
+      bottom: calc(4.5rem + var(--safe-area-bottom));
     }
   }
 

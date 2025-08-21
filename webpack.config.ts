@@ -36,7 +36,11 @@ const {
   APP_TITLE = DEFAULT_APP_TITLE,
 } = process.env;
 
-const CSP = `
+// For Tauri, we need to allow IPC protocol in CSP or disable CSP entirely in HTML
+// Tauri will handle its own CSP through tauri.conf.json
+const IS_TAURI_BUILD = process.env.TAURI_ENV_PLATFORM !== undefined;
+
+const CSP = IS_TAURI_BUILD ? '' : `
   default-src 'self';
   connect-src 'self' wss://*.web.telegram.org blob: http: https: ${APP_ENV === 'development' ? 'wss:' : ''};
   script-src 'self' 'wasm-unsafe-eval' https://t.me/_websync_ https://telegram.me/_websync_;
@@ -89,9 +93,9 @@ export default function createConfig(
       devMiddleware: {
         stats: 'minimal',
       },
-      headers: {
+      headers: CSP ? {
         'Content-Security-Policy': CSP,
-      },
+      } : undefined,
     },
 
     output: {

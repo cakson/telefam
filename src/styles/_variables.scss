@@ -306,10 +306,11 @@ $color-message-story-mention-to: #74bcff;
   --slide-transition: 300ms cubic-bezier(0.25, 1, 0.5, 1);
   --select-transition: 200ms ease-out;
 
-  --safe-area-top: env(safe-area-inset-top);
-  --safe-area-right: env(safe-area-inset-right);
-  --safe-area-bottom: env(safe-area-inset-bottom);
-  --safe-area-left: env(safe-area-inset-left);
+  // Remove all safe area insets - all browsers behave the same
+  --safe-area-top: 0;
+  --safe-area-right: 0;
+  --safe-area-bottom: 0;
+  --safe-area-left: 0;
 
   --picker-title-shift: 1rem;
 

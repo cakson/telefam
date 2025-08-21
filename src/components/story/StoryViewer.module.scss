@@ -241,7 +241,7 @@
     width: calc(100% - 1rem) !important;
     height: auto !important;
     margin: 0.5rem;
-    bottom: calc(3.5rem + env(safe-area-inset-bottom));
+    bottom: calc(3.5rem + var(--safe-area-bottom));
   }
 
   :global(body.ghost-animating) & {
@@ -527,7 +527,7 @@
   left: 0;
   width: 100%;
   top: 4rem;
-  bottom: calc(4.25rem + env(safe-area-inset-bottom));
+  bottom: calc(4.25rem + var(--safe-area-bottom));
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -626,7 +626,7 @@
 
     @media (max-width: 600px) {
       padding: 0 0.5rem 0.5rem;
-      margin-bottom: env(safe-area-inset-bottom);
+      margin-bottom: var(--safe-area-bottom);
     }
   }
 

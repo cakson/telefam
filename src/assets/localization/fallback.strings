@@ -1976,3 +1976,4 @@
 "GiftBuyConfirmDescription" = "Do you want to buy **{gift}** for **{stars}**?";
 "ComposerTitleForwardFrom" = "From: **{users}**";
 "ContextMenuItemMention" = "Mention";
+"RetryTranslate" = "Retry Translate";

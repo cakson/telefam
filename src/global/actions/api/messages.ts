@@ -98,6 +98,7 @@ import {
   updateThreadUnreadFromForwardedMessage,
   updateTopic,
   updateUploadByMessageKey,
+  clearMessageTranslation,
   updateUserFullInfo,
 } from '../../reducers';
 import { updateTabState } from '../../reducers/tabs';
@@ -2257,6 +2258,24 @@ addActionHandler('requestMessageTranslation', (global, actions, payload): Action
     chatId, id, toLanguageCode = selectTranslationLanguage(global), tabId = getCurrentTabId(),
   } = payload;
 
+  // Remove from exclusion list if it was excluded from chat-level translation
+  const tabState = selectTabState(global, tabId);
+  const chatTranslation = tabState.requestedTranslations.byChatId[chatId];
+  if (chatTranslation?.excludedMessageIds?.includes(id)) {
+    global = updateTabState(global, {
+      requestedTranslations: {
+        ...tabState.requestedTranslations,
+        byChatId: {
+          ...tabState.requestedTranslations.byChatId,
+          [chatId]: {
+            ...chatTranslation,
+            excludedMessageIds: chatTranslation.excludedMessageIds.filter((msgId) => msgId !== id),
+          },
+        },
+      },
+    }, tabId);
+  }
+
   global = updateRequestedMessageTranslation(global, chatId, id, toLanguageCode, tabId);
   global = replaceSettings(global, {
     translationLanguage: toLanguageCode,
@@ -2270,7 +2289,74 @@ addActionHandler('showOriginalMessage', (global, actions, payload): ActionReturn
     chatId, id, tabId = getCurrentTabId(),
   } = payload;
 
-  global = removeRequestedMessageTranslation(global, chatId, id, tabId);
+  const tabState = selectTabState(global, tabId);
+  const chatTranslation = tabState.requestedTranslations.byChatId[chatId];
+  
+  // Check if this is a chat-level translation
+  if (chatTranslation?.toLanguage) {
+    // Add message to exclusion list for chat-level translations
+    const excludedMessageIds = chatTranslation.excludedMessageIds || [];
+    if (!excludedMessageIds.includes(id)) {
+      global = updateTabState(global, {
+        requestedTranslations: {
+          ...tabState.requestedTranslations,
+          byChatId: {
+            ...tabState.requestedTranslations.byChatId,
+            [chatId]: {
+              ...chatTranslation,
+              excludedMessageIds: [...excludedMessageIds, id],
+            },
+          },
+        },
+      }, tabId);
+    }
+  } else {
+    // Remove manual message translation
+    global = removeRequestedMessageTranslation(global, chatId, id, tabId);
+  }
+
+  return global;
+});
+
+addActionHandler('retryMessageTranslation', (global, actions, payload): ActionReturnType => {
+  const {
+    chatId, id, toLanguageCode = selectTranslationLanguage(global), tabId = getCurrentTabId(),
+  } = payload;
+
+  // Remove from exclusion list if it was excluded from chat-level translation
+  const tabState = selectTabState(global, tabId);
+  const chatTranslation = tabState.requestedTranslations.byChatId[chatId];
+  if (chatTranslation?.excludedMessageIds?.includes(id)) {
+    global = updateTabState(global, {
+      requestedTranslations: {
+        ...tabState.requestedTranslations,
+        byChatId: {
+          ...tabState.requestedTranslations.byChatId,
+          [chatId]: {
+            ...chatTranslation,
+            excludedMessageIds: chatTranslation.excludedMessageIds.filter((msgId) => msgId !== id),
+          },
+        },
+      },
+    }, tabId);
+  }
+
+  // Clear the cached translation for this message
+  global = clearMessageTranslation(global, chatId, id);
+  
+  // Mark the message as pending to show loading animation
+  global = updateMessageTranslation(global, chatId, id, toLanguageCode, {
+    isPending: true,
+  });
+  
+  // Re-request the translation
+  global = updateRequestedMessageTranslation(global, chatId, id, toLanguageCode, tabId);
+  global = replaceSettings(global, {
+    translationLanguage: toLanguageCode,
+  });
+
+  // Trigger the translation immediately
+  actions.translateMessages({ chatId, messageIds: [id], toLanguageCode });
 
   return global;
 });

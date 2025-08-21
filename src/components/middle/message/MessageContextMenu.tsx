@@ -80,6 +80,7 @@ type OwnProps = {
   canCopyLink?: boolean;
   canSelect?: boolean;
   canTranslate?: boolean;
+  canRetryTranslate?: boolean;
   canShowOriginal?: boolean;
   canSelectLanguage?: boolean;
   isPrivate?: boolean;
@@ -123,6 +124,7 @@ type OwnProps = {
   onShowSeenBy?: NoneToVoidFunction;
   onShowReactors?: NoneToVoidFunction;
   onTranslate?: NoneToVoidFunction;
+  onRetryTranslate?: NoneToVoidFunction;
   onShowOriginal?: NoneToVoidFunction;
   onSelectLanguage?: NoneToVoidFunction;
   onToggleReaction?: (reaction: ApiReaction) => void;
@@ -175,6 +177,7 @@ const MessageContextMenu: FC<OwnProps> = ({
   canRevote,
   canClosePoll,
   canTranslate,
+  canRetryTranslate,
   canShowOriginal,
   canSelectLanguage,
   isDownloading,
@@ -218,6 +221,7 @@ const MessageContextMenu: FC<OwnProps> = ({
   onCopyMessages,
   onReactionPickerOpen,
   onTranslate,
+  onRetryTranslate,
   onShowOriginal,
   onSelectLanguage,
   userFullName,
@@ -428,6 +432,7 @@ const MessageContextMenu: FC<OwnProps> = ({
           <MenuItem icon="favorite" onClick={onUnfaveSticker}>{lang('Stickers.RemoveFromFavorites')}</MenuItem>
         )}
         {canTranslate && <MenuItem icon="language" onClick={onTranslate}>{lang('TranslateMessage')}</MenuItem>}
+        {canRetryTranslate && <MenuItem icon="reload" onClick={onRetryTranslate}>{lang('RetryTranslate')}</MenuItem>}
         {canShowOriginal && <MenuItem icon="language" onClick={onShowOriginal}>{lang('ShowOriginalButton')}</MenuItem>}
         {canSelectLanguage && (
           <MenuItem icon="web" onClick={onSelectLanguage}>{lang('lng_settings_change_lang')}</MenuItem>

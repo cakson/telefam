@@ -10,6 +10,11 @@
     "build:staging": "cross-env APP_ENV=staging npm run build:dev",
     "build:mocked": "cross-env APP_ENV=test APP_MOCKED_CLIENT=1 npm run build:dev",
     "build:production": "webpack && bash ./deploy/copy_to_dist.sh",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "tauri:ios": "tauri ios",
+    "tauri:android": "tauri android",
     "web:release:production": "npm i && npm run build:production && git add -A && git commit -a -m '[Build]' --no-verify && git push",
     "telegraph:update_changelog": "node ./dev/telegraphChangelog.js",
     "check": "tsc && stylelint \"**/*.{css,scss}\" && eslint . --ext .ts,.tsx,.js --ignore-pattern src/lib/gramjs",
@@ -53,6 +58,7 @@
     "@statoscope/webpack-plugin": "5.28.2",
     "@stylistic/stylelint-config": "^1.0.1",
     "@stylistic/stylelint-plugin": "^2.1.2",
+    "@tauri-apps/cli": "^2.0.0-rc.18",
     "@testing-library/jest-dom": "^6.4.5",
     "@twbs/fantasticon": "^3.0.0",
     "@types/croppie": "^2.6.4",
@@ -119,6 +125,7 @@
   },
   "dependencies": {
     "@cryptography/aes": "^0.1.1",
+    "@tauri-apps/api": "^2.0.1",
     "async-mutex": "^0.5.0",
     "big-integer": "github:painor/BigInteger.js",
     "croppie": "^2.6.5",
@@ -132,6 +139,7 @@
     "pako": "^2.1.0",
     "path-browserify": "^1.0.1",
     "qr-code-styling": "github:zubiden/qr-code-styling#dbbfed0",
+    "tauri-plugin-safe-area-api": "file:tauri-plugin-safe-area",
     "v8-compile-cache": "^2.4.0"
   },
   "optionalDependencies": {

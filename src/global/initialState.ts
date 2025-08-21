@@ -292,7 +292,7 @@ export const INITIAL_GLOBAL_STATE: GlobalState = {
       nonContactPeersPaidStars: 0,
       shouldHideReadMarks: false,
       canTranslate: false,
-      canTranslateChats: true,
+      canTranslateChats: false,
       doNotTranslate: [],
     },
     privacy: {},

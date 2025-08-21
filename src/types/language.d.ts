@@ -1511,6 +1511,7 @@ export interface LangPair {
   'StarGiftSaleTransaction': undefined;
   'StarGiftPurchaseTransaction': undefined;
   'ContextMenuItemMention': undefined;
+  'RetryTranslate': undefined;
 }
 
 export interface LangPairWithVariables<V extends unknown = LangVariable> {

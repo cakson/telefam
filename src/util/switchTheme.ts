@@ -1,5 +1,6 @@
 import type { ThemeKey } from '../types';
 
+import { DEBUG } from '../config';
 import { requestMutation } from '../lib/fasterdom/fasterdom';
 import themeColors from '../styles/themes.json';
 import { animate } from './animation';
@@ -57,6 +58,26 @@ const switchTheme = (theme: ThemeKey, withAnimation: boolean) => {
   const endIndex = isDarkTheme ? 1 : 0;
   const startAt = Date.now();
   const themeColorTag = document.querySelector('meta[name="theme-color"]');
+
+  // Update Tauri safe area color
+  const updateSafeAreaColor = async () => {
+    try {
+      const { isTauri } = await import('@tauri-apps/api/core');
+      
+      if (isTauri()) {
+        const { setSafeAreaColor } = await import('tauri-plugin-safe-area-api');
+        const backgroundColor = isDarkTheme ? '#212121' : '#FFFFFF';
+        await setSafeAreaColor(backgroundColor);
+      }
+    } catch (err) {
+      if (DEBUG) {
+        console.error('[switchTheme] Error updating safe area color:', err);
+      }
+    }
+  };
+
+  // Call the async function
+  updateSafeAreaColor();
 
   requestMutation(() => {
     document.documentElement.classList.remove(`theme-${isDarkTheme ? 'light' : 'dark'}`);

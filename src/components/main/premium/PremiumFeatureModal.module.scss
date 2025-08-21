@@ -64,7 +64,7 @@
 }
 
 .stories {
-  height: calc(var(--vh) * 55 + 100px);
+  height: calc(55vh + 100px);
 }
 
 .header {
@@ -142,10 +142,10 @@
   }
 
   .limits-content {
-    height: calc(var(--vh) * 100 - 193px);
+    height: calc(100vh - 193px);
   }
 
   .stories {
-    height: calc(var(--vh) * 100 - 135px);
+    height: calc(100vh - 135px);
   }
 }

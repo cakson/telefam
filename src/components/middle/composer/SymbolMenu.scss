@@ -47,7 +47,7 @@
     max-height: calc(100vh - var(--symbol-menu-footer-height));
 
     @media (max-width: 600px) {
-      max-height: calc(100vh - var(--symbol-menu-footer-height) - env(safe-area-inset-bottom));
+      max-height: calc(100vh - var(--symbol-menu-footer-height) - var(--safe-area-bottom));
     }
   }
 

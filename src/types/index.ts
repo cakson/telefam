@@ -670,6 +670,7 @@ export type ChatTranslatedMessages = {
 export type ChatRequestedTranslations = {
   toLanguage?: string;
   manualMessages?: Record<number, string>;
+  excludedMessageIds?: number[];
 };
 
 export type SimilarBotsInfo = {

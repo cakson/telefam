@@ -4,7 +4,7 @@ import { IS_IOS, IS_PWA, IS_TOUCH_ENV } from '../util/browser/windowEnvironment'
 
 const metaViewport = document.querySelector('meta[name="viewport"]');
 const defaultViewportContent = metaViewport?.getAttribute('content') || '';
-const allowedZoomViewportContent = 'width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover';
+const allowedZoomViewportContent = 'width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=contain';
 
 export default function usePreventPinchZoomGesture(isDisabled = false) {
   useEffect(() => {
