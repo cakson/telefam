@@ -7,6 +7,13 @@ export default function deleteLastCharacterOutsideSelection(html: string) {
   tempInput.innerHTML = html;
   tempInput.className = 'allow-selection'; // Patch for Safari
   document.body.appendChild(tempInput);
+  
+  // Handle empty input case
+  if (!tempInput.lastChild) {
+    document.body.removeChild(tempInput);
+    return html;
+  }
+  
   let element = tempInput.lastChild!;
 
   if (element.lastChild) {
