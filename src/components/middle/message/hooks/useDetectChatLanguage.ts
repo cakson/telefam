@@ -8,9 +8,11 @@ import LimitedMap from '../../../../util/primitives/LimitedMap';
 import { throttle } from '../../../../util/schedulers';
 
 // https://github.com/DrKLO/Telegram/blob/dfd74f809e97d1ecad9672fc7388cb0223a95dfc/TMessagesProj/src/main/java/org/telegram/messenger/TranslateController.java#L35
-const MIN_MESSAGES_CHECKED = 8;
-const MIN_TRANSLATABLE_RATIO = 0.3;
-const MIN_DETECTABLE_RATIO = 0.6;
+// Original values: MIN_MESSAGES_CHECKED = 8, MIN_TRANSLATABLE_RATIO = 0.3, MIN_DETECTABLE_RATIO = 0.6
+// Set to 0 to allow translation for all chats regardless of message count or language detection
+const MIN_MESSAGES_CHECKED = 1;
+const MIN_TRANSLATABLE_RATIO = 0.01;
+const MIN_DETECTABLE_RATIO = 0.01;
 
 const THROTTLE_DELAY = 1000;
 const MESSAGES_LIMIT = 150;
