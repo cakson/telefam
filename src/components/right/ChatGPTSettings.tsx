@@ -92,6 +92,7 @@ const ChatGPTSettings: FC<OwnProps & StateProps> = ({
             value={context}
             onChange={handleContextChange}
             placeholder={lang('ChatSpecificTranslationContextPlaceholder')}
+            noReplaceNewlines
           />
         </div>
       </div>

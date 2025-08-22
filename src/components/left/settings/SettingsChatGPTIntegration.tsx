@@ -141,6 +141,7 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
           onChange={handleContextChange}
           onBlur={handleContextBlur}
           maxLength={500}
+          noReplaceNewlines
         />
 
         <p className="settings-item-description">
