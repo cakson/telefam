@@ -312,8 +312,14 @@ export function selectRequestedChatTranslationLanguage<T extends GlobalState>(
   ...[tabId = getCurrentTabId()]: TabArgs<T>
 ) {
   const { requestedTranslations } = selectTabState(global, tabId);
-
-  return requestedTranslations.byChatId[chatId]?.toLanguage;
+  
+  // First check tab state (for current session)
+  const tabLanguage = requestedTranslations.byChatId[chatId]?.toLanguage;
+  if (tabLanguage) return tabLanguage;
+  
+  // Fall back to persisted language (for page refresh)
+  const persistedLanguage = global.translations.byChatId[chatId]?.requestedLanguage;
+  return persistedLanguage;
 }
 
 export function selectSimilarChannelIds<T extends GlobalState>(

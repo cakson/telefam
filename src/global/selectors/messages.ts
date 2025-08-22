@@ -1417,13 +1417,20 @@ export function selectRequestedMessageTranslationLanguage<T extends GlobalState>
   global: T, chatId: string, messageId: number, ...[tabId = getCurrentTabId()]: TabArgs<T>
 ): string | undefined {
   const requestedInChat = selectTabState(global, tabId).requestedTranslations.byChatId[chatId];
+  const persistedTranslations = global.translations.byChatId[chatId];
 
   // Check if message is excluded from chat-level translation
   if (requestedInChat?.toLanguage && requestedInChat.excludedMessageIds?.includes(messageId)) {
     return undefined;
   }
-
-  return requestedInChat?.toLanguage || requestedInChat?.manualMessages?.[messageId];
+  
+  // First check tab state (for current session)
+  const tabLanguage = requestedInChat?.toLanguage || requestedInChat?.manualMessages?.[messageId];
+  if (tabLanguage) return tabLanguage;
+  
+  // Fall back to persisted language (for page refresh)
+  const persistedLanguage = persistedTranslations?.requestedLanguage || persistedTranslations?.manualMessageLanguages?.[messageId];
+  return persistedLanguage;
 }
 export function selectReplyCanBeSentToChat<T extends GlobalState>(
   global: T,

@@ -103,6 +103,24 @@ export function updateRequestedChatTranslation<T extends GlobalState>(
     },
   }, tabId);
 
+  // Also save in translations for persistence
+  if (toLanguageCode) {
+    const chatTranslations = global.translations.byChatId[chatId] || { byLangCode: {} };
+    global = {
+      ...global,
+      translations: {
+        ...global.translations,
+        byChatId: {
+          ...global.translations.byChatId,
+          [chatId]: {
+            ...chatTranslations,
+            requestedLanguage: toLanguageCode,
+          },
+        },
+      },
+    };
+  }
+
   return global;
 }
 
@@ -117,6 +135,24 @@ export function removeRequestedChatTranslation<T extends GlobalState>(
       byChatId: omit(tabState.requestedTranslations.byChatId, [chatId]),
     },
   }, tabId);
+
+  // Also remove from translations for persistence
+  const chatTranslations = global.translations.byChatId[chatId];
+  if (chatTranslations?.requestedLanguage) {
+    global = {
+      ...global,
+      translations: {
+        ...global.translations,
+        byChatId: {
+          ...global.translations.byChatId,
+          [chatId]: {
+            ...chatTranslations,
+            requestedLanguage: undefined,
+          },
+        },
+      },
+    };
+  }
 
   return global;
 }
@@ -140,6 +176,25 @@ export function updateRequestedMessageTranslation<T extends GlobalState>(
       },
     },
   }, tabId);
+
+  // Also save in translations for persistence
+  const chatTranslations = global.translations.byChatId[chatId] || { byLangCode: {} };
+  global = {
+    ...global,
+    translations: {
+      ...global.translations,
+      byChatId: {
+        ...global.translations.byChatId,
+        [chatId]: {
+          ...chatTranslations,
+          manualMessageLanguages: {
+            ...chatTranslations.manualMessageLanguages,
+            [messageId]: toLanguageCode,
+          },
+        },
+      },
+    },
+  };
 
   return global;
 }
@@ -166,6 +221,27 @@ export function removeRequestedMessageTranslation<T extends GlobalState>(
       },
     },
   }, tabId);
+
+  // Also remove from translations for persistence
+  const chatTranslations = global.translations.byChatId[chatId];
+  if (chatTranslations?.manualMessageLanguages?.[messageId]) {
+    const newManualMessageLanguages = omit(chatTranslations.manualMessageLanguages, [messageId]);
+    global = {
+      ...global,
+      translations: {
+        ...global.translations,
+        byChatId: {
+          ...global.translations.byChatId,
+          [chatId]: {
+            ...chatTranslations,
+            manualMessageLanguages: Object.keys(newManualMessageLanguages).length > 0 
+              ? newManualMessageLanguages 
+              : undefined,
+          },
+        },
+      },
+    };
+  }
 
   return global;
 }

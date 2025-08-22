@@ -668,6 +668,8 @@ export type TranslatedMessage = {
 export type ChatTranslatedMessages = {
   byLangCode: Record<string, Record<number, TranslatedMessage>>;
   chatGptContext?: string;
+  requestedLanguage?: string; // Persisted translation language for the chat
+  manualMessageLanguages?: Record<number, string>; // Individual message translation languages
 };
 
 export type ChatRequestedTranslations = {

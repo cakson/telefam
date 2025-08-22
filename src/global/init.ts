@@ -39,6 +39,21 @@ addActionHandler('init', (global, actions, payload): ActionReturnType => {
   initialTabState.audioPlayer.isPlaybackRateActive = global.audioPlayer.isLastPlaybackRateActive;
   initialTabState.mediaViewer.playbackRate = global.mediaViewer.lastPlaybackRate;
 
+  // Restore persisted translation states to tab state
+  const requestedTranslationsByChatId: Record<string, any> = {};
+  Object.entries(global.translations.byChatId).forEach(([chatId, chatTranslations]) => {
+    if (chatTranslations.requestedLanguage || chatTranslations.manualMessageLanguages) {
+      requestedTranslationsByChatId[chatId] = {
+        toLanguage: chatTranslations.requestedLanguage,
+        manualMessages: chatTranslations.manualMessageLanguages,
+      };
+    }
+  });
+  
+  initialTabState.requestedTranslations = {
+    byChatId: requestedTranslationsByChatId,
+  };
+
   global = {
     ...global,
     byTabId: {
