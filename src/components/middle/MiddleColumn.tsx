@@ -1,5 +1,5 @@
 import React, {
-  memo, useEffect, useMemo,
+  memo, useEffect, useMemo, useRef,
   useState,
 } from '../../lib/teact/teact';
 import { getActions, withGlobal } from '../../global';
@@ -62,11 +62,12 @@ import {
   selectUserFullInfo,
 } from '../../global/selectors';
 import {
-  IS_ANDROID, IS_IOS, IS_SAFARI, IS_TRANSLATION_SUPPORTED, MASK_IMAGE_DISABLED,
+  IS_ANDROID, IS_IOS, IS_SAFARI, IS_TOUCH_ENV, IS_TRANSLATION_SUPPORTED, MASK_IMAGE_DISABLED,
 } from '../../util/browser/windowEnvironment';
 import buildClassName from '../../util/buildClassName';
 import buildStyle from '../../util/buildStyle';
 import captureEscKeyListener from '../../util/captureEscKeyListener';
+import { captureControlledSwipe } from '../../util/swipeController';
 import calculateMiddleFooterTransforms from './helpers/calculateMiddleFooterTransforms';
 
 import useAppLayout from '../../hooks/useAppLayout';
@@ -245,6 +246,7 @@ function MiddleColumn({
   const { isTablet, isDesktop } = useAppLayout();
 
   const lang = useOldLang();
+  const middleColumnRef = useRef<HTMLDivElement>(null);
   const [dropAreaState, setDropAreaState] = useState(DropAreaState.None);
   const [isScrollDownNeeded, setIsScrollDownShown] = useState(false);
   const isScrollDownShown = isScrollDownNeeded && (!isMobile || !hasActiveMiddleSearch);
@@ -359,6 +361,25 @@ function MiddleColumn({
       loadFullChat({ chatId });
     }
   }, [shouldLoadFullChat, chatId, isReady, loadFullChat]);
+
+  // Swipe to go back to contact list in mobile
+  useEffect(() => {
+    if (!IS_TOUCH_ENV || !isMobile || !chatId || !middleColumnRef.current) {
+      return undefined;
+    }
+
+    return captureControlledSwipe(middleColumnRef.current, {
+      excludedClosestSelector: '.MessageSelectToolbar, .EmojiPicker, .ReactionPicker, .symbol-menu, .ContextMenuContainer',
+      onSwipeRightStart: () => {
+        if (!isSelectModeActive) {
+          openChat({ id: undefined });
+        }
+      },
+      onCancel: () => {
+        // No need to restore state as we're just closing the chat
+      },
+    });
+  }, [chatId, isMobile, isSelectModeActive, openChat]);
 
   const {
     initResize, resetResize, handleMouseUp,
@@ -492,6 +513,7 @@ function MiddleColumn({
 
   return (
     <div
+      ref={middleColumnRef}
       id="MiddleColumn"
       className={className}
       onTransitionEnd={handleCssTransitionEnd}
