@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+
 import type { ApiFormattedText } from '../types';
 
 const SYSTEM_CONTEXT = `You are a translation engine.
@@ -31,7 +32,7 @@ export async function translateWithChatGPT({
     throw new Error('ChatGPT API key is required');
   }
 
-  const client = new OpenAI({ 
+  const client = new OpenAI({
     apiKey,
     dangerouslyAllowBrowser: true, // Since this is client-side
   });
@@ -65,7 +66,8 @@ export async function translateWithChatGPT({
     } else if (error?.status === 404) {
       throw new Error(`Model ${model} not found`);
     }
-    
+
+    // eslint-disable-next-line no-console
     console.error('ChatGPT translation error:', error);
     throw error;
   }
@@ -99,7 +101,7 @@ export async function translateMessagesWithChatGPT({
         ...message,
         text: translatedText,
       };
-    })
+    }),
   );
 
   return translations;

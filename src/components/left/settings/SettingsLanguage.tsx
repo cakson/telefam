@@ -30,12 +30,12 @@ type OwnProps = {
 
 type StateProps = {
   isCurrentUserPremium: boolean;
-} & Pick<AccountSettings, 'canTranslate' | 'canTranslateChats' | 'doNotTranslate' | 'isChatGptIntegrationEnabled' | 'useChatGptForTranslation' | 'translationDisplayStyle'>
+} & Pick<AccountSettings, 'canTranslate' | 'canTranslateChats' | 'doNotTranslate'
+| 'isChatGptIntegrationEnabled' | 'useChatGptForTranslation' | 'translationDisplayStyle'>
 & Pick<SharedSettings, 'language' | 'languages'>;
 
 const SettingsLanguage: FC<OwnProps & StateProps> = ({
   isActive,
-  isCurrentUserPremium,
   languages,
   language,
   canTranslate,
@@ -207,7 +207,8 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
 export default memo(withGlobal<OwnProps>(
   (global): StateProps => {
     const {
-      canTranslate, canTranslateChats, doNotTranslate, isChatGptIntegrationEnabled, useChatGptForTranslation, translationDisplayStyle,
+      canTranslate, canTranslateChats, doNotTranslate,
+      isChatGptIntegrationEnabled, useChatGptForTranslation, translationDisplayStyle,
     } = global.settings.byKey;
     const { language, languages } = selectSharedSettings(global);
 

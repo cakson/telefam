@@ -1417,12 +1417,12 @@ export function selectRequestedMessageTranslationLanguage<T extends GlobalState>
   global: T, chatId: string, messageId: number, ...[tabId = getCurrentTabId()]: TabArgs<T>
 ): string | undefined {
   const requestedInChat = selectTabState(global, tabId).requestedTranslations.byChatId[chatId];
-  
+
   // Check if message is excluded from chat-level translation
   if (requestedInChat?.toLanguage && requestedInChat.excludedMessageIds?.includes(messageId)) {
     return undefined;
   }
-  
+
   return requestedInChat?.toLanguage || requestedInChat?.manualMessages?.[messageId];
 }
 export function selectReplyCanBeSentToChat<T extends GlobalState>(
@@ -1492,7 +1492,7 @@ export function selectCanTranslateMessage<T extends GlobalState>(
   // Check if chat translation is enabled
   const chatRequestedLanguage = selectRequestedChatTranslationLanguage(global, message.chatId, tabId);
   const requestedInChat = selectTabState(global, tabId).requestedTranslations.byChatId[message.chatId];
-  
+
   // Allow translation for excluded messages even when chat translation is enabled
   const isExcludedFromChatTranslation = requestedInChat?.excludedMessageIds?.includes(message.id);
 

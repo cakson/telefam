@@ -318,6 +318,12 @@ const HeaderMenuContainer: FC<OwnProps & StateProps> = ({
     setIsMenuOpen(false);
   });
 
+  const handleChatGPTSettingsClick = useLastCallback(() => {
+    toggleChatGPTSettings({ force: true });
+    setShouldCloseFast(!isRightColumnShown);
+    closeMenu();
+  });
+
   const handleCreateTopicClick = useLastCallback(() => {
     if (isAccountFrozen) {
       openFrozenAccountModal();
@@ -761,11 +767,7 @@ const HeaderMenuContainer: FC<OwnProps & StateProps> = ({
           {!isTopic && isChatGptIntegrationEnabled && (
             <MenuItem
               icon="bots"
-              onClick={() => {
-                toggleChatGPTSettings({ force: true });
-                setShouldCloseFast(!isRightColumnShown);
-                closeMenu();
-              }}
+              onClick={handleChatGPTSettingsClick}
             >
               {oldLang('ChatGPT')}
             </MenuItem>

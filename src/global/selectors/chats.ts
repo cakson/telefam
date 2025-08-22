@@ -21,7 +21,7 @@ import {
 } from '../helpers';
 import { selectTabState } from './tabs';
 import {
-  selectBot, selectIsCurrentUserPremium, selectUser, selectUserFullInfo,
+  selectBot, selectUser, selectUserFullInfo,
 } from './users';
 
 export function selectChat<T extends GlobalState>(global: T, chatId: string): ApiChat | undefined {
@@ -285,7 +285,7 @@ export function selectShouldDetectChatLanguage<T extends GlobalState>(
   const { canTranslateChats } = global.settings.byKey;
 
   const isSavedMessages = selectIsChatWithSelf(global, chatId);
-  
+
   // Chat translation is now available for all users
   return IS_TRANSLATION_SUPPORTED && canTranslateChats && !isSavedMessages;
 }

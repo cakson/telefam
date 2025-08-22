@@ -2812,7 +2812,7 @@ addActionHandler('togglePeerTranslations', async (global, actions, payload): Pro
 
 addActionHandler('setChatGptContext', (global, actions, payload): ActionReturnType => {
   const { chatId, context } = payload;
-  
+
   // Ensure translations structure exists
   if (!global.translations) {
     global = {
@@ -2822,11 +2822,11 @@ addActionHandler('setChatGptContext', (global, actions, payload): ActionReturnTy
       },
     };
   }
-  
+
   const existingChatTranslations = global.translations.byChatId?.[chatId] || {
     byLangCode: {},
   };
-  
+
   return {
     ...global,
     translations: {

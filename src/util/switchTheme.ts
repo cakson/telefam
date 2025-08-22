@@ -63,7 +63,7 @@ const switchTheme = (theme: ThemeKey, withAnimation: boolean) => {
   const updateSafeAreaColor = async () => {
     try {
       const { isTauri } = await import('@tauri-apps/api/core');
-      
+
       if (isTauri()) {
         const { setSafeAreaColor } = await import('tauri-plugin-safe-area-api');
         const backgroundColor = isDarkTheme ? '#212121' : '#FFFFFF';
@@ -71,6 +71,7 @@ const switchTheme = (theme: ThemeKey, withAnimation: boolean) => {
       }
     } catch (err) {
       if (DEBUG) {
+        // eslint-disable-next-line no-console
         console.error('[switchTheme] Error updating safe area color:', err);
       }
     }

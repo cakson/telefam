@@ -40,6 +40,7 @@ export function initSharedState(localState: SharedState) {
 }
 
 function onGlobalChange() {
+  // eslint-disable-next-line eslint-multitab-tt/no-immediate-global
   const global = getGlobal();
   if (global.sharedState === lastSharedState) return;
   if (global.sharedState.isInitial) return;
@@ -102,6 +103,7 @@ function sendToWorker(event: WorkerBoundMessageEvent) {
 }
 
 function updateGlobal(update: Partial<SharedState>) {
+  // eslint-disable-next-line eslint-multitab-tt/no-immediate-global
   let global = getGlobal();
   lastSharedState = {
     ...global.sharedState,

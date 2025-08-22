@@ -20,3 +20,7 @@ dist-electron
 public
 
 deploy/update_version.js
+
+# Tauri related files
+src-tauri/
+tauri-plugin-safe-area/

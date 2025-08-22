@@ -328,7 +328,6 @@ const MiddleHeader: FC<OwnProps & StateProps> = ({
     );
   }
 
-
   return (
     <div className="MiddleHeader" ref={componentRef}>
       <Transition

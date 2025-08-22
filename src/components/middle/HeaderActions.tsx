@@ -289,8 +289,8 @@ const HeaderActions: FC<OwnProps & StateProps> = ({
   const handleToggleTranslationEngine = useLastCallback(() => {
     const newValue = !useChatGptForTranslation;
     setSettingOption({ useChatGptForTranslation: newValue });
-    showNotification({ 
-      message: newValue ? 'Switched to ChatGPT translation' : 'Switched to Telegram translation' 
+    showNotification({
+      message: newValue ? 'Switched to ChatGPT translation' : 'Switched to Telegram translation',
     });
   });
 
@@ -328,11 +328,11 @@ const HeaderActions: FC<OwnProps & StateProps> = ({
           <MenuItem icon="replace" onClick={handleChangeLanguage}>
             {lang('Chat.Translate.Menu.To')}
           </MenuItem>
-          <MenuItem 
-            icon={useChatGptForTranslation ? "settings" : "bots"} 
+          <MenuItem
+            icon={useChatGptForTranslation ? 'settings' : 'bots'}
             onClick={handleToggleTranslationEngine}
           >
-            {useChatGptForTranslation ? "Use Telegram (Built-in)" : "Use ChatGPT"}
+            {useChatGptForTranslation ? 'Use Telegram (Built-in)' : 'Use ChatGPT'}
           </MenuItem>
           <MenuSeparator />
           {detectedChatLanguage

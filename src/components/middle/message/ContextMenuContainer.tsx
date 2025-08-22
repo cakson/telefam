@@ -64,10 +64,8 @@ import {
   selectMessageTranslations,
   selectPeerStory,
   selectPollFromMessage,
-  selectRequestedChatTranslationLanguage,
   selectRequestedMessageTranslationLanguage,
   selectStickerSet,
-  selectTabState,
   selectThreadInfo,
   selectTopic,
   selectUser,
@@ -854,11 +852,11 @@ export default memo(withGlobal<OwnProps>(
       : undefined;
     const canTranslate = !hasTranslation && selectCanTranslateMessage(global, message, detectedLanguage);
     const canRetryTranslate = Boolean(hasTranslation);
-    const isChatTranslated = selectRequestedChatTranslationLanguage(global, message.chatId);
-    
+    // const isChatTranslated = selectRequestedChatTranslationLanguage(global, message.chatId);
+
     // Check if message is excluded from chat translation
-    const requestedInChat = selectTabState(global).requestedTranslations.byChatId[message.chatId];
-    const isExcludedFromChatTranslation = requestedInChat?.excludedMessageIds?.includes(message.id);
+    // const requestedInChat = selectTabState(global).requestedTranslations.byChatId[message.chatId];
+    // const isExcludedFromChatTranslation = requestedInChat?.excludedMessageIds?.includes(message.id);
 
     const isInSavedMessages = selectIsChatWithSelf(global, message.chatId);
 

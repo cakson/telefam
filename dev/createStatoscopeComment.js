@@ -2,7 +2,8 @@
 
 const fs = require('fs');
 const createPRComment = require('./createPRComment');
-const template = require('../.github/workflows/statoscope-comment');
+// eslint-disable-next-line import/extensions, import/no-unresolved
+const template = require('../.github/workflows/statoscope-comment.js');
 
 module.exports = async ({ github, context }) => {
   const data = JSON.parse(fs.readFileSync('result.json', 'utf8'));

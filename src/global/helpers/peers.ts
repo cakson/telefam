@@ -30,6 +30,7 @@ export function filterPeersByQuery({
   if (!query) {
     return ids;
   }
+  // eslint-disable-next-line eslint-multitab-tt/no-immediate-global
   const global = getGlobal();
   const lang = getTranslationFn();
 

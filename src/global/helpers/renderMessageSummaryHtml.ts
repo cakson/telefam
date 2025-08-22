@@ -10,6 +10,7 @@ export function renderMessageSummaryHtml(
   lang: OldLangFn,
   message: ApiMessage,
 ) {
+  // eslint-disable-next-line eslint-multitab-tt/no-immediate-global
   const global = getGlobal();
   const emoji = getMessageSummaryEmoji(message);
   const emojiWithSpace = emoji ? `${emoji} ` : '';

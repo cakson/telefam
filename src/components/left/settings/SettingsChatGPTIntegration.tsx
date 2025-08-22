@@ -6,7 +6,6 @@ import type { AccountSettings } from '../../../types';
 
 import useHistoryBack from '../../../hooks/useHistoryBack';
 import useLastCallback from '../../../hooks/useLastCallback';
-import useOldLang from '../../../hooks/useOldLang';
 
 import Checkbox from '../../ui/Checkbox';
 import InputText from '../../ui/InputText';
@@ -19,8 +18,8 @@ type OwnProps = {
 };
 
 type StateProps = Pick<AccountSettings,
-  'isChatGptIntegrationEnabled' | 'chatGptApiKey' | 'chatGptModel'
-  | 'chatGptTranslationContext' | 'useChatGptForTranslation'>;
+'isChatGptIntegrationEnabled' | 'chatGptApiKey' | 'chatGptModel'
+| 'chatGptTranslationContext' | 'useChatGptForTranslation'>;
 
 const ChatGPTModel = {
   GPT_5_NANO: 'gpt-5-nano',

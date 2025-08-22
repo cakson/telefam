@@ -72,6 +72,7 @@ import {
 import {
   addChatMessagesById,
   addUnreadMentions,
+  clearMessageTranslation,
   deleteSponsoredMessage,
   removeOutlyingList,
   removeRequestedMessageTranslation,
@@ -98,7 +99,6 @@ import {
   updateThreadUnreadFromForwardedMessage,
   updateTopic,
   updateUploadByMessageKey,
-  clearMessageTranslation,
   updateUserFullInfo,
 } from '../../reducers';
 import { updateTabState } from '../../reducers/tabs';
@@ -2292,7 +2292,7 @@ addActionHandler('showOriginalMessage', (global, actions, payload): ActionReturn
 
   const tabState = selectTabState(global, tabId);
   const chatTranslation = tabState.requestedTranslations.byChatId[chatId];
-  
+
   // Check if this is a chat-level translation
   if (chatTranslation?.toLanguage) {
     // Add message to exclusion list for chat-level translations
@@ -2344,12 +2344,12 @@ addActionHandler('retryMessageTranslation', (global, actions, payload): ActionRe
 
   // Clear the cached translation for this message
   global = clearMessageTranslation(global, chatId, id);
-  
+
   // Mark the message as pending to show loading animation
   global = updateMessageTranslation(global, chatId, id, toLanguageCode, {
     isPending: true,
   });
-  
+
   // Re-request the translation
   global = updateRequestedMessageTranslation(global, chatId, id, toLanguageCode, tabId);
   global = replaceSettings(global, {
@@ -2397,11 +2397,11 @@ addActionHandler('translateMessages', (global, actions, payload): ActionReturnTy
 
   // Get chat-specific context if available
   const chatSpecificContext = selectChatGptContext(global, chatId);
-  
+
   // Combine global and chat-specific contexts
   let combinedContext = chatGptTranslationContext || '';
   if (chatSpecificContext) {
-    combinedContext = combinedContext 
+    combinedContext = combinedContext
       ? `${combinedContext}\n\nChat-specific context:\n${chatSpecificContext}`
       : chatSpecificContext;
   }
@@ -2414,7 +2414,7 @@ addActionHandler('translateMessages', (global, actions, payload): ActionReturnTy
     chatGptApiKey,
     chatGptModel,
     chatGptUserContext: combinedContext,
-  }).catch((error) => {
+  }).catch(() => {
     // Error handling is done inside translateText
     // This catch is just to prevent unhandled promise rejection
   });

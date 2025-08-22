@@ -1,6 +1,7 @@
 import React, {
   memo, useMemo, useRef,
 } from '../../lib/teact/teact';
+import { getGlobal } from '../../global';
 
 import type { ApiFormattedText, ApiMessage, ApiStory } from '../../api/types';
 import type { ObserveFn } from '../../hooks/useIntersectionObserver';
@@ -8,7 +9,6 @@ import type { ThreadId } from '../../types';
 import { ApiMessageEntityTypes } from '../../api/types';
 
 import { CONTENT_NOT_SUPPORTED } from '../../config';
-import { getGlobal } from '../../global';
 import { extractMessageText, stripCustomEmoji } from '../../global/helpers';
 import trimText from '../../util/trimText';
 import { insertTextEntity, renderTextWithEntities } from './helpers/renderTextWithEntities';
@@ -76,10 +76,10 @@ function MessageText({
   const formattedText = translatedText || originalText;
   const adaptedFormattedText = isForAnimation && formattedText ? stripCustomEmoji(formattedText) : formattedText;
   const { text, entities } = adaptedFormattedText || {};
-  
+
   // Get translation display style from global settings
   const translationDisplayStyle = getGlobal().settings.byKey.translationDisplayStyle || 'replace';
-  
+
   // For showing both original and translation
   const showBothTexts = translatedText && originalText && translationDisplayStyle === 'both';
   const originalForDisplay = isForAnimation && originalText ? stripCustomEmoji(originalText) : originalText;

@@ -241,7 +241,6 @@ const Main = ({
     loadRecentReactions,
     loadDefaultTagReactions,
     loadFeaturedEmojiStickers,
-    setIsElectronUpdateAvailable,
     loadAuthorizations,
     loadPeerColors,
     loadSavedReactionTags,
@@ -288,7 +287,6 @@ const Main = ({
   }, [isDesktop, isLeftColumnOpen, isMiddleColumnOpen, isMobile, toggleLeftColumn]);
 
   useInterval(checkAppVersion, isMasterTab ? APP_OUTDATED_TIMEOUT_MS : undefined, true);
-
 
   // Initial API calls
   useEffect(() => {
@@ -410,7 +408,6 @@ const Main = ({
       processDeepLink(decodeURIComponent(parsedInitialLocationHash.tgaddr));
     }
   }, [isSynced]);
-
 
   useEffect(() => {
     const parsedLocationHash = parseLocationHash(currentUserId);

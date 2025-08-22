@@ -49,6 +49,8 @@ import { compact, split } from '../../../util/iteratees';
 import { getMessageKey } from '../../../util/keys/messageKey';
 import { getServerTime, getServerTimeOffset } from '../../../util/serverTime';
 import { interpolateArray } from '../../../util/waveform';
+import { translateMessagesWithChatGPTById } from '../../chatgpt/messageTranslation';
+import { translateMessagesWithChatGPT } from '../../chatgpt/translation';
 import {
   buildApiChatFromPreview,
   buildApiSendAsPeerId,
@@ -99,8 +101,6 @@ import { processMessageAndUpdateThreadInfo } from '../updates/entityProcessor';
 import { processAffectedHistory, updateChannelState } from '../updates/updateManager';
 import { requestChatUpdate } from './chats';
 import { handleGramJsUpdate, invokeRequest, uploadFile } from './client';
-import { translateMessagesWithChatGPT } from '../../chatgpt/translation';
-import { translateMessagesWithChatGPTById } from '../../chatgpt/messageTranslation';
 
 const FAST_SEND_TIMEOUT = 1000;
 const INPUT_WAVEFORM_LENGTH = 63;
@@ -1963,9 +1963,11 @@ export async function transcribeAudio({
 }
 
 export async function translateText(params: TranslateTextParams) {
-  const { useChatGpt, chatGptApiKey, chatGptModel, chatGptUserContext, toLanguageCode } = params;
+  const {
+    useChatGpt, chatGptApiKey, chatGptModel, chatGptUserContext, toLanguageCode,
+  } = params;
   const isMessageTranslation = 'chat' in params;
-  
+
   // Use ChatGPT if enabled and API key is provided
   if (useChatGpt && chatGptApiKey && chatGptModel) {
     try {
@@ -1975,7 +1977,7 @@ export async function translateText(params: TranslateTextParams) {
         const messagesResult = await invokeRequest(new GramJs.messages.GetMessages({
           id: messageIds.map((id) => new GramJs.InputMessageID({ id })),
         }));
-        
+
         if (messagesResult && 'messages' in messagesResult) {
           const messages = messagesResult.messages.map(buildApiMessage).filter(Boolean);
           const formattedText = await translateMessagesWithChatGPTById({
@@ -1985,7 +1987,7 @@ export async function translateText(params: TranslateTextParams) {
             targetLanguage: toLanguageCode,
             userContext: chatGptUserContext,
           });
-          
+
           sendApiUpdate({
             '@type': 'updateMessageTranslations',
             chatId: chat.id,
@@ -1995,12 +1997,12 @@ export async function translateText(params: TranslateTextParams) {
             source: 'chatgpt',
             model: chatGptModel,
           });
-          
+
           return formattedText;
         }
       } else {
         const textToTranslate = params.text;
-        
+
         const formattedText = await translateMessagesWithChatGPT({
           apiKey: chatGptApiKey,
           model: chatGptModel,
@@ -2008,12 +2010,13 @@ export async function translateText(params: TranslateTextParams) {
           targetLanguage: toLanguageCode,
           userContext: chatGptUserContext,
         });
-        
+
         return formattedText;
       }
     } catch (error: any) {
+      // eslint-disable-next-line no-console
       console.error('ChatGPT translation failed, falling back to Telegram API:', error);
-      
+
       // Send notification about the failure
       let errorMessage = 'ChatGPT translation failed';
       if (error?.message) {
@@ -2029,25 +2032,25 @@ export async function translateText(params: TranslateTextParams) {
           errorMessage = `ChatGPT error: ${error.message.substring(0, 100)}`;
         }
       }
-      
+
       // Send error notification about ChatGPT failure
       if (isMessageTranslation) {
-        const { chat, messageIds } = params;
+        // const { chat, messageIds } = params;
         sendApiUpdate({
           '@type': 'updateTranslationError',
           errorMessage: `${errorMessage}. Using default translation...`,
         });
       }
-      
+
       // Don't return - fall through to use Telegram API as fallback
     }
   }
-  
+
   // Telegram API translation - runs if ChatGPT is not enabled OR if ChatGPT fails
   let result;
   const chatId = isMessageTranslation ? (params as any).chat.id : undefined;
   const messageIds = isMessageTranslation ? (params as any).messageIds : undefined;
-  
+
   try {
     if (isMessageTranslation) {
       const { chat, messageIds: msgIds } = params as any;
@@ -2076,8 +2079,9 @@ export async function translateText(params: TranslateTextParams) {
       return undefined;
     }
   } catch (error: any) {
+    // eslint-disable-next-line no-console
     console.error('Telegram TranslateText API error:', error);
-    
+
     // Check if it's a premium-required error
     if (error?.errorMessage === 'PREMIUM_ACCOUNT_REQUIRED') {
       const errorMsg = 'Translation requires Telegram Premium. Please enable ChatGPT translation as an alternative.';
@@ -2091,7 +2095,7 @@ export async function translateText(params: TranslateTextParams) {
       }
       return undefined;
     }
-    
+
     // For other errors, just fail silently
     if (isMessageTranslation && chatId && messageIds) {
       sendApiUpdate({

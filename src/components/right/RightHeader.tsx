@@ -159,7 +159,6 @@ const RightHeader: FC<OwnProps & StateProps> = ({
   isChatGPTSettings,
   profileState,
   managementScreen,
-  chat,
   canAddContact,
   userId,
   isSelf,

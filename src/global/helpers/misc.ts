@@ -50,6 +50,7 @@ export function buildApiInputPrivacyRules(global: GlobalState, {
 }
 
 export function getCurrentMaxAccountCount() {
+  // eslint-disable-next-line eslint-multitab-tt/no-immediate-global
   const limit = getGlobal().appConfig?.limits?.moreAccounts || DEFAULT_LIMITS.moreAccounts;
   const accounts = getAccountsInfo();
   const premiumCount = Object.values(accounts).filter((account) => account.isPremium).length;

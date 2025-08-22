@@ -1,6 +1,6 @@
 import type { FC } from '../../../lib/teact/teact';
 import React, {
-  memo, useCallback, useEffect, useRef, useState,
+  memo, useRef, useState,
 } from '../../../lib/teact/teact';
 import { getActions, withGlobal } from '../../../global';
 
@@ -51,7 +51,6 @@ const SettingsExperimental: FC<OwnProps & StateProps> = ({
 
   const lang = useOldLang();
 
-
   useHistoryBack({
     isActive,
     onBack: onReset,
@@ -62,7 +61,6 @@ const SettingsExperimental: FC<OwnProps & StateProps> = ({
     const url = URL.createObjectURL(file);
     download(url, DEBUG_LOG_FILENAME);
   });
-
 
   const handleRequestWave = useLastCallback((e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     requestWave({ startX: e.clientX, startY: e.clientY });
@@ -149,7 +147,6 @@ const SettingsExperimental: FC<OwnProps & StateProps> = ({
           // eslint-disable-next-line react/jsx-no-bind
           onCheck={() => setSharedSettingOption({ shouldDebugExportedSenders: !shouldDebugExportedSenders })}
         />
-
 
         <ListItem
           onClick={handleDownloadLog}

@@ -29,6 +29,7 @@ import useWindowSize from '../../hooks/window/useWindowSize';
 
 import Transition from '../ui/Transition';
 import AddChatMembers from './AddChatMembers';
+import ChatGPTSettings from './ChatGPTSettings';
 import CreateTopic from './CreateTopic.async';
 import EditTopic from './EditTopic.async';
 import GifSearch from './GifSearch.async';
@@ -42,7 +43,6 @@ import MonetizationStatistics from './statistics/MonetizationStatistics';
 import Statistics from './statistics/Statistics.async';
 import StoryStatistics from './statistics/StoryStatistics.async';
 import StickerSearch from './StickerSearch.async';
-import ChatGPTSettings from './ChatGPTSettings';
 
 import './RightColumn.scss';
 

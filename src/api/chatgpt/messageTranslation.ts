@@ -1,4 +1,5 @@
-import type { ApiChat, ApiFormattedText, ApiMessage } from '../types';
+import type { ApiFormattedText, ApiMessage } from '../types';
+
 import { translateMessagesWithChatGPT } from './translation';
 
 export async function translateMessagesWithChatGPTById({
