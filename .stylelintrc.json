@@ -43,7 +43,7 @@
         "ignorePseudoClasses": ["global"]
       }
     ],
-    "plugin/selector-tag-no-without-class": ["/^(?!body|html)([^_-]*)$/", { "severity": "warning" }],
+    "plugin/selector-tag-no-without-class": ["/^(?!body|html|input|label|button|select|option|textarea|img|video|canvas|svg|path|circle|span|h1|h2|h3|h4|h5|h6|p|a|li|b|strong)([^_-]*)$/", { "severity": "warning" }],
     "@stylistic/number-leading-zero": "always",
     "@stylistic/string-quotes": null,
     "@stylistic/color-hex-case": null,
