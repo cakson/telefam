@@ -210,8 +210,8 @@ const MessageMeta: FC<OwnProps> = ({
         {message.isVideoProcessingPending && `${lang('MessageMetaApproximate')} `}
         {isTranslated && translationSource && (
           <>
-            {translationSource === 'telegram' && 'Translated by Telegram '}
-            {translationSource === 'chatgpt' && translationModel && `Translated by ChatGPT ${translationModel} `}
+            {translationSource === 'telegram' && 'Telegram '}
+            {translationSource === 'chatgpt' && translationModel && `ChatGPT ${translationModel} `}
           </>
         )}
         {date}
