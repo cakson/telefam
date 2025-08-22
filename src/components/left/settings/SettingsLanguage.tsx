@@ -21,7 +21,7 @@ import ItemPicker, { type ItemPickerOption } from '../../common/pickers/ItemPick
 import Checkbox from '../../ui/Checkbox';
 import ListItem from '../../ui/ListItem';
 import Loading from '../../ui/Loading';
-import Select from '../../ui/Select';
+import RadioGroup from '../../ui/RadioGroup';
 
 type OwnProps = {
   isActive?: boolean;
@@ -124,8 +124,8 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
     setSettingOption({ useChatGptForTranslation: newValue });
   });
 
-  const handleTranslationDisplayStyleChange = useLastCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSettingOption({ translationDisplayStyle: e.target.value as 'replace' | 'both' });
+  const handleTranslationDisplayStyleChange = useLastCallback((value: string) => {
+    setSettingOption({ translationDisplayStyle: value as 'replace' | 'both' });
   });
 
   useHistoryBack({
@@ -136,53 +136,67 @@ const SettingsLanguage: FC<OwnProps & StateProps> = ({
   return (
     <div className="settings-content settings-language custom-scroll">
       {IS_TRANSLATION_SUPPORTED && (
-        <div className="settings-item">
-          <Checkbox
-            label={lang('ShowTranslateButton')}
-            checked={canTranslate}
-            onCheck={handleShouldTranslateChange}
-          />
-          <Checkbox
-            label={lang('ShowTranslateChatButton')}
-            checked={canTranslateChatsEnabled}
-            onCheck={handleShouldTranslateChatsChange}
-          />
+        <>
+          <div className="settings-item">
+            <Checkbox
+              label={lang('ShowTranslateButton')}
+              checked={canTranslate}
+              onCheck={handleShouldTranslateChange}
+            />
+            <p className="settings-item-description mt-0 mb-3">
+              {lang('lng_translate_settings_about')}
+            </p>
+          </div>
+
+          <div className="settings-item">
+            <Checkbox
+              label={lang('ShowTranslateChatButton')}
+              checked={canTranslateChatsEnabled}
+              onCheck={handleShouldTranslateChatsChange}
+            />
+          </div>
+
           {(canTranslate || canTranslateChatsEnabled) && (
             <>
-              <ListItem
-                narrow
-                onClick={handleDoNotSelectOpen}
-              >
-                {lang('DoNotTranslate')}
-                <span className="settings-item__current-value">{doNotTranslateText}</span>
-              </ListItem>
               {isChatGptIntegrationEnabled && (
-                <Checkbox
-                  label="Use ChatGPT for translation"
-                  checked={Boolean(useChatGptForTranslation)}
-                  onCheck={handleUseChatGptChange}
-                />
+                <div className="settings-item">
+                  <Checkbox
+                    label="Use ChatGPT for translation"
+                    checked={Boolean(useChatGptForTranslation)}
+                    onCheck={handleUseChatGptChange}
+                  />
+                </div>
               )}
-              <div className="settings-item-select">
-                <label htmlFor="translation-display-style">
+
+              <div className="settings-item">
+                <h4 className="settings-item-header mb-2">
                   Translation Display Style
-                </label>
-                <Select
-                  id="translation-display-style"
-                  value={translationDisplayStyle}
+                </h4>
+                <RadioGroup
+                  name="translation-display-style"
+                  selected={translationDisplayStyle}
+                  options={[
+                    { value: 'replace', label: 'Replace Original Text' },
+                    { value: 'both', label: 'Show Both Original and Translation' },
+                  ]}
                   onChange={handleTranslationDisplayStyleChange}
+                />
+              </div>
+
+              <div className="settings-item">
+                <ListItem
+                  narrow
+                  onClick={handleDoNotSelectOpen}
                 >
-                  <option value="replace">Replace Original Text</option>
-                  <option value="both">Show Both Original and Translation</option>
-                </Select>
+                  {lang('DoNotTranslate')}
+                  <span className="settings-item__current-value">{doNotTranslateText}</span>
+                </ListItem>
               </div>
             </>
           )}
-          <p className="settings-item-description mb-0 mt-1">
-            {lang('lng_translate_settings_about')}
-          </p>
-        </div>
+        </>
       )}
+      
       <div className="settings-item settings-item-picker">
         <h4 className="settings-item-header">
           {lang('Localization.InterfaceLanguage')}
