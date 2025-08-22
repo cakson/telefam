@@ -91,6 +91,12 @@ export function updateRequestedChatTranslation<T extends GlobalState>(
   global: T, chatId: string, toLanguageCode?: string, ...[tabId = getCurrentTabId()]: TabArgs<T>
 ) {
   const tabState = selectTabState(global, tabId);
+  
+  // If toLanguageCode is undefined, remove the translation request
+  if (toLanguageCode === undefined) {
+    return removeRequestedChatTranslation(global, chatId, tabId);
+  }
+  
   global = updateTabState(global, {
     requestedTranslations: {
       ...tabState.requestedTranslations,
@@ -104,22 +110,20 @@ export function updateRequestedChatTranslation<T extends GlobalState>(
   }, tabId);
 
   // Also save in translations for persistence
-  if (toLanguageCode) {
-    const chatTranslations = global.translations.byChatId[chatId] || { byLangCode: {} };
-    global = {
-      ...global,
-      translations: {
-        ...global.translations,
-        byChatId: {
-          ...global.translations.byChatId,
-          [chatId]: {
-            ...chatTranslations,
-            requestedLanguage: toLanguageCode,
-          },
+  const chatTranslations = global.translations.byChatId[chatId] || { byLangCode: {} };
+  global = {
+    ...global,
+    translations: {
+      ...global.translations,
+      byChatId: {
+        ...global.translations.byChatId,
+        [chatId]: {
+          ...chatTranslations,
+          requestedLanguage: toLanguageCode,
         },
       },
-    };
-  }
+    },
+  };
 
   return global;
 }
@@ -138,7 +142,7 @@ export function removeRequestedChatTranslation<T extends GlobalState>(
 
   // Also remove from translations for persistence
   const chatTranslations = global.translations.byChatId[chatId];
-  if (chatTranslations?.requestedLanguage) {
+  if (chatTranslations?.requestedLanguage || chatTranslations?.excludedMessageIds) {
     global = {
       ...global,
       translations: {
@@ -148,6 +152,7 @@ export function removeRequestedChatTranslation<T extends GlobalState>(
           [chatId]: {
             ...chatTranslations,
             requestedLanguage: undefined,
+            excludedMessageIds: undefined,
           },
         },
       },

@@ -46,6 +46,7 @@ addActionHandler('init', (global, actions, payload): ActionReturnType => {
       requestedTranslationsByChatId[chatId] = {
         toLanguage: chatTranslations.requestedLanguage,
         manualMessages: chatTranslations.manualMessageLanguages,
+        excludedMessageIds: chatTranslations.excludedMessageIds,
       };
     }
   });

@@ -2262,19 +2262,41 @@ addActionHandler('requestMessageTranslation', (global, actions, payload): Action
   // Remove from exclusion list if it was excluded from chat-level translation
   const tabState = selectTabState(global, tabId);
   const chatTranslation = tabState.requestedTranslations.byChatId[chatId];
-  if (chatTranslation?.excludedMessageIds?.includes(id)) {
+  const persistedTranslation = global.translations.byChatId[chatId];
+  
+  if (chatTranslation?.excludedMessageIds?.includes(id) || persistedTranslation?.excludedMessageIds?.includes(id)) {
+    const newExcludedIds = (chatTranslation?.excludedMessageIds || persistedTranslation?.excludedMessageIds || [])
+      .filter((msgId) => msgId !== id);
+    
     global = updateTabState(global, {
       requestedTranslations: {
         ...tabState.requestedTranslations,
         byChatId: {
           ...tabState.requestedTranslations.byChatId,
           [chatId]: {
-            ...chatTranslation,
-            excludedMessageIds: chatTranslation.excludedMessageIds.filter((msgId) => msgId !== id),
+            ...chatTranslation || { toLanguage: persistedTranslation?.requestedLanguage },
+            excludedMessageIds: newExcludedIds,
           },
         },
       },
     }, tabId);
+    
+    // Also update persisted exclusion list
+    if (persistedTranslation) {
+      global = {
+        ...global,
+        translations: {
+          ...global.translations,
+          byChatId: {
+            ...global.translations.byChatId,
+            [chatId]: {
+              ...persistedTranslation,
+              excludedMessageIds: newExcludedIds.length > 0 ? newExcludedIds : undefined,
+            },
+          },
+        },
+      };
+    }
   }
 
   global = updateRequestedMessageTranslation(global, chatId, id, toLanguageCode, tabId);
@@ -2292,24 +2314,47 @@ addActionHandler('showOriginalMessage', (global, actions, payload): ActionReturn
 
   const tabState = selectTabState(global, tabId);
   const chatTranslation = tabState.requestedTranslations.byChatId[chatId];
-
-  // Check if this is a chat-level translation
-  if (chatTranslation?.toLanguage) {
+  const persistedTranslation = global.translations.byChatId[chatId];
+  
+  // Check if this is a chat-level translation (check both tab state and persisted state)
+  const isChatLevelTranslation = chatTranslation?.toLanguage || persistedTranslation?.requestedLanguage;
+  
+  if (isChatLevelTranslation) {
     // Add message to exclusion list for chat-level translations
-    const excludedMessageIds = chatTranslation.excludedMessageIds || [];
+    const excludedMessageIds = chatTranslation?.excludedMessageIds || persistedTranslation?.excludedMessageIds || [];
     if (!excludedMessageIds.includes(id)) {
+      const newExcludedIds = [...excludedMessageIds, id];
+      
+      // Update tab state
       global = updateTabState(global, {
         requestedTranslations: {
           ...tabState.requestedTranslations,
           byChatId: {
             ...tabState.requestedTranslations.byChatId,
             [chatId]: {
-              ...chatTranslation,
-              excludedMessageIds: [...excludedMessageIds, id],
+              ...chatTranslation || { toLanguage: persistedTranslation?.requestedLanguage },
+              excludedMessageIds: newExcludedIds,
             },
           },
         },
       }, tabId);
+      
+      // Also persist the exclusion list
+      if (persistedTranslation) {
+        global = {
+          ...global,
+          translations: {
+            ...global.translations,
+            byChatId: {
+              ...global.translations.byChatId,
+              [chatId]: {
+                ...persistedTranslation,
+                excludedMessageIds: newExcludedIds,
+              },
+            },
+          },
+        };
+      }
     }
   } else {
     // Remove manual message translation
@@ -2327,19 +2372,41 @@ addActionHandler('retryMessageTranslation', (global, actions, payload): ActionRe
   // Remove from exclusion list if it was excluded from chat-level translation
   const tabState = selectTabState(global, tabId);
   const chatTranslation = tabState.requestedTranslations.byChatId[chatId];
-  if (chatTranslation?.excludedMessageIds?.includes(id)) {
+  const persistedTranslation = global.translations.byChatId[chatId];
+  
+  if (chatTranslation?.excludedMessageIds?.includes(id) || persistedTranslation?.excludedMessageIds?.includes(id)) {
+    const newExcludedIds = (chatTranslation?.excludedMessageIds || persistedTranslation?.excludedMessageIds || [])
+      .filter((msgId) => msgId !== id);
+    
     global = updateTabState(global, {
       requestedTranslations: {
         ...tabState.requestedTranslations,
         byChatId: {
           ...tabState.requestedTranslations.byChatId,
           [chatId]: {
-            ...chatTranslation,
-            excludedMessageIds: chatTranslation.excludedMessageIds.filter((msgId) => msgId !== id),
+            ...chatTranslation || { toLanguage: persistedTranslation?.requestedLanguage },
+            excludedMessageIds: newExcludedIds,
           },
         },
       },
     }, tabId);
+    
+    // Also update persisted exclusion list
+    if (persistedTranslation) {
+      global = {
+        ...global,
+        translations: {
+          ...global.translations,
+          byChatId: {
+            ...global.translations.byChatId,
+            [chatId]: {
+              ...persistedTranslation,
+              excludedMessageIds: newExcludedIds.length > 0 ? newExcludedIds : undefined,
+            },
+          },
+        },
+      };
+    }
   }
 
   // Clear the cached translation for this message

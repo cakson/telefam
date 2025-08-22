@@ -1420,7 +1420,10 @@ export function selectRequestedMessageTranslationLanguage<T extends GlobalState>
   const persistedTranslations = global.translations.byChatId[chatId];
 
   // Check if message is excluded from chat-level translation
-  if (requestedInChat?.toLanguage && requestedInChat.excludedMessageIds?.includes(messageId)) {
+  const excludedIds = requestedInChat?.excludedMessageIds || persistedTranslations?.excludedMessageIds;
+  const hasToLanguage = requestedInChat?.toLanguage || persistedTranslations?.requestedLanguage;
+  
+  if (hasToLanguage && excludedIds?.includes(messageId)) {
     return undefined;
   }
   

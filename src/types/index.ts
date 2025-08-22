@@ -670,6 +670,7 @@ export type ChatTranslatedMessages = {
   chatGptContext?: string;
   requestedLanguage?: string; // Persisted translation language for the chat
   manualMessageLanguages?: Record<number, string>; // Individual message translation languages
+  excludedMessageIds?: number[]; // Messages excluded from chat-level translation
 };
 
 export type ChatRequestedTranslations = {
