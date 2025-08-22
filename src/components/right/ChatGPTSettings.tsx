@@ -11,12 +11,11 @@ import {
   selectChatGptContext,
   selectCurrentMessageList,
 } from '../../global/selectors';
+import renderText from '../common/helpers/renderText';
 
 import useFlag from '../../hooks/useFlag';
 import useLang from '../../hooks/useLang';
 import useLastCallback from '../../hooks/useLastCallback';
-
-import renderText from '../common/helpers/renderText';
 
 import Icon from '../common/icons/Icon';
 import FloatingActionButton from '../ui/FloatingActionButton';
@@ -26,7 +25,6 @@ import TextArea from '../ui/TextArea';
 import './management/Management.scss';
 
 type OwnProps = {
-  isActive: boolean;
 };
 
 type StateProps = {
@@ -36,7 +34,6 @@ type StateProps = {
 };
 
 const ChatGPTSettings: FC<OwnProps & StateProps> = ({
-  isActive,
   chatId,
   chat,
   initialContext,
@@ -60,10 +57,10 @@ const ChatGPTSettings: FC<OwnProps & StateProps> = ({
 
   const handleSave = useLastCallback(() => {
     if (!chatId) return;
-    
+
     setIsLoading(true);
     setChatGptContext({ chatId, context });
-    
+
     // Simulate save completion
     setTimeout(() => {
       setIsLoading(false);
@@ -72,7 +69,7 @@ const ChatGPTSettings: FC<OwnProps & StateProps> = ({
   });
 
   if (!chat) {
-    return null;
+    return undefined;
   }
 
   return (
@@ -83,7 +80,7 @@ const ChatGPTSettings: FC<OwnProps & StateProps> = ({
             {renderText(lang('ChatGPTSettingsInfo', { chatName: chat.title }), ['simple_markdown'])}
           </div>
         </div>
-        
+
         <div className="section">
           <h3 className="section-heading">
             {lang('ChatSpecificTranslationContext')}
@@ -95,8 +92,6 @@ const ChatGPTSettings: FC<OwnProps & StateProps> = ({
             value={context}
             onChange={handleContextChange}
             placeholder={lang('ChatSpecificTranslationContextPlaceholder')}
-            rows={8}
-            autoFocus={isActive}
           />
         </div>
       </div>

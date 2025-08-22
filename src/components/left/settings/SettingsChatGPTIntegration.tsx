@@ -10,7 +10,6 @@ import useOldLang from '../../../hooks/useOldLang';
 
 import Checkbox from '../../ui/Checkbox';
 import InputText from '../../ui/InputText';
-import ListItem from '../../ui/ListItem';
 import RadioGroup from '../../ui/RadioGroup';
 import TextArea from '../../ui/TextArea';
 
@@ -19,8 +18,9 @@ type OwnProps = {
   onReset: () => void;
 };
 
-type StateProps = Pick<AccountSettings, 
-  'isChatGptIntegrationEnabled' | 'chatGptApiKey' | 'chatGptModel' | 'chatGptTranslationContext' | 'useChatGptForTranslation'>;
+type StateProps = Pick<AccountSettings,
+  'isChatGptIntegrationEnabled' | 'chatGptApiKey' | 'chatGptModel'
+  | 'chatGptTranslationContext' | 'useChatGptForTranslation'>;
 
 const ChatGPTModel = {
   GPT_5_NANO: 'gpt-5-nano',
@@ -39,8 +39,6 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
   onReset,
 }) => {
   const { setSettingOption } = getActions();
-
-  const lang = useOldLang();
 
   const [localApiKey, setLocalApiKey] = useState(chatGptApiKey);
   const [localModel, setLocalModel] = useState<ChatGPTModelType>(chatGptModel as ChatGPTModelType);
@@ -77,10 +75,10 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
   const handleToggleIntegration = useLastCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const enabled = e.target.checked;
     setIsEnabled(enabled);
-    setSettingOption({ 
+    setSettingOption({
       isChatGptIntegrationEnabled: enabled,
       // If disabling, also turn off ChatGPT translation preference
-      ...((!enabled && useChatGptForTranslation) && { useChatGptForTranslation: false })
+      ...((!enabled && useChatGptForTranslation) && { useChatGptForTranslation: false }),
     });
   });
 
@@ -104,7 +102,7 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
 
       <div className="settings-item">
         <h4 className="settings-item-header">API Configuration</h4>
-        
+
         <InputText
           label="API Key"
           placeholder="Enter your ChatGPT API key"
@@ -113,7 +111,7 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
           onBlur={handleApiKeyBlur}
           type="password"
         />
-        
+
         <p className="settings-item-description">
           Your API key will be stored locally and used to connect to ChatGPT services.
         </p>
@@ -121,14 +119,14 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
 
       <div className="settings-item">
         <h4 className="settings-item-header">Model Selection</h4>
-        
+
         <RadioGroup
           name="chatgpt-model"
           selected={localModel}
           options={modelOptions}
           onChange={handleModelChange}
         />
-        
+
         <p className="settings-item-description">
           Choose the ChatGPT model to use for translations.
         </p>
@@ -136,7 +134,7 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
 
       <div className="settings-item">
         <h4 className="settings-item-header">Translation Context</h4>
-        
+
         <TextArea
           label="Context (Optional)"
           placeholder="Provide context for better translations (e.g., formal tone, specific terminology)"
@@ -145,7 +143,7 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
           onBlur={handleContextBlur}
           maxLength={500}
         />
-        
+
         <p className="settings-item-description">
           This context will be used as system instructions for the translation model.
         </p>

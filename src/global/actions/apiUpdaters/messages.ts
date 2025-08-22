@@ -870,10 +870,11 @@ addActionHandler('apiUpdate', (global, actions, update): ActionReturnType => {
 
     case 'updateTranslationError': {
       const { errorMessage } = update;
-      
+
       actions.showNotification({
         message: errorMessage,
         duration: 5000,
+        tabId: getCurrentTabId(),
       });
       break;
     }
@@ -881,7 +882,7 @@ addActionHandler('apiUpdate', (global, actions, update): ActionReturnType => {
     case 'updateMessageTranslationsFailed': {
       const { chatId, messageIds, errorMessage } = update;
       const toLanguageCode = selectLanguageCode(global);
-      
+
       // Clear pending state for failed translations
       messageIds.forEach((messageId) => {
         global = updateMessageTranslation(global, chatId, messageId, toLanguageCode, {
@@ -889,15 +890,15 @@ addActionHandler('apiUpdate', (global, actions, update): ActionReturnType => {
           text: undefined,
         });
       });
-      
+
       // Show error notification if provided
       if (errorMessage) {
         actions.showNotification({
           message: errorMessage,
-          icon: 'error',
+          tabId: getCurrentTabId(),
         });
       }
-      
+
       setGlobal(global);
       break;
     }

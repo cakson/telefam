@@ -375,7 +375,7 @@ const RightColumn: FC<OwnProps & StateProps> = ({
       case RightColumnContent.EditTopic:
         return <EditTopic onClose={close} isActive={isOpen && isActive} />;
       case RightColumnContent.ChatGPTSettings:
-        return <ChatGPTSettings isActive={isOpen && isActive} />;
+        return <ChatGPTSettings />;
     }
 
     return undefined; // Unreachable
