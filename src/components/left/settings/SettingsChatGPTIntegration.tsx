@@ -102,8 +102,6 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
         </p>
       </div>
 
-      {isEnabled && (
-        <>
       <div className="settings-item">
         <h4 className="settings-item-header">API Configuration</h4>
         
@@ -152,8 +150,6 @@ const SettingsChatGPTIntegration: FC<OwnProps & StateProps> = ({
           This context will be used as system instructions for the translation model.
         </p>
       </div>
-        </>
-      )}
     </div>
   );
 };
