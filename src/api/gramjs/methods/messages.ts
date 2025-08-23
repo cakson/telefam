@@ -1967,57 +1967,61 @@ export async function translateText(params: TranslateTextParams) {
     useChatGpt, chatGptApiKey, chatGptModel, chatGptUserContext, toLanguageCode,
   } = params;
   const isMessageTranslation = 'chat' in params;
-
-  // Use ChatGPT if enabled and API key is provided
-  if (useChatGpt && chatGptApiKey && chatGptModel) {
+  
+  // If ChatGPT is enabled, we'll run both translations in parallel
+  // First show Telegram translation, then replace with ChatGPT when ready
+  if (useChatGpt && chatGptApiKey && chatGptModel && isMessageTranslation) {
+    const { chat, messageIds } = params;
+    
+    // Start both translations in parallel
+    const telegramPromise = translateWithTelegram(params, toLanguageCode);
+    const chatGptPromise = translateWithChatGPT(params, chatGptApiKey, chatGptModel, chatGptUserContext, toLanguageCode);
+    
+    let telegramResult: any;
+    
+    // First, wait for Telegram translation and show it immediately
     try {
-      if (isMessageTranslation) {
-        // For message translation, we need to fetch messages first
-        const { chat, messageIds } = params;
-        const messagesResult = await invokeRequest(new GramJs.messages.GetMessages({
-          id: messageIds.map((id) => new GramJs.InputMessageID({ id })),
-        }));
-
-        if (messagesResult && 'messages' in messagesResult) {
-          const messages = messagesResult.messages.map(buildApiMessage).filter(Boolean);
-          const formattedText = await translateMessagesWithChatGPTById({
-            messages,
-            apiKey: chatGptApiKey,
-            model: chatGptModel,
-            targetLanguage: toLanguageCode,
-            userContext: chatGptUserContext,
-          });
-
-          sendApiUpdate({
-            '@type': 'updateMessageTranslations',
-            chatId: chat.id,
-            messageIds,
-            translations: formattedText,
-            toLanguageCode,
-            source: 'chatgpt',
-            model: chatGptModel,
-          });
-
-          return formattedText;
-        }
-      } else {
-        const textToTranslate = params.text;
-
-        const formattedText = await translateMessagesWithChatGPT({
-          apiKey: chatGptApiKey,
-          model: chatGptModel,
-          messages: textToTranslate,
-          targetLanguage: toLanguageCode,
-          userContext: chatGptUserContext,
+      telegramResult = await telegramPromise;
+      if (telegramResult) {
+        // Send update for Telegram translation BUT keep pending state active
+        sendApiUpdate({
+          '@type': 'updateMessageTranslationsWithPending',
+          chatId: chat.id,
+          messageIds,
+          translations: telegramResult,
+          toLanguageCode,
+          source: 'telegram',
+          isPending: true, // Keep loading indicator active
         });
-
-        return formattedText;
+      }
+    } catch (error) {
+      // If Telegram fails, we'll still try ChatGPT
+      // eslint-disable-next-line no-console
+      console.error('Telegram translation failed:', error);
+    }
+    
+    // Then wait for ChatGPT and replace if successful
+    try {
+      const chatGptResult = await chatGptPromise;
+      if (chatGptResult) {
+        // Send update for ChatGPT translation (will replace Telegram and clear pending)
+        sendApiUpdate({
+          '@type': 'updateMessageTranslations',
+          chatId: chat.id,
+          messageIds,
+          translations: chatGptResult,
+          toLanguageCode,
+          source: 'chatgpt',
+          model: chatGptModel,
+        });
+        return chatGptResult;
       }
     } catch (error: any) {
+      // ChatGPT failed, but we already have Telegram translation
       // eslint-disable-next-line no-console
-      console.error('ChatGPT translation failed, falling back to Telegram API:', error);
-
-      // Send notification about the failure
+      console.error('ChatGPT translation failed:', error);
+      
+      // Send notification about ChatGPT failure
       let errorMessage = 'ChatGPT translation failed';
       if (error?.message) {
         if (error.message.includes('Invalid API key')) {
@@ -2032,26 +2036,58 @@ export async function translateText(params: TranslateTextParams) {
           errorMessage = `ChatGPT error: ${error.message.substring(0, 100)}`;
         }
       }
-
-      // Send error notification about ChatGPT failure
-      if (isMessageTranslation) {
-        // const { chat, messageIds } = params;
+      
+      // Clear pending state since ChatGPT failed and we're keeping Telegram translation
+      if (telegramResult) {
         sendApiUpdate({
-          '@type': 'updateTranslationError',
-          errorMessage: `${errorMessage}. Using default translation...`,
+          '@type': 'updateMessageTranslations',
+          chatId: chat.id,
+          messageIds,
+          translations: telegramResult,
+          toLanguageCode,
+          source: 'telegram',
         });
       }
-
-      // Don't return - fall through to use Telegram API as fallback
+      
+      sendApiUpdate({
+        '@type': 'updateTranslationError',
+        errorMessage: `${errorMessage}. Using Telegram translation.`,
+      });
+    }
+    
+    return telegramResult;
+  }
+  
+  // For non-message translations or when ChatGPT is disabled, use original logic
+  if (useChatGpt && chatGptApiKey && chatGptModel && !isMessageTranslation) {
+    try {
+      const textToTranslate = params.text;
+      const formattedText = await translateMessagesWithChatGPT({
+        apiKey: chatGptApiKey,
+        model: chatGptModel,
+        messages: textToTranslate,
+        targetLanguage: toLanguageCode,
+        userContext: chatGptUserContext,
+      });
+      return formattedText;
+    } catch (error: any) {
+      // eslint-disable-next-line no-console
+      console.error('ChatGPT translation failed, falling back to Telegram API:', error);
     }
   }
+  
+  // Default to Telegram translation
+  return translateWithTelegram(params, toLanguageCode);
+}
 
-  // Telegram API translation - runs if ChatGPT is not enabled OR if ChatGPT fails
-  let result;
+// Helper function for Telegram API translation
+async function translateWithTelegram(params: TranslateTextParams, toLanguageCode: string) {
+  const isMessageTranslation = 'chat' in params;
   const chatId = isMessageTranslation ? (params as any).chat.id : undefined;
   const messageIds = isMessageTranslation ? (params as any).messageIds : undefined;
-
+  
   try {
+    let result;
     if (isMessageTranslation) {
       const { chat, messageIds: msgIds } = params as any;
       result = await invokeRequest(new GramJs.messages.TranslateText({
@@ -2078,6 +2114,9 @@ export async function translateText(params: TranslateTextParams) {
       }
       return undefined;
     }
+    
+    const formattedText = result.result.map((r) => buildApiFormattedText(r));
+    return formattedText;
   } catch (error: any) {
     // eslint-disable-next-line no-console
     console.error('Telegram TranslateText API error:', error);
@@ -2093,7 +2132,13 @@ export async function translateText(params: TranslateTextParams) {
           errorMessage: errorMsg,
         });
       }
-      return undefined;
+      
+      sendApiUpdate({
+        '@type': 'updateTranslationError',
+        errorMessage: errorMsg,
+      });
+      
+      throw error;
     }
 
     // For other errors, just fail silently
@@ -2104,23 +2149,52 @@ export async function translateText(params: TranslateTextParams) {
         messageIds,
       });
     }
-    return undefined;
+    throw error;
   }
+}
 
-  const formattedText = result.result.map((r) => buildApiFormattedText(r));
+// Helper function for ChatGPT translation
+async function translateWithChatGPT(
+  params: TranslateTextParams, 
+  apiKey: string, 
+  model: string, 
+  userContext: string | undefined, 
+  toLanguageCode: string
+) {
+  const isMessageTranslation = 'chat' in params;
+  
+  if (isMessageTranslation) {
+    // For message translation, we need to fetch messages first
+    const { chat, messageIds } = params as any;
+    const messagesResult = await invokeRequest(new GramJs.messages.GetMessages({
+      id: messageIds.map((id: number) => new GramJs.InputMessageID({ id })),
+    }));
 
-  if (isMessageTranslation && chatId && messageIds) {
-    sendApiUpdate({
-      '@type': 'updateMessageTranslations',
-      chatId,
-      messageIds,
-      translations: formattedText,
-      toLanguageCode,
-      source: 'telegram',
+    if (messagesResult && 'messages' in messagesResult) {
+      const messages = messagesResult.messages.map(buildApiMessage).filter(Boolean);
+      const formattedText = await translateMessagesWithChatGPTById({
+        messages,
+        apiKey,
+        model,
+        targetLanguage: toLanguageCode,
+        userContext,
+      });
+      
+      return formattedText;
+    }
+    throw new Error('Failed to fetch messages for translation');
+  } else {
+    const textToTranslate = (params as any).text;
+    const formattedText = await translateMessagesWithChatGPT({
+      apiKey,
+      model,
+      messages: textToTranslate,
+      targetLanguage: toLanguageCode,
+      userContext,
     });
+    
+    return formattedText;
   }
-
-  return formattedText;
 }
 
 function handleMultipleLocalMessagesUpdate(

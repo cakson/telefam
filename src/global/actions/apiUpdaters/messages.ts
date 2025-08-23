@@ -868,6 +868,24 @@ addActionHandler('apiUpdate', (global, actions, update): ActionReturnType => {
       break;
     }
 
+    case 'updateMessageTranslationsWithPending': {
+      const {
+        chatId, messageIds, toLanguageCode, translations, source, isPending,
+      } = update;
+
+      // Update translations with text but keep pending state
+      messageIds.forEach((messageId, index) => {
+        global = updateMessageTranslation(global, chatId, messageId, toLanguageCode, {
+          text: translations[index],
+          isPending,
+          source,
+        });
+      });
+
+      setGlobal(global);
+      break;
+    }
+
     case 'updateTranslationError': {
       const { errorMessage } = update;
 
