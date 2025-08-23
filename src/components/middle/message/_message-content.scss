@@ -83,6 +83,13 @@
 
     overflow: clip;
     overflow-clip-margin: 0.5rem;
+
+    // Disable text selection on touch devices to prevent interference with long press
+    @media (pointer: coarse) {
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+    }
   }
 
   .transcription {
