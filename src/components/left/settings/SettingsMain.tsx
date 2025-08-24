@@ -175,6 +175,14 @@ const SettingsMain: FC<OwnProps & StateProps> = ({
         >
           ChatGPT Integration
         </ListItem>
+        <ListItem
+          icon="settings"
+          narrow
+          // eslint-disable-next-line react/jsx-no-bind
+          onClick={() => openSettingsScreen({ screen: SettingsScreens.Advanced })}
+        >
+          {lang('SettingsAdvanced')}
+        </ListItem>
       </div>
       <div className="settings-main-menu">
         {canBuyPremium && (

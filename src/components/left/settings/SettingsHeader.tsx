@@ -258,6 +258,8 @@ const SettingsHeader: FC<OwnProps> = ({
             )}
           </h3>
         );
+      case SettingsScreens.Advanced:
+        return <h3>{lang('SettingsAdvanced')}</h3>;
       default:
         return (
           <div className="settings-main-header">

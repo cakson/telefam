@@ -1517,6 +1517,17 @@ export interface LangPair {
   'ChatSpecificTranslationContext': undefined;
   'ChatSpecificTranslationContextDescription': undefined;
   'ChatSpecificTranslationContextPlaceholder': undefined;
+  'SettingsAdvanced': undefined;
+  'ClientSideSettings': undefined;
+  'ExportClientSideSettings': undefined;
+  'ImportClientSideSettings': undefined;
+  'ClientSideSettingsExported': undefined;
+  'ClientSideSettingsImported': undefined;
+  'ClientSideSettingsImportError': undefined;
+  'ClientSideSettingsDescription': undefined;
+  'PasteBase64Settings': undefined;
+  'Base64SettingsPlaceholder': undefined;
+  'ImportAction': undefined;
 }
 
 export interface LangPairWithVariables<V extends unknown = LangVariable> {
