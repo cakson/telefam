@@ -295,6 +295,7 @@ export enum SettingsScreens {
   DoNotTranslate,
   FoldersShare,
   ChatGPTIntegration,
+  Advanced,
 }
 
 export type StickerSetOrReactionsSetOrRecent = Pick<ApiStickerSet, (

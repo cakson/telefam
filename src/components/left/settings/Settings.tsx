@@ -39,6 +39,7 @@ import SettingsPrivacyVisibilityExceptionList from './SettingsPrivacyVisibilityE
 import SettingsQuickReaction from './SettingsQuickReaction';
 import SettingsStickers from './SettingsStickers';
 import SettingsTwoFa from './twoFa/SettingsTwoFa';
+import SettingsAdvanced from './SettingsAdvanced.async';
 
 import './Settings.scss';
 
@@ -488,6 +489,14 @@ const Settings: FC<OwnProps> = ({
       case SettingsScreens.ChatGPTIntegration:
         return (
           <SettingsChatGPTIntegration
+            isActive={isScreenActive}
+            onReset={handleReset}
+          />
+        );
+
+      case SettingsScreens.Advanced:
+        return (
+          <SettingsAdvanced
             isActive={isScreenActive}
             onReset={handleReset}
           />

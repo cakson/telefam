@@ -1983,3 +1983,14 @@
 "ChatSpecificTranslationContext" = "Chat-specific Translation Context";
 "ChatSpecificTranslationContextDescription" = "Provide context specific to this chat that will be used when translating messages.";
 "ChatSpecificTranslationContextPlaceholder" = "Enter context for this chat (e.g., specialized terminology, preferred tone, etc.)";
+"SettingsAdvanced" = "Advanced";
+"ClientSideSettings" = "Client-side Settings";
+"ExportClientSideSettings" = "Export Settings";
+"ImportClientSideSettings" = "Import Settings";
+"ClientSideSettingsExported" = "Settings copied to clipboard";
+"ClientSideSettingsImported" = "Settings imported successfully";
+"ClientSideSettingsImportError" = "Failed to import settings";
+"ClientSideSettingsDescription" = "Export and import your local settings to easily transfer them between devices or browser profiles.";
+"PasteBase64Settings" = "Paste your base64-encoded settings below:";
+"Base64SettingsPlaceholder" = "Paste your exported settings here...";
+"ImportAction" = "Import";
